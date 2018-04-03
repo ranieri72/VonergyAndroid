@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Vonergy</string>
+
+    // Login
+    <string name="login">Login</string>
+    <string name="cpf">CPF</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign in</string>
+    <string name="welcome">Welcome</string>
+    <string name="connectionError">Connection error!</string>
+    <string name="invalidLogin">Invalid login!</string>
+    <string name="welcomeText">Enter your CPF and password to enter</string>
+
+    // Config
+    <string name="settings">Settings</string>
+    <string name="serverIP">Server IP</string>
+    <string name="save">Save settings</string>
+    <string name="savedMsg">Settings saved successfully.</string>
+</resources>
