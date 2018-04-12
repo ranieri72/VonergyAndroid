@@ -16,4 +16,18 @@
     <string name="serverIP">Server IP</string>
     <string name="save">Save settings</string>
     <string name="savedMsg">Settings saved successfully.</string>
+    <string name="nome" />
+    <string name="M" />
+    <string name="Logradouro">Logradouro</string>
+    <string name="Funcionário">Funcionário</string>
+    <string name="bairro">Bairro</string>
+    <string name="Bairro">Bairro</string>
+    <string name="Cidade">Cidade</string>
+    <string name="Número">Número</string>
+    <string name="Referência">Referência</string>
+    <string name="Cep">CEP</string>
+    <string name="Complemento">Complemento</string>
+    <string name="UF">UF</string>
+    <string name="Telefone">Telefone</string>
+    <string name="Celular">Celular</string>
 </resources>
