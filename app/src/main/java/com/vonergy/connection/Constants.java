@@ -9,6 +9,12 @@ public class Constants {
 
     public static final String login = "FuncionarioMobile/Acessar";
 
+    private static final String consumption = "Consumo/";
+
+    public static final String monthlyConsumption = consumption + "ListarConsumoEletronicaMesal";
+    public static final String dailyConsumption = consumption + "ListarConsumoEletronicaDiaria";
+    public static final String consumptionPerHour = consumption + "ListarConsumoEletronicaPorHora";
+
     public static String getServerUrl(String ip) {
         return http + ip + api;
     }

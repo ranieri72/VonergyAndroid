@@ -16,18 +16,33 @@
     <string name="serverIP">Server IP</string>
     <string name="save">Save settings</string>
     <string name="savedMsg">Settings saved successfully.</string>
-    <string name="nome" />
-    <string name="M" />
-    <string name="Logradouro">Logradouro</string>
-    <string name="Funcionário">Funcionário</string>
-    <string name="bairro">Bairro</string>
-    <string name="Bairro">Bairro</string>
-    <string name="Cidade">Cidade</string>
-    <string name="Número">Número</string>
-    <string name="Referência">Referência</string>
+
+    // Profile
+    <string name="nome">Name</string>
+    <string name="M">M</string>
+    <string name="Logradouro">Street</string>
+    <string name="Funcionário">Employee</string>
+    <string name="Bairro">Neighborhood</string>
+    <string name="Cidade">City</string>
+    <string name="Número">Number</string>
+    <string name="Referência">reference point</string>
     <string name="Cep">CEP</string>
-    <string name="Complemento">Complemento</string>
-    <string name="UF">UF</string>
-    <string name="Telefone">Telefone</string>
-    <string name="Celular">Celular</string>
+    <string name="Complemento">Complement</string>
+    <string name="UF">State</string>
+    <string name="Telefone">Phone</string>
+    <string name="Celular">Cell</string>
+
+    // Menu
+    <string name="home">Home</string>
+    <string name="weekly_history">Weekly History</string>
+    <string name="monthly_history">Monthly History</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    // Consumption
+    <string name="consumo_atual">Current Consumption</string>
+    <string name="consumo">Consumption</string>
+    <string name="buscando">Seeking</string>
+    <string name="kilowatt">%.1f kW</string>
 </resources>

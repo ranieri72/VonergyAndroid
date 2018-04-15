@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "857985688054",
+    "firebase_url": "https://vonergy-783b3.firebaseio.com",
+    "project_id": "vonergy-783b3",
+    "storage_bucket": "vonergy-783b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857985688054:android:41901554cf8ef5ef",
+        "android_client_info": {
+          "package_name": "com.vonergy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857985688054-kk8lm1jpehmc1vpo8g9h7g234r1konai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vonergy",
+            "certificate_hash": "77c1a519fca911ded6979cf43bca788da60664cc"
+          }
+        },
+        {
+          "client_id": "857985688054-lqijq8j8nt7q7bvp8fu3olt1c2lufnib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzefXC02OimVb4XbFPpAvJADhzQhqAzBk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "857985688054-lqijq8j8nt7q7bvp8fu3olt1c2lufnib.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

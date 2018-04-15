@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Vonergy</string>
+
+    // Login
+    <string name="login">Login</string>
+    <string name="cpf">CPF</string>
+    <string name="password">Senha</string>
+    <string name="signin">Entrar</string>
+    <string name="welcome">Bem-vindo!</string>
+    <string name="connectionError">Error de Conexão!</string>
+    <string name="invalidLogin">Login inválido!</string>
+    <string name="welcomeText">Digite seu CPF e senha para entrar</string>
+
+    // Config
+    <string name="settings">Configurações</string>
+    <string name="serverIP">IP do servidor</string>
+    <string name="save">Salvar configurações</string>
+    <string name="savedMsg">Configurações salvas com sucesso.</string>
+
+    // Profile
+    <string name="nome">Nome</string>
+    <string name="M">M</string>
+    <string name="Logradouro">Logradouro</string>
+    <string name="Funcionário">Funcionário</string>
+    <string name="Bairro">Bairro</string>
+    <string name="Cidade">Cidade</string>
+    <string name="Número">Número</string>
+    <string name="Referência">Referência</string>
+    <string name="Cep">CEP</string>
+    <string name="Complemento">Complemento</string>
+    <string name="UF">UF</string>
+    <string name="Telefone">Telefone</string>
+    <string name="Celular">Celular</string>
+
+    // Menu
+    <string name="home">Home</string>
+    <string name="weekly_history">Histórico Semanal</string>
+    <string name="monthly_history">Histórico Mensal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    // Consumption
+    <string name="consumo_atual">Consumo Atual</string>
+    <string name="consumo">Consumo</string>
+    <string name="buscando">Buscando</string>
+    <string name="kilowatt">%.1f kW</string>
+</resources>
