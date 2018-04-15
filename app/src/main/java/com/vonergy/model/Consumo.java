@@ -6,6 +6,10 @@ import java.util.Date;
 
 public class Consumo {
 
+    public static final int consumptionPerHour = 0;
+    public static final int dailyConsumption = 1;
+    public static final int monthlyConsumption = 2;
+
     private long Id;
 
     @SerializedName("Corrente")

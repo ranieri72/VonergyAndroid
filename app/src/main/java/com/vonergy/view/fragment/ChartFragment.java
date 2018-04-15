@@ -15,10 +15,14 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.vonergy.R;
+import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.model.Consumo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,10 +37,46 @@ public class ChartFragment extends Fragment {
     LineData lineData;
     Unbinder unbinder;
 
+    public static ChartFragment newInstance(int historyType) {
+        ChartFragment f = new ChartFragment();
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("historyType", historyType);
+        f.setArguments(args);
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_chart, container, false);
         unbinder = ButterKnife.bind(this, layout);
+        Bundle args = getArguments();
+        int historyType = args.getInt("historyType", 0);
+        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
+        ArrayList<Entry> entries = new ArrayList<>();
+
+        try {
+            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
+
+            for (Consumo consumption : listConsumption) {
+                key = consumption.getRegistrationDate().getTime();
+                value = consumption.getPower();
+
+                minValue = Math.min(minValue, value);
+                maxValue = Math.max(maxValue, value);
+                minKey = Math.min(minKey, key);
+                maxKey = Math.max(maxKey, key);
+
+                entries.add(new Entry(key, value));
+            }
+            if (!entries.isEmpty()) {
+                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return layout;
     }
 

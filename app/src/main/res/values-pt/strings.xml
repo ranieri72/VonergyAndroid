@@ -34,7 +34,8 @@
 
     // Menu
     <string name="home">Home</string>
-    <string name="weekly_history">Histórico Semanal</string>
+    <string name="hourly_history">Histórico por Hora</string>
+    <string name="daily_history">Histórico Diário</string>
     <string name="monthly_history">Histórico Mensal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

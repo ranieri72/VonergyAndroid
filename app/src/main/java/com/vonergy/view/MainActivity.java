@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vonergy.R;
+import com.vonergy.model.Consumo;
 import com.vonergy.view.fragment.ChartFragment;
 import com.vonergy.view.fragment.GaugeFragment;
 
@@ -82,11 +83,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 fragment = new GaugeFragment();
                 break;
-            case R.id.nav_weekly_history:
-                fragment = new ChartFragment();
+            case R.id.nav_hourly_history:
+                fragment = ChartFragment.newInstance(Consumo.consumptionPerHour);
+                break;
+            case R.id.nav_daily_history:
+                fragment = ChartFragment.newInstance(Consumo.dailyConsumption);
                 break;
             case R.id.nav_monthly_history:
-                fragment = new ChartFragment();
+                fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
                 break;
             case R.id.nav_manage:
                 break;

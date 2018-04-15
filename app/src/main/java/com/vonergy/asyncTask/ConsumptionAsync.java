@@ -21,14 +21,15 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
     protected List<Consumo> doInBackground(Integer... params) {
         Gson gson = new Gson();
         String api = "";
+
         switch (params[0]) {
-            case 0:
+            case Consumo.consumptionPerHour:
                 api = Constants.consumptionPerHour;
                 break;
-            case 1:
+            case Consumo.dailyConsumption:
                 api = Constants.dailyConsumption;
                 break;
-            case 2:
+            case Consumo.monthlyConsumption:
                 api = Constants.monthlyConsumption;
                 break;
         }
