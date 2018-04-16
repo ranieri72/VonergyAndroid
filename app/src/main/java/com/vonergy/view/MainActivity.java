@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (ItemId) {
             case R.id.nav_home:
-                fragment = new GaugeFragment();
+                fragment = GaugeFragment.newInstance(Consumo.consumptionInRealTime);
                 break;
             case R.id.nav_hourly_history:
                 fragment = ChartFragment.newInstance(Consumo.consumptionPerHour);

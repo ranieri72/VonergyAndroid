@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, getResources().getString(R.string.connectionError), Toast.LENGTH_LONG).show();
         }
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

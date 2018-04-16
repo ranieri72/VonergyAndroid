@@ -23,6 +23,9 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
         String api = "";
 
         switch (params[0]) {
+            case Consumo.consumptionInRealTime:
+                api = Constants.consumptionInRealTime;
+                break;
             case Consumo.consumptionPerHour:
                 api = Constants.consumptionPerHour;
                 break;

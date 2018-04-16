@@ -2,6 +2,7 @@ package com.vonergy.view.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
 import com.vonergy.R;
+import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.model.Consumo;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,19 +31,70 @@ public class GaugeFragment extends Fragment {
     SpeedView speedometer;
 
     Unbinder unbinder;
+    private Handler mHandler;
+    private int historyType;
+
+    public static GaugeFragment newInstance(int historyType) {
+        GaugeFragment f = new GaugeFragment();
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("historyType", historyType);
+        f.setArguments(args);
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_gauge, container, false);
         unbinder = ButterKnife.bind(this, layout);
+        Bundle args = getArguments();
+        historyType = args.getInt("historyType", 0);
         mTemperature.setText(getResources().getString(R.string.buscando));
+        mHandler = new Handler();
+        startRepeatingTask();
         return layout;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        stopRepeatingTask();
         unbinder.unbind();
+    }
+
+    private void updatePower() {
+        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, value;
+
+        try {
+            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
+            if (!listConsumption.isEmpty()) {
+                value = listConsumption.get(0).getPower();
+                minValue = Math.min(minValue, value);
+                maxValue = Math.max(maxValue, value);
+                setupGauger(value, Math.round(minValue), Math.round(maxValue));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    Runnable mStatusChecker = new Runnable() {
+        @Override
+        public void run() {
+            updatePower();
+            int mInterval = 10000;
+            mHandler.postDelayed(mStatusChecker, mInterval);
+        }
+    };
+
+    void startRepeatingTask() {
+        mStatusChecker.run();
+    }
+
+    void stopRepeatingTask() {
+        mHandler.removeCallbacks(mStatusChecker);
     }
 
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {

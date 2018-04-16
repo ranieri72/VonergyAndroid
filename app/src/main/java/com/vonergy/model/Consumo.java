@@ -6,9 +6,10 @@ import java.util.Date;
 
 public class Consumo {
 
-    public static final int consumptionPerHour = 0;
-    public static final int dailyConsumption = 1;
-    public static final int monthlyConsumption = 2;
+    public static final int consumptionInRealTime = 0;
+    public static final int consumptionPerHour = 1;
+    public static final int dailyConsumption = 2;
+    public static final int monthlyConsumption = 3;
 
     private long Id;
 

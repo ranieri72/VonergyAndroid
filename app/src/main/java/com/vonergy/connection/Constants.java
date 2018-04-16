@@ -13,6 +13,7 @@ public class Constants {
 
     private static final String consumption = "Consumo/";
 
+    public static final String consumptionInRealTime = consumption + "ConsumoReal";
     public static final String monthlyConsumption = consumption + "ListarConsumoMesal";
     public static final String dailyConsumption = consumption + "ListarConsumoDiario";
     public static final String consumptionPerHour = consumption + "ListarConsumoPorHora";
