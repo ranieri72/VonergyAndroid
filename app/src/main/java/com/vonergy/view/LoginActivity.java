@@ -17,9 +17,12 @@ import com.vonergy.asyncTask.LoginAsync;
 import com.vonergy.connection.AppSession;
 import com.vonergy.model.Funcionario;
 import com.vonergy.util.Constants;
+import com.vonergy.util.MaskWatcher;
 import com.vonergy.util.Util;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         setTitle(getResources().getString(R.string.login));
         ButterKnife.bind(this);
 
+        mLogin.addTextChangedListener(MaskWatcher.buildCpf());
+        //mLogin.setText("078.451.214-01");
+        //mPassword.setText("07845121401");
+
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.serverIpPreference, Context.MODE_PRIVATE);
         Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, com.vonergy.connection.Constants.ipv4);
     }
@@ -56,20 +63,22 @@ public class LoginActivity extends AppCompatActivity {
 
         mProgressBar.setVisibility(View.VISIBLE);
         try {
-            new LoginAsync().execute().get();
-            if (AppSession.user == null) {
-                Toast.makeText(this, getResources().getString(R.string.invalidLogin), Toast.LENGTH_LONG).show();
-            } else {
+            if (new LoginAsync().execute().get(30, TimeUnit.SECONDS)) {
                 Intent it = new Intent(this, MainActivity.class);
                 startActivity(it);
                 finish();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.invalidLogin), Toast.LENGTH_LONG).show();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(this, getResources().getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (ExecutionException e) {
             e.printStackTrace();
-            Toast.makeText(this, getResources().getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         mProgressBar.setVisibility(View.INVISIBLE);
     }

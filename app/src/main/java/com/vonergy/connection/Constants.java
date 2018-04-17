@@ -14,9 +14,9 @@ public class Constants {
     private static final String consumption = "Consumo/";
 
     public static final String consumptionInRealTime = consumption + "ConsumoReal";
-    public static final String monthlyConsumption = consumption + "ListarConsumoMesal";
-    public static final String dailyConsumption = consumption + "ListarConsumoDiario";
-    public static final String consumptionPerHour = consumption + "ListarConsumoPorHora";
+    public static final String monthlyConsumption = consumption + "CadastroMesal";
+    public static final String dailyConsumption = consumption + "ConsumoDiario";
+    public static final String consumptionPerHour = consumption + "CadastroHora";
 
     public static String getServerUrl(String ip) {
         return http + ip + api;

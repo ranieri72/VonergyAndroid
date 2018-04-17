@@ -22,7 +22,7 @@ public class LoginAsync extends AsyncTask<Void, Void, Boolean> {
             String jsonString = gson.toJson(AppSession.user, Funcionario.class);
             String response = new Requester().post(Constants.login, jsonString);
             AppSession.user = gson.fromJson(response, Funcionario.class);
-            return true;
+            return AppSession.user != null;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

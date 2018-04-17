@@ -11,10 +11,7 @@ import okhttp3.Response;
 import static com.vonergy.util.Util.ipv4;
 
 public class Requester {
-
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    private OkHttpClient client = new OkHttpClient();
+    private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public String post(String api, String json) throws IOException {
         String serverUrl = Constants.getServerUrl(ipv4) + api;

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
@@ -17,6 +18,8 @@ import com.vonergy.model.Consumo;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +39,6 @@ public class GaugeFragment extends Fragment {
 
     public static GaugeFragment newInstance(int historyType) {
         GaugeFragment f = new GaugeFragment();
-        // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("historyType", historyType);
         f.setArguments(args);
@@ -63,20 +65,24 @@ public class GaugeFragment extends Fragment {
     }
 
     private void updatePower() {
-        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, value;
+        float maxValue = Float.MIN_VALUE, value;
 
         try {
-            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
+            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get(10, TimeUnit.SECONDS);
             if (!listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();
-                minValue = Math.min(minValue, value);
                 maxValue = Math.max(maxValue, value);
-                setupGauger(value, Math.round(minValue), Math.round(maxValue));
+                setupGauger(value, 0, Math.round(maxValue));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (ExecutionException e) {
             e.printStackTrace();
+            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

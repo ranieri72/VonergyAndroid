@@ -39,7 +39,6 @@ public class ChartFragment extends Fragment {
 
     public static ChartFragment newInstance(int historyType) {
         ChartFragment f = new ChartFragment();
-        // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putInt("historyType", historyType);
         f.setArguments(args);
@@ -58,19 +57,21 @@ public class ChartFragment extends Fragment {
         try {
             List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
 
-            for (Consumo consumption : listConsumption) {
-                key = consumption.getRegistrationDate().getTime();
-                value = consumption.getPower();
+            if (listConsumption != null) {
+                for (Consumo consumption : listConsumption) {
+                    key = consumption.getRegistrationDate().getTime();
+                    value = consumption.getPower();
 
-                minValue = Math.min(minValue, value);
-                maxValue = Math.max(maxValue, value);
-                minKey = Math.min(minKey, key);
-                maxKey = Math.max(maxKey, key);
+                    minValue = Math.min(minValue, value);
+                    maxValue = Math.max(maxValue, value);
+                    minKey = Math.min(minKey, key);
+                    maxKey = Math.max(maxKey, key);
 
-                entries.add(new Entry(key, value));
-            }
-            if (!entries.isEmpty()) {
-                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+                    entries.add(new Entry(key, value));
+                }
+                if (!entries.isEmpty()) {
+                    setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

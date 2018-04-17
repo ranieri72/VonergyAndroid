@@ -3,10 +3,13 @@ package com.vonergy.asyncTask;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.vonergy.connection.Constants;
 import com.vonergy.connection.Requester;
 import com.vonergy.model.Consumo;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
 
     @Override
     protected List<Consumo> doInBackground(Integer... params) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ss").create();//2018-04-15T18:47:13
         String api = "";
 
         switch (params[0]) {
@@ -38,8 +41,17 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
         }
         try {
             String response = new Requester().get(api);
-            List<Consumo> list = new ArrayList<>();
-            list.add(gson.fromJson(response, Consumo.class));
+            List<Consumo> list;
+            if (params[0] == Consumo.consumptionInRealTime) {
+                Consumo consumption = new Consumo();
+                list = new ArrayList<>();
+                consumption.setPower(Float.parseFloat(response));
+                list.add(consumption);
+            } else {
+                Type listType = new TypeToken<ArrayList<Consumo>>() {
+                }.getType();
+                list = gson.fromJson(response, listType);
+            }
             return list;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.GaugeFragment">
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/tempView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/temperature"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         app:sv_centerCircleColor="@color/colorPrimaryDark"
-        app:sv_endDegree="360"
-        app:sv_highSpeedColor="@color/colorAccent"
+        app:sv_endDegree="340"
+        app:sv_highSpeedColor="#d40000"
         app:sv_indicatorColor="@color/colorAccent"
         app:sv_lowSpeedColor="@color/colorPrimaryDark"
         app:sv_mediumSpeedColor="@color/colorPrimary"
-        app:sv_speedTextColor="@color/colorPrimaryDark"
+        app:sv_speedTextColor="#fff"
         app:sv_speedometerMode="TOP"
-        app:sv_startDegree="180"
-        app:sv_unitTextColor="@color/colorPrimaryDark"
+        app:sv_startDegree="200"
+        app:sv_unitTextColor="#fff"
         app:sv_withTremble="false" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/consumo_atual"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="60sp" />
 
 </RelativeLayout>

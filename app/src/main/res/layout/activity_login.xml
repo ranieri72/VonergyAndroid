@@ -21,8 +21,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:hint="@string/cpf"
-        android:inputType="text"
-        android:textColor="#cc081c"
+        android:inputType="number|text"
+        android:maxLength="14"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <EditText
@@ -32,7 +33,7 @@
         android:layout_below="@+id/edtLogin"
         android:layout_centerHorizontal="true"
         android:hint="@string/password"
-        android:inputType="textPassword"
+        android:inputType="numberPassword"
         android:textColor="#000"
         android:textSize="20sp" />
 
