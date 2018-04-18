@@ -3,7 +3,6 @@ package com.vonergy.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-import java.util.List;
 
 public class Consumo {
 
@@ -25,8 +24,6 @@ public class Consumo {
 
     @SerializedName("DataRegistro")
     private Date registrationDate;
-
-    private List<Consumo> consumptionList;
 
     public long getId() {
         return Id;
@@ -66,13 +63,5 @@ public class Consumo {
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
-    }
-
-    public List<Consumo> getConsumptionList() {
-        return consumptionList;
-    }
-
-    public void setConsumptionList(List<Consumo> consumptionList) {
-        this.consumptionList = consumptionList;
     }
 }

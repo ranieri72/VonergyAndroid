@@ -18,8 +18,6 @@ import com.vonergy.model.Consumo;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +66,7 @@ public class GaugeFragment extends Fragment {
         float maxValue = Float.MIN_VALUE, value;
 
         try {
-            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get(10, TimeUnit.SECONDS);
+            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
             if (!listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();
                 maxValue = Math.max(maxValue, value);
@@ -78,9 +76,6 @@ public class GaugeFragment extends Fragment {
             e.printStackTrace();
             Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (ExecutionException e) {
-            e.printStackTrace();
-            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
-        } catch (TimeoutException e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         }

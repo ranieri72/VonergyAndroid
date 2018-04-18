@@ -33,7 +33,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnSave)
     public void save() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.serverIpPreference, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
         Editor editor = sharedPreferences.edit();
         editor.putString(Constants.serverIpPreference, mServerIP.getText().toString());
         editor.apply();

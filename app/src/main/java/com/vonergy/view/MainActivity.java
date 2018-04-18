@@ -2,17 +2,21 @@ package com.vonergy.view;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.vonergy.R;
+import com.vonergy.connection.AppSession;
 import com.vonergy.model.Consumo;
 import com.vonergy.view.fragment.ChartFragment;
 import com.vonergy.view.fragment.GaugeFragment;
@@ -60,10 +64,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                optionConfig();
+            case R.id.action_logout:
+                dialogLogout();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -75,6 +81,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void optionConfig() {
+        Intent it = new Intent(this, ConfigActivity.class);
+        startActivity(it);
+    }
+
+    private void dialogLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.logout));
+        builder.setMessage(getResources().getString(R.string.confirmlogout));
+        builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                logout();
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        AlertDialog alerta = builder.create();
+        alerta.show();
+    }
+
+    private void logout() {
+        AppSession.user = null;
+        Intent it = new Intent(this, MainActivity.class);
+        startActivity(it);
+        finish();
     }
 
     private void showViewSelected(int ItemId) {
@@ -91,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_monthly_history:
                 fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
-                break;
-            case R.id.nav_manage:
                 break;
         }
 

@@ -18,11 +18,8 @@ import com.vonergy.connection.AppSession;
 import com.vonergy.model.Funcionario;
 import com.vonergy.util.Constants;
 import com.vonergy.util.MaskWatcher;
-import com.vonergy.util.Util;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,15 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mLogin.addTextChangedListener(MaskWatcher.buildCpf());
-        //mLogin.setText("078.451.214-01");
-        //mPassword.setText("07845121401");
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.serverIpPreference, Context.MODE_PRIVATE);
-        Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, com.vonergy.connection.Constants.ipv4);
+        mLogin.setText("078.451.214-01");
+        mPassword.setText("07845121401");
     }
 
     @OnClick(R.id.btnLogin)
     public void login() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
         Funcionario u = new Funcionario();
         u.setCpf(mLogin.getText().toString());
         u.setPassword(mPassword.getText().toString());
@@ -63,7 +58,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mProgressBar.setVisibility(View.VISIBLE);
         try {
-            if (new LoginAsync().execute().get(30, TimeUnit.SECONDS)) {
+            if (new LoginAsync().execute().get()) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(Constants.loginPreference, u.getCpf());
+                editor.putString(Constants.passwordPreference, u.getPassword());
+                editor.apply();
+
                 Intent it = new Intent(this, MainActivity.class);
                 startActivity(it);
                 finish();
@@ -74,9 +74,6 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         } catch (ExecutionException e) {
-            e.printStackTrace();
-            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
-        } catch (TimeoutException e) {
             e.printStackTrace();
             Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         }

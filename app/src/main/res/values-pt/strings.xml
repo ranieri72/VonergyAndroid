@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Vonergy</string>
 
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
     // Login
     <string name="login">Login</string>
     <string name="cpf">CPF</string>
@@ -34,12 +39,15 @@
 
     // Menu
     <string name="home">Home</string>
-    <string name="hourly_history">Histórico por Hora</string>
-    <string name="daily_history">Histórico Diário</string>
-    <string name="monthly_history">Histórico Mensal</string>
+    <string name="history">Histórico</string>
+    <string name="hourly_history">Por Hora</string>
+    <string name="daily_history">Diário</string>
+    <string name="monthly_history">Mensal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="logout">Sair</string>
+    <string name="confirmlogout">Tem certeza que deseja sair?</string>
 
     // Consumption
     <string name="consumo_atual">Consumo Atual</string>
