@@ -67,8 +67,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.action_settings:
                 optionConfig();
+                break;
             case R.id.action_logout:
                 dialogLogout();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logout() {
         AppSession.user = null;
-        Intent it = new Intent(this, MainActivity.class);
+        Intent it = new Intent(this, LoginActivity.class);
         startActivity(it);
         finish();
     }
@@ -126,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_monthly_history:
                 fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
+                break;
+            case R.id.nav_settings:
+                optionConfig();
+                break;
+            case R.id.nav_logout:
+                dialogLogout();
                 break;
         }
 

@@ -1,6 +1,9 @@
 package com.vonergy.asyncTask;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,8 +18,17 @@ import java.util.List;
 
 public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
 
+    private Context mContext;
+    private ProgressBar mProgressBar;
+
+    public ConsumptionAsync(Context context) {
+        this.mContext = context;
+    }
+
     @Override
     protected void onPreExecute() {
+        mProgressBar = new ProgressBar(mContext);
+        mProgressBar.setVisibility(View.VISIBLE);
         super.onPreExecute();
     }
 
@@ -62,5 +74,6 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
     @Override
     protected void onPostExecute(List<Consumo> listConsumption) {
         super.onPostExecute(listConsumption);
+        mProgressBar.setVisibility(View.GONE);
     }
 }

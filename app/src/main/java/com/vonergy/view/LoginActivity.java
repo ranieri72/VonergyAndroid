@@ -44,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mLogin.addTextChangedListener(MaskWatcher.buildCpf());
-        mLogin.setText("078.451.214-01");
-        mPassword.setText("07845121401");
+        mLogin.setText("092.668.084-66");
+        mPassword.setText("092.668.084-66");
     }
 
     @OnClick(R.id.btnLogin)

@@ -36,6 +36,7 @@ public class ChartFragment extends Fragment {
     LineDataSet dataSet;
     LineData lineData;
     Unbinder unbinder;
+    private int historyType;
 
     public static ChartFragment newInstance(int historyType) {
         ChartFragment f = new ChartFragment();
@@ -50,36 +51,43 @@ public class ChartFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_chart, container, false);
         unbinder = ButterKnife.bind(this, layout);
         Bundle args = getArguments();
-        int historyType = args.getInt("historyType", 0);
-        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
-        ArrayList<Entry> entries = new ArrayList<>();
-
-        try {
-            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
-
-            if (listConsumption != null) {
-                for (Consumo consumption : listConsumption) {
-                    key = consumption.getRegistrationDate().getTime();
-                    value = consumption.getPower();
-
-                    minValue = Math.min(minValue, value);
-                    maxValue = Math.max(maxValue, value);
-                    minKey = Math.min(minKey, key);
-                    maxKey = Math.max(maxKey, key);
-
-                    entries.add(new Entry(key, value));
-                }
-                if (!entries.isEmpty()) {
-                    setValueToChart(entries, minValue, maxValue, minKey, maxKey);
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        historyType = args.getInt("historyType", 0);
         return layout;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
+//        ArrayList<Entry> entries = new ArrayList<>();
+//
+//        try {
+//            ConsumptionAsync task = new ConsumptionAsync(getActivity());
+//            List<Consumo> listConsumption = task.execute(historyType).get();
+//
+//            if (listConsumption != null) {
+//                for (Consumo consumption : listConsumption) {
+//                    key = consumption.getRegistrationDate().getTime();
+//                    value = consumption.getPower();
+//
+//                    minValue = Math.min(minValue, value);
+//                    maxValue = Math.max(maxValue, value);
+//                    minKey = Math.min(minKey, key);
+//                    maxKey = Math.max(maxKey, key);
+//
+//                    entries.add(new Entry(key, value));
+//                }
+//                if (!entries.isEmpty()) {
+//                    setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+//                }
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onDestroyView() {

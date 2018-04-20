@@ -51,8 +51,13 @@ public class GaugeFragment extends Fragment {
         historyType = args.getInt("historyType", 0);
         mTemperature.setText(getResources().getString(R.string.buscando));
         mHandler = new Handler();
-        startRepeatingTask();
         return layout;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        startRepeatingTask();
     }
 
     @Override
@@ -63,11 +68,13 @@ public class GaugeFragment extends Fragment {
     }
 
     private void updatePower() {
-        float maxValue = Float.MIN_VALUE, value;
+        //float maxValue = Float.MIN_VALUE, value;
+        float maxValue = 400000, value;
 
         try {
-            List<Consumo> listConsumption = new ConsumptionAsync().execute(historyType).get();
-            if (!listConsumption.isEmpty()) {
+            ConsumptionAsync task = new ConsumptionAsync(getActivity());
+            List<Consumo> listConsumption = task.execute(historyType).get();
+            if (listConsumption != null && !listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();
                 maxValue = Math.max(maxValue, value);
                 setupGauger(value, 0, Math.round(maxValue));
