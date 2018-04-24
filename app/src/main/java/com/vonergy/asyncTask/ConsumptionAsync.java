@@ -1,6 +1,5 @@
 package com.vonergy.asyncTask;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -18,18 +17,14 @@ import java.util.List;
 
 public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
 
-    private Context mContext;
-    private ProgressBar mProgressBar;
-
-    public ConsumptionAsync(Context context) {
-        this.mContext = context;
-    }
+    private ProgressBar bar;
 
     @Override
     protected void onPreExecute() {
-        mProgressBar = new ProgressBar(mContext);
-        mProgressBar.setVisibility(View.VISIBLE);
         super.onPreExecute();
+        if (bar != null) {
+            bar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -74,6 +69,12 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
     @Override
     protected void onPostExecute(List<Consumo> listConsumption) {
         super.onPostExecute(listConsumption);
-        mProgressBar.setVisibility(View.GONE);
+        if (bar != null) {
+            bar.setVisibility(View.GONE);
+        }
+    }
+
+    public void setProgressBar(ProgressBar bar) {
+        this.bar = bar;
     }
 }

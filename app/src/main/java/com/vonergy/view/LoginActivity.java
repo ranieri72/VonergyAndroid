@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
 
+    private boolean checked = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mLogin.addTextChangedListener(MaskWatcher.buildCpf());
-        mLogin.setText("092.668.084-66");
-        mPassword.setText("092.668.084-66");
+        mLogin.setText("015.876.104-93");
+        mPassword.setText("01587610493");
     }
 
     @OnClick(R.id.btnLogin)
@@ -55,15 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         u.setCpf(mLogin.getText().toString());
         u.setPassword(mPassword.getText().toString());
         AppSession.user = u;
-
-        mProgressBar.setVisibility(View.VISIBLE);
         try {
-            if (new LoginAsync().execute().get()) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(Constants.loginPreference, u.getCpf());
-                editor.putString(Constants.passwordPreference, u.getPassword());
-                editor.apply();
-
+            LoginAsync loginTask = new LoginAsync();
+            loginTask.setProgressBar(mProgressBar);
+            if (!loginTask.execute().get()) {
+                if (checked) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.loginPreference, u.getCpf());
+                    editor.putString(Constants.passwordPreference, u.getPassword());
+                    editor.apply();
+                }
                 Intent it = new Intent(this, MainActivity.class);
                 startActivity(it);
                 finish();
@@ -77,7 +81,10 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void onCheckboxClicked(View view) {
+        checked = ((CheckBox) view).isChecked();
     }
 
     @Override

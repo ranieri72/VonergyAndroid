@@ -15,6 +15,7 @@
     <string name="connectionError">Connection error!</string>
     <string name="invalidLogin">Invalid login!</string>
     <string name="welcomeText">Enter your CPF and password to enter</string>
+    <string name="savePassword">Sign in automatically</string>
 
     // Config
     <string name="settings">Settings</string>

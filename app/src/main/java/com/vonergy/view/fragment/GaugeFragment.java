@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class GaugeFragment extends Fragment {
     Unbinder unbinder;
     private Handler mHandler;
     private int historyType;
+    private ProgressBar mProgressBar;
 
     public static GaugeFragment newInstance(int historyType) {
         GaugeFragment f = new GaugeFragment();
@@ -49,6 +51,7 @@ public class GaugeFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
         Bundle args = getArguments();
         historyType = args.getInt("historyType", 0);
+        mProgressBar = getActivity().findViewById(R.id.toolbar_progress_bar);
         mTemperature.setText(getResources().getString(R.string.buscando));
         mHandler = new Handler();
         return layout;
@@ -72,7 +75,8 @@ public class GaugeFragment extends Fragment {
         float maxValue = 400000, value;
 
         try {
-            ConsumptionAsync task = new ConsumptionAsync(getActivity());
+            ConsumptionAsync task = new ConsumptionAsync();
+            task.setProgressBar(mProgressBar);
             List<Consumo> listConsumption = task.execute(historyType).get();
             if (listConsumption != null && !listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();

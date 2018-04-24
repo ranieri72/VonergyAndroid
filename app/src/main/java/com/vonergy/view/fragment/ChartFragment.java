@@ -15,14 +15,15 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.vonergy.R;
-import com.vonergy.asyncTask.ConsumptionAsync;
 import com.vonergy.model.Consumo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +33,8 @@ public class ChartFragment extends Fragment {
 
     @BindView(R.id.chart)
     LineChart mCharts;
+
+    //BarChart barChart;
 
     LineDataSet dataSet;
     LineData lineData;
@@ -55,39 +58,59 @@ public class ChartFragment extends Fragment {
         return layout;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
-//        ArrayList<Entry> entries = new ArrayList<>();
-//
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
+        ArrayList<Entry> entries = new ArrayList<>();
+
 //        try {
-//            ConsumptionAsync task = new ConsumptionAsync(getActivity());
+//            ConsumptionAsync task = new ConsumptionAsync();
 //            List<Consumo> listConsumption = task.execute(historyType).get();
-//
-//            if (listConsumption != null) {
-//                for (Consumo consumption : listConsumption) {
-//                    key = consumption.getRegistrationDate().getTime();
-//                    value = consumption.getPower();
-//
-//                    minValue = Math.min(minValue, value);
-//                    maxValue = Math.max(maxValue, value);
-//                    minKey = Math.min(minKey, key);
-//                    maxKey = Math.max(maxKey, key);
-//
-//                    entries.add(new Entry(key, value));
-//                }
-//                if (!entries.isEmpty()) {
-//                    setValueToChart(entries, minValue, maxValue, minKey, maxKey);
-//                }
-//            }
+
+        List<Consumo> listConsumption = null;
+        Consumo consumo;
+        String dt = "2018-04-15T18:47:13";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(dt));
+            Random r = new Random();
+            listConsumption = new ArrayList<>();
+            for (int x = 0; x < 24; x++) {
+                consumo = new Consumo();
+                consumo.setRegistrationDate(c.getTime());
+                consumo.setPower(r.nextInt(40) + 65);
+                listConsumption.add(consumo);
+                c.add(Calendar.DATE, 1);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (listConsumption != null) {
+            for (Consumo consumption : listConsumption) {
+                key = consumption.getRegistrationDate().getTime();
+                value = consumption.getPower();
+
+                minValue = Math.min(minValue, value);
+                maxValue = Math.max(maxValue, value);
+                minKey = Math.min(minKey, key);
+                maxKey = Math.max(maxKey, key);
+
+                entries.add(new Entry(key, value));
+            }
+            if (!entries.isEmpty()) {
+                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+            }
+        }
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        } catch (ExecutionException e) {
 //            e.printStackTrace();
 //        }
-//    }
+    }
 
     @Override
     public void onDestroyView() {
@@ -95,7 +118,8 @@ public class ChartFragment extends Fragment {
         unbinder.unbind();
     }
 
-    public void setValueToChart(ArrayList<Entry> entries, float minY, float maxY, float minX, float maxX) {
+    public void setValueToChart(ArrayList<Entry> entries, float minY, float maxY, float minX,
+                                float maxX) {
         dataSet = new LineDataSet(entries, getResources().getString(R.string.consumo));
         lineData = new LineData(dataSet);
         mCharts.setData(lineData);
