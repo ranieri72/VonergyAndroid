@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.LoginActivity"
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -11,7 +12,18 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/tvUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edtLogin"
+        android:layout_below="@+id/imageLogo"
+        android:text="@string/user"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
 
     <EditText
         android:id="@+id/edtLogin"
@@ -20,21 +32,30 @@
         android:layout_below="@+id/imageLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:hint="@string/cpf"
+
         android:inputType="number|text"
         android:maxLength="14"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edtLogin"
+        android:layout_below="@+id/edtLogin"
+        android:text="@string/password"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtLogin"
+        android:layout_below="@+id/tvPassword"
         android:layout_centerHorizontal="true"
-        android:hint="@string/password"
+
         android:inputType="numberPassword"
-        android:textColor="#000"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
     <CheckBox
@@ -44,7 +65,9 @@
         android:layout_below="@+id/edtPassword"
         android:layout_centerHorizontal="true"
         android:onClick="onCheckboxClicked"
-        android:text="@string/savePassword" />
+        android:text="@string/savePassword"
+        android:buttonTint="@color/colorPrimary"
+        android:textColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -62,7 +85,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:text="@string/signin"
         android:textColor="#fff"
         android:textSize="20sp" />

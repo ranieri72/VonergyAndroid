@@ -31,12 +31,24 @@
     <string name="Bairro">Neighborhood</string>
     <string name="Cidade">City</string>
     <string name="Número">Number</string>
-    <string name="Referência">reference point</string>
+    <string name="Referência">Reference Point</string>
     <string name="Cep">CEP</string>
     <string name="Complemento">Complement</string>
     <string name="UF">State</string>
     <string name="Telefone">Phone</string>
-    <string name="Celular">Cell</string>
+    <string name="Celular">Cellphone</string>
+    <string name="rg">GR</string>
+    <string name="orgao_expedidor">Agency</string>
+    <string name="data_nasc">Date of Birth</string>
+    <string name="nome_mae">Mother\'s Name</string>
+    <string name="nome_pai">Father\'s Name</string>
+    <string name="estado_civil">Marital Status</string>
+    <string name="solteiro">Single</string>
+    <string name="casado">Married</string>
+    <string name="divorciado">Divorced</string>
+    <string name="viuvo">Widowed</string>
+    <string name="rua">Street</string>
+    <string name="numero">House Number</string>
 
     // Menu
     <string name="home">Home</string>
@@ -55,4 +67,7 @@
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
     <string name="kilowatt">%.1f kW</string>
+    <string name="user">User</string>
+    <string name="name">Name</string>
+
 </resources>
