@@ -20,10 +20,10 @@
         app:sv_indicatorColor="@color/colorAccent"
         app:sv_lowSpeedColor="@color/colorPrimaryDark"
         app:sv_mediumSpeedColor="@color/colorPrimary"
-        app:sv_speedTextColor="#fff"
+        app:sv_speedTextColor="@color/black"
         app:sv_speedometerMode="TOP"
         app:sv_startDegree="200"
-        app:sv_unitTextColor="#fff"
+        app:sv_unitTextColor="@color/black"
         app:sv_withTremble="false" />
 
     <TextView

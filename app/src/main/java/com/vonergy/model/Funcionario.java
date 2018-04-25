@@ -4,6 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Funcionario {
 
+    @SerializedName("Nome")
+    private String name;
+
+    @SerializedName("Email")
+    private String email;
+
     @SerializedName("Cpf")
     private String cpf;
 
@@ -24,5 +30,21 @@ public class Funcionario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

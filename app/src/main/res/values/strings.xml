@@ -24,21 +24,22 @@
     <string name="savedMsg">Settings saved successfully.</string>
 
     // Profile
+    <string name="user">User</string>
+    <string name="profile">Profile</string>
     <string name="nome">Name</string>
     <string name="M">M</string>
     <string name="Logradouro">Street</string>
-    <string name="Funcionário">Employee</string>
     <string name="Bairro">Neighborhood</string>
     <string name="Cidade">City</string>
-    <string name="Número">Number</string>
-    <string name="Referência">Reference Point</string>
+    <string name="Numero">Number</string>
+    <string name="Referencia">Reference Point</string>
     <string name="Cep">CEP</string>
     <string name="Complemento">Complement</string>
     <string name="UF">State</string>
     <string name="Telefone">Phone</string>
     <string name="Celular">Cellphone</string>
-    <string name="rg">GR</string>
-    <string name="orgao_expedidor">Agency</string>
+    <string name="rg">RG</string>
+    <string name="orgao_expedidor">RG\'s Agency</string>
     <string name="data_nasc">Date of Birth</string>
     <string name="nome_mae">Mother\'s Name</string>
     <string name="nome_pai">Father\'s Name</string>
@@ -51,7 +52,7 @@
     <string name="numero">House Number</string>
 
     // Menu
-    <string name="home">Home</string>
+    <string name="home">Dashboard</string>
     <string name="history">History</string>
     <string name="hourly_history">Hourly</string>
     <string name="daily_history">Daily</string>
@@ -67,7 +68,4 @@
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
     <string name="kilowatt">%.1f kW</string>
-    <string name="user">User</string>
-    <string name="name">Name</string>
-
 </resources>
