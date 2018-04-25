@@ -119,15 +119,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (ItemId) {
             case R.id.nav_home:
                 fragment = GaugeFragment.newInstance(Consumo.consumptionInRealTime);
+                setTitle(R.string.home);
                 break;
             case R.id.nav_hourly_history:
                 fragment = ChartFragment.newInstance(Consumo.consumptionPerHour);
+                setTitle(R.string.hourly_history);
                 break;
             case R.id.nav_daily_history:
                 fragment = ChartFragment.newInstance(Consumo.dailyConsumption);
+                setTitle(R.string.daily_history);
                 break;
             case R.id.nav_monthly_history:
                 fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
+                setTitle(R.string.monthly_history);
                 break;
             case R.id.nav_settings:
                 optionConfig();
