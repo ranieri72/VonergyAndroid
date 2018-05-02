@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.vonergy.R;
 import com.vonergy.model.Consumo;
 
@@ -32,13 +34,12 @@ import butterknife.Unbinder;
 public class ChartFragment extends Fragment {
 
     @BindView(R.id.chart)
-    LineChart mCharts;
+    BarChart mCharts;
 
-    //BarChart barChart;
-
-    LineDataSet dataSet;
-    LineData lineData;
+    BarDataSet dataSet;
+    BarData barData;
     Unbinder unbinder;
+    ArrayList<IBarDataSet> dataSets;
     private int historyType;
 
     public static ChartFragment newInstance(int historyType) {
@@ -63,7 +64,7 @@ public class ChartFragment extends Fragment {
         super.onResume();
 
         float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
-        ArrayList<Entry> entries = new ArrayList<>();
+        ArrayList<BarEntry> entries = new ArrayList<>();
 
 //        try {
 //            ConsumptionAsync task = new ConsumptionAsync();
@@ -99,7 +100,7 @@ public class ChartFragment extends Fragment {
                 minKey = Math.min(minKey, key);
                 maxKey = Math.max(maxKey, key);
 
-                entries.add(new Entry(key, value));
+                entries.add(new BarEntry(key, value));
             }
             if (!entries.isEmpty()) {
                 setValueToChart(entries, minValue, maxValue, minKey, maxKey);
@@ -118,15 +119,18 @@ public class ChartFragment extends Fragment {
         unbinder.unbind();
     }
 
-    public void setValueToChart(ArrayList<Entry> entries, float minY, float maxY, float minX,
+    public void setValueToChart(List<BarEntry> entries, float minY, float maxY, float minX,
                                 float maxX) {
-        dataSet = new LineDataSet(entries, getResources().getString(R.string.consumo));
-        lineData = new LineData(dataSet);
-        mCharts.setData(lineData);
+        dataSet = new BarDataSet(entries, getResources().getString(R.string.consumo));
+        dataSet.setDrawIcons(false);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+
+        barData = new BarData(dataSets);
+        mCharts.setData(barData);
         dataSet.setColor(getResources().getColor(R.color.colorAccent));
-        dataSet.setDrawCircles(false);
         dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         mCharts.invalidate();
         mCharts.setScaleYEnabled(false);
         mCharts.getDescription().setText("");

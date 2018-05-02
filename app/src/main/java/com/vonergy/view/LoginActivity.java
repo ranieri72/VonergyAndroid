@@ -19,6 +19,7 @@ import com.vonergy.connection.AppSession;
 import com.vonergy.model.Funcionario;
 import com.vonergy.util.Constants;
 import com.vonergy.util.MaskWatcher;
+import com.vonergy.view.fragment.ConfigFragment;
 
 import java.util.concurrent.ExecutionException;
 
@@ -104,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void optionConfig() {
-        Intent it = new Intent(this, ConfigActivity.class);
+        Intent it = new Intent(this, ConfigFragment.class);
         startActivity(it);
     }
 }

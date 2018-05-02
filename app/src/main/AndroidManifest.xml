@@ -30,10 +30,10 @@
             android:name=".view.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.ConfigActivity"
+            android:name=".view.fragment.ConfigFragment"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.ProfileActivity"
+            android:name=".view.fragment.ProfileFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.MainActivity"

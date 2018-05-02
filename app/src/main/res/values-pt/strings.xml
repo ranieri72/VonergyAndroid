@@ -25,22 +25,35 @@
     <string name="savedMsg">Configurações salvas com sucesso.</string>
 
     // Profile
+    <string name="user">Usuário</string>
+    <string name="profile">Perfil</string>
     <string name="nome">Nome</string>
     <string name="M">M</string>
     <string name="Logradouro">Logradouro</string>
-    <string name="Funcionário">Funcionário</string>
     <string name="Bairro">Bairro</string>
     <string name="Cidade">Cidade</string>
-    <string name="Número">Número</string>
-    <string name="Referência">Referência</string>
+    <string name="Numero">Número</string>
+    <string name="Referencia">Referência</string>
     <string name="Cep">CEP</string>
     <string name="Complemento">Complemento</string>
     <string name="UF">UF</string>
     <string name="Telefone">Telefone</string>
     <string name="Celular">Celular</string>
+    <string name="rg">RG</string>
+    <string name="orgao_expedidor">Orgão Expedidor</string>
+    <string name="data_nasc">Data Nascimento</string>
+    <string name="nome_mae">Nome da mãe</string>
+    <string name="nome_pai">Nome do pai</string>
+    <string name="estado_civil">Estado Civil</string>
+    <string name="solteiro">Solteiro(a)</string>
+    <string name="casado">Casado(a)</string>
+    <string name="divorciado">Divorciado(a)</string>
+    <string name="viuvo">Viúvo(a)</string>
+    <string name="rua">Rua</string>
+    <string name="numero">Número</string>
 
     // Menu
-    <string name="home">Home</string>
+    <string name="home">Dashboard</string>
     <string name="history">Histórico</string>
     <string name="hourly_history">Por Hora</string>
     <string name="daily_history">Diário</string>

@@ -14,16 +14,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.vonergy.R;
 import com.vonergy.connection.AppSession;
 import com.vonergy.model.Consumo;
 import com.vonergy.view.fragment.ChartFragment;
+import com.vonergy.view.fragment.ConfigFragment;
 import com.vonergy.view.fragment.GaugeFragment;
+import com.vonergy.view.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Fragment fragment = null;
+    TextView mName;
+    TextView mEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        mName = headerView.findViewById(R.id.txtName);
+        mName.setText("Tiago Henrique dos Santos");//AppSession.user.getName());
+        mEmail = headerView.findViewById(R.id.txtEmail);
+        mEmail.setText("thenrque395@gmail.com");//AppSession.user.getEmail());
 
         showViewSelected(R.id.nav_home);
     }
@@ -66,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.action_settings:
-                optionConfig();
                 break;
             case R.id.action_logout:
                 dialogLogout();
@@ -83,11 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void optionConfig() {
-        Intent it = new Intent(this, ConfigActivity.class);
-        startActivity(it);
     }
 
     private void dialogLogout() {
@@ -119,18 +124,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (ItemId) {
             case R.id.nav_home:
                 fragment = GaugeFragment.newInstance(Consumo.consumptionInRealTime);
+                setTitle(R.string.home);
                 break;
             case R.id.nav_hourly_history:
                 fragment = ChartFragment.newInstance(Consumo.consumptionPerHour);
+                setTitle(R.string.hourly_history);
                 break;
             case R.id.nav_daily_history:
                 fragment = ChartFragment.newInstance(Consumo.dailyConsumption);
+                setTitle(R.string.daily_history);
                 break;
             case R.id.nav_monthly_history:
                 fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
+                setTitle(R.string.monthly_history);
+                break;
+            case R.id.nav_profile:
+                fragment = new ProfileFragment();
+                setTitle(R.string.profile);
                 break;
             case R.id.nav_settings:
-                optionConfig();
+                fragment = new ConfigFragment();
+                setTitle(R.string.settings);
                 break;
             case R.id.nav_logout:
                 dialogLogout();
