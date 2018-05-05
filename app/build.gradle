@@ -30,8 +30,9 @@ dependencies {
 
     apply plugin: 'com.android.application'
 
-    implementation 'com.google.firebase:firebase-core:15.0.0'
-    implementation 'com.google.firebase:firebase-messaging:15.0.0'
+    //mudança do firebase-core:15.0.0 devido a erro
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.google.firebase:firebase-messaging:15.0.2'
 
     // Velocimetro
     implementation 'com.github.anastr:speedviewlib:1.1.6'
