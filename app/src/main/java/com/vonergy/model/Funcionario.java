@@ -2,6 +2,8 @@ package com.vonergy.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Funcionario {
 
     @SerializedName("Nome")
@@ -15,6 +17,62 @@ public class Funcionario {
 
     @SerializedName("Senha")
     private String password;
+
+    @SerializedName("Rg")
+    private String rg;
+
+    @SerializedName("OrgaoExpeditor")
+    private String rgsAgency;
+
+
+    private Date birthDate;
+
+    @SerializedName("NomeMae")
+    private String mothersName;
+
+    @SerializedName("NomePai")
+    private String fathersName;
+
+    @SerializedName("Sexo")
+    private Sexo sex;
+
+
+    private EstadoCivil maritalStatus;
+
+    @SerializedName("Logradouro")
+    private String street;
+
+    @SerializedName("Bairro")
+    private String neighborhood;
+
+    @SerializedName("Cidade")
+    private String city;
+
+    @SerializedName("Numero")
+    private String houseNumber;
+
+    @SerializedName("Referencia")
+    private String reference;
+
+    @SerializedName("Cep")
+    private String cep;
+
+    @SerializedName("Uf")
+    private String state;
+
+    @SerializedName("Referencia")
+    private String complement;
+
+    @SerializedName("Telefone")
+    private String phone;
+
+    @SerializedName("Celular")
+    private String cellphone;
+
+
+
+
+
 
     public String getCpf() {
         return cpf;
@@ -46,5 +104,141 @@ public class Funcionario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public String getRgsAgency() {
+        return rgsAgency;
+    }
+
+    public void setRgsAgency(String rgsAgency) {
+        this.rgsAgency = rgsAgency;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getMothersName() {
+        return mothersName;
+    }
+
+    public void setMothersName(String mothersName) {
+        this.mothersName = mothersName;
+    }
+
+    public String getFathersName() {
+        return fathersName;
+    }
+
+    public void setFathersName(String fathersName) {
+        this.fathersName = fathersName;
+    }
+
+    public Sexo getSex() {
+        return sex;
+    }
+
+    public void setSex(Sexo sex) {
+        this.sex = sex;
+    }
+
+    public EstadoCivil getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(EstadoCivil maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 }

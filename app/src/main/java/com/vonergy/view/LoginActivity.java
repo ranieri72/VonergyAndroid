@@ -44,12 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setTitle(getResources().getString(R.string.login));
+        setTitle(getResources().getString(R.string.vonergy));
         ButterKnife.bind(this);
 
         mLogin.addTextChangedListener(MaskWatcher.buildCpf());
-        mLogin.setText("015.876.104-93");
-        mPassword.setText("01587610493");
+        mLogin.setText("211.159.157-20");
+        mPassword.setText("21115915720");
     }
 
     @OnClick(R.id.btnLogin)
