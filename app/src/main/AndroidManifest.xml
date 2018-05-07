@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vonergy">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,12 +30,6 @@
         </activity>
         <activity
             android:name=".view.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.fragment.ConfigFragment"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.fragment.ProfileFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.MainActivity"

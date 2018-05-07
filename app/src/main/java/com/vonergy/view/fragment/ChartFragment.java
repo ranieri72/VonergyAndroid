@@ -36,11 +36,11 @@ public class ChartFragment extends Fragment {
     @BindView(R.id.chart)
     BarChart mCharts;
 
-    BarDataSet dataSet;
-    BarData barData;
     Unbinder unbinder;
-    ArrayList<IBarDataSet> dataSets;
     private int historyType;
+    private YAxis leftAxis;
+    private YAxis rightAxis;
+    private XAxis xAxis;
 
     public static ChartFragment newInstance(int historyType) {
         ChartFragment f = new ChartFragment();
@@ -56,6 +56,7 @@ public class ChartFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
         Bundle args = getArguments();
         historyType = args.getInt("historyType", 0);
+        setChart();
         return layout;
     }
 
@@ -79,7 +80,7 @@ public class ChartFragment extends Fragment {
             c.setTime(sdf.parse(dt));
             Random r = new Random();
             listConsumption = new ArrayList<>();
-            for (int x = 0; x < 24; x++) {
+            for (int x = 0; x < 224; x++) {
                 consumo = new Consumo();
                 consumo.setRegistrationDate(c.getTime());
                 consumo.setPower(r.nextInt(40) + 65);
@@ -119,46 +120,44 @@ public class ChartFragment extends Fragment {
         unbinder.unbind();
     }
 
-    public void setValueToChart(List<BarEntry> entries, float minY, float maxY, float minX,
-                                float maxX) {
-        dataSet = new BarDataSet(entries, getResources().getString(R.string.consumo));
-        dataSet.setDrawIcons(false);
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        dataSets = new ArrayList<>();
-        dataSets.add(dataSet);
+    private void setChart() {
+        mCharts.setDrawBarShadow(false);
+        mCharts.setDrawValueAboveBar(true);
 
-        barData = new BarData(dataSets);
-        mCharts.setData(barData);
-        dataSet.setColor(getResources().getColor(R.color.colorAccent));
-        dataSet.setDrawValues(false);
+        mCharts.getDescription().setEnabled(false);
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        mCharts.setMaxVisibleValueCount(60);
+
+        // scaling can now only be done on x- and y-axis separately
+        mCharts.setPinchZoom(false);
+
+        mCharts.setDrawGridBackground(false);
+        // mChart.setDrawYLabels(false);
+
         mCharts.invalidate();
         mCharts.setScaleYEnabled(false);
         mCharts.getDescription().setText("");
         mCharts.getLegend().setEnabled(false);
         mCharts.animateX(2500);
 
-        YAxis leftAxis = mCharts.getAxisLeft();
+        leftAxis = mCharts.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setAxisMinimum(minY);
-        leftAxis.setAxisMaximum(maxY);
 
-        YAxis rightAxis = mCharts.getAxisRight();
+        rightAxis = mCharts.getAxisRight();
         rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        rightAxis.setAxisMinimum(minY);
-        rightAxis.setAxisMaximum(maxY);
 
-        XAxis xAxis = mCharts.getXAxis();
+        xAxis = mCharts.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
         xAxis.setLabelCount(5);
-        xAxis.setAxisMinimum(minX);
-        xAxis.setAxisMaximum(maxX);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
-            private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            private SimpleDateFormat sdf = new SimpleDateFormat("dd:MM");
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -166,5 +165,30 @@ public class ChartFragment extends Fragment {
             }
         };
         xAxis.setValueFormatter(formatter);
+    }
+
+    public void setValueToChart(List<BarEntry> entries, float minY, float maxY, float minX,
+                                float maxX) {
+        leftAxis.setAxisMinimum(minY);
+        leftAxis.setAxisMaximum(maxY);
+
+        rightAxis.setAxisMinimum(minY);
+        rightAxis.setAxisMaximum(maxY);
+
+        xAxis.setAxisMinimum(minX);
+        xAxis.setAxisMaximum(maxX);
+
+        BarDataSet dataSet = new BarDataSet(entries, getResources().getString(R.string.consumo));
+        dataSet.setDrawIcons(false);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        //dataSet.setColor(getResources().getColor(R.color.colorAccent));
+        dataSet.setDrawValues(false);
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+
+        BarData barData = new BarData(dataSets);
+        barData.setValueTextSize(10f);
+        barData.setBarWidth(0.9f);
+        mCharts.setData(barData);
     }
 }
