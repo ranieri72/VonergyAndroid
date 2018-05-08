@@ -12,7 +12,7 @@
         tools:context=".view.fragment.ProfileFragment">
 
         <TextView
-            android:id="@+id/tvFuncionario"
+            android:id="@+id/tvEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -22,21 +22,21 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/tvNome"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/tvFuncionario"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/tvEmployee"
             android:text="@string/nome"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
 
         <EditText
-            android:id="@+id/edtNome"
+            android:id="@+id/edtName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNome"
+            android:layout_below="@+id/tvName"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -48,8 +48,8 @@
             android:id="@+id/tvRg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtNome"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtName"
             android:text="@string/rg"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -67,20 +67,20 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvOrgao"
+            android:id="@+id/tvAgency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
+            android:layout_alignStart="@+id/edtName"
             android:layout_below="@+id/edtRg"
             android:text="@string/orgao_expedidor"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtOrgao"
+            android:id="@+id/edtAgency"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOrgao"
+            android:layout_below="@+id/tvAgency"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -88,20 +88,20 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvDataNasc"
+            android:id="@+id/tvBirthDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtOrgao"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtAgency"
             android:text="@string/data_nasc"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtDataNasc"
+            android:id="@+id/edtBirthDate"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDataNasc"
+            android:layout_below="@+id/tvBirthDate"
             android:layout_centerHorizontal="true"
 
             android:inputType="date"
@@ -109,40 +109,40 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvNomeMae"
+            android:id="@+id/tvMothersName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtDataNasc"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtBirthDate"
             android:text="@string/nome_mae"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtNomeMae"
+            android:id="@+id/edtMothersName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNomeMae"
+            android:layout_below="@+id/tvMothersName"
             android:layout_centerHorizontal="true"
             android:inputType="text"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvNomePai"
+            android:id="@+id/tvFathersName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtNomeMae"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtMothersName"
             android:text="@string/nome_pai"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtNomePai"
+            android:id="@+id/edtFathersName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNomePai"
+            android:layout_below="@+id/tvFathersName"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -153,8 +153,8 @@
             android:id="@+id/radio"
             android:layout_width="170dp"
             android:layout_height="50dp"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtNomePai"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtFathersName"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
@@ -182,10 +182,10 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/tvEstadoCivil"
+            android:id="@+id/tvMaritalStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
+            android:layout_alignStart="@+id/edtName"
             android:layout_below="@+id/radio"
             android:text="@string/estado_civil"
             android:textColor="@color/white"
@@ -195,12 +195,12 @@
             android:id="@+id/radio2"
             android:layout_width="304dp"
             android:layout_height="87dp"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/tvEstadoCivil"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/tvMaritalStatus"
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/radioSolteiro"
+                android:id="@+id/radioSingle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -209,7 +209,7 @@
                 android:textColor="@color/white" />
 
             <RadioButton
-                android:id="@+id/radioCasado"
+                android:id="@+id/radioMarried"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -218,7 +218,7 @@
                 android:textColor="@color/white" />
 
             <RadioButton
-                android:id="@+id/radioDivorciado"
+                android:id="@+id/radioDivorced"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -227,7 +227,7 @@
                 android:textColor="@color/white" />
 
             <RadioButton
-                android:id="@+id/radioViuvo"
+                android:id="@+id/radioWidowed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -238,10 +238,10 @@
         </RadioGroup>
 
         <TextView
-            android:id="@+id/tvLogradouro"
+            android:id="@+id/tvStreet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
+            android:layout_alignStart="@+id/edtName"
             android:layout_below="@+id/radio2"
             android:paddingTop="4dp"
             android:text="@string/rua"
@@ -249,10 +249,10 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtLogradouro"
+            android:id="@+id/edtStreet"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvLogradouro"
+            android:layout_below="@+id/tvStreet"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -260,21 +260,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvBairro"
+            android:id="@+id/tvNeighborhood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtLogradouro"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtStreet"
             android:paddingTop="4dp"
             android:text="@string/Bairro"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtBairro"
+            android:id="@+id/edtNeighborhood"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBairro"
+            android:layout_below="@+id/tvNeighborhood"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -282,21 +282,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvCidade"
+            android:id="@+id/tvCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtBairro"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtNeighborhood"
             android:paddingTop="4dp"
             android:text="@string/Cidade"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtCidade"
+            android:id="@+id/edtCity"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCidade"
+            android:layout_below="@+id/tvCity"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -304,21 +304,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvNumero"
+            android:id="@+id/tvHouseNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtCidade"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtCity"
             android:paddingTop="4dp"
             android:text="@string/numero"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtNumero"
+            android:id="@+id/edtHouseNumber"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNumero"
+            android:layout_below="@+id/tvHouseNumber"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -326,21 +326,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvReferencia"
+            android:id="@+id/tvReference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtNumero"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtHouseNumber"
             android:paddingTop="4dp"
             android:text="@string/Referencia"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtReferencia"
+            android:id="@+id/edtReference"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvReferencia"
+            android:layout_below="@+id/tvReference"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -351,8 +351,8 @@
             android:id="@+id/tvCep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtReferencia"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtReference"
             android:paddingTop="4dp"
             android:text="@string/Cep"
             android:textColor="@color/white"
@@ -371,10 +371,10 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvUF"
+            android:id="@+id/tvState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
+            android:layout_alignStart="@+id/edtName"
             android:layout_below="@+id/edtCep"
             android:paddingTop="4dp"
             android:text="@string/UF"
@@ -383,10 +383,10 @@
 
 
         <EditText
-            android:id="@+id/edtUf"
+            android:id="@+id/edtState"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvUF"
+            android:layout_below="@+id/tvState"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -397,8 +397,8 @@
             android:id="@+id/tvComplement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtUf"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtState"
             android:paddingTop="4dp"
             android:text="@string/Complemento"
             android:textColor="@color/white"
@@ -406,7 +406,7 @@
 
 
         <EditText
-            android:id="@+id/edtComplemento"
+            android:id="@+id/edtComplement"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvComplement"
@@ -417,21 +417,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvTelefone"
+            android:id="@+id/tvTelephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtComplemento"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtComplement"
             android:paddingTop="4dp"
             android:text="@string/Telefone"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtTelefone"
+            android:id="@+id/edtTelephone"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTelefone"
+            android:layout_below="@+id/tvTelephone"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
@@ -439,21 +439,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvCelular"
+            android:id="@+id/tvCellphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtNome"
-            android:layout_below="@+id/edtTelefone"
+            android:layout_alignStart="@+id/edtName"
+            android:layout_below="@+id/edtTelephone"
             android:paddingTop="4dp"
             android:text="@string/Celular"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtCelular"
+            android:id="@+id/edtCellphone"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCelular"
+            android:layout_below="@+id/tvCellphone"
             android:layout_centerHorizontal="true"
 
             android:inputType="text"
