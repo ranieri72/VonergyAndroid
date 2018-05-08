@@ -7,7 +7,7 @@
     <string name="cancel">Cancel</string>
 
     // Login
-    <string name ="vonergy">Vonergy</string>
+    <string name="vonergy">Vonergy</string>
     <string name="login">Login</string>
     <string name="cpf">CPF</string>
     <string name="password">Password</string>
@@ -57,7 +57,10 @@
     <string name="history">History</string>
     <string name="hourly_history">Hourly</string>
     <string name="daily_history">Daily</string>
+    <string name="weekly_history">Weekly</string>
     <string name="monthly_history">Monthly</string>
+    <string name="annual_history">Annual</string>
+    <string name="list_user">User list</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>

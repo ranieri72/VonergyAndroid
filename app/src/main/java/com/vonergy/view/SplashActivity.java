@@ -6,9 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.vonergy.asyncTask.LoginAsync;
+import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
-import com.vonergy.model.Funcionario;
+import com.vonergy.connection.ConnectionConstants;
+import com.vonergy.model.User;
 import com.vonergy.util.Constants;
 import com.vonergy.util.Util;
 
@@ -21,18 +22,19 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
-        Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, com.vonergy.connection.Constants.ipv4);
+        Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, ConnectionConstants.ipv4);
 
-        AppSession.user = new Funcionario();
-        AppSession.user.setCpf(sharedPreferences.getString(Constants.loginPreference, ""));
+        AppSession.user = new User();
+        AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
         AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
 
         Intent it = null;
         try {
-            if (AppSession.user.getCpf().equals("")) {
+            if (AppSession.user.getEmail().equals("")) {
                 it = new Intent(this, LoginActivity.class);
             } else {
-                if (new LoginAsync().execute().get()) {
+                AppSession.user = new UserAsync().execute(User.login).get().get(0);
+                if (AppSession.user != null) {
                     it = new Intent(this, MainActivity.class);
                 } else {
                     it = new Intent(this, LoginActivity.class);

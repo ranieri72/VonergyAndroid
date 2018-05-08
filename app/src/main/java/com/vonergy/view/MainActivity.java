@@ -2,8 +2,10 @@ package com.vonergy.view;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +21,12 @@ import android.widget.TextView;
 
 import com.vonergy.R;
 import com.vonergy.connection.AppSession;
-import com.vonergy.model.Consumo;
+import com.vonergy.model.Consumption;
+import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ChartFragment;
 import com.vonergy.view.fragment.ConfigFragment;
 import com.vonergy.view.fragment.GaugeFragment;
+import com.vonergy.view.fragment.ListUserFragment;
 import com.vonergy.view.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Fragment fragment = null;
     TextView mName;
     TextView mEmail;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         mName = headerView.findViewById(R.id.txtName);
-        mName.setText("Tiago Henrique dos Santos");//AppSession.user.getName());
+        mName.setText(AppSession.user.getName());
         mEmail = headerView.findViewById(R.id.txtEmail);
-        mEmail.setText("thenrque395@gmail.com");//AppSession.user.getEmail());
+        mEmail.setText(AppSession.user.getEmail());
 
         showViewSelected(R.id.nav_home);
+
+        sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -114,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logout() {
         AppSession.user = null;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.passwordPreference, "");
+        editor.apply();
         Intent it = new Intent(this, LoginActivity.class);
         startActivity(it);
         finish();
@@ -123,24 +133,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (ItemId) {
             case R.id.nav_home:
-                fragment = GaugeFragment.newInstance(Consumo.consumptionInRealTime);
+                fragment = GaugeFragment.newInstance(Consumption.consumptionInRealTime);
                 setTitle(R.string.home);
                 break;
             case R.id.nav_hourly_history:
-                fragment = ChartFragment.newInstance(Consumo.consumptionPerHour);
+                fragment = ChartFragment.newInstance(Consumption.consumptionPerHour);
                 setTitle(R.string.hourly_history);
                 break;
             case R.id.nav_daily_history:
-                fragment = ChartFragment.newInstance(Consumo.dailyConsumption);
+                fragment = ChartFragment.newInstance(Consumption.dailyConsumption);
                 setTitle(R.string.daily_history);
                 break;
+            case R.id.nav_weekly_history:
+                fragment = ChartFragment.newInstance(Consumption.weeklyConsumption);
+                setTitle(R.string.weekly_history);
+                break;
             case R.id.nav_monthly_history:
-                fragment = ChartFragment.newInstance(Consumo.monthlyConsumption);
+                fragment = ChartFragment.newInstance(Consumption.monthlyConsumption);
                 setTitle(R.string.monthly_history);
+                break;
+            case R.id.nav_annual_history:
+                fragment = ChartFragment.newInstance(Consumption.annualConsumption);
+                setTitle(R.string.annual_history);
                 break;
             case R.id.nav_profile:
                 fragment = new ProfileFragment();
                 setTitle(R.string.profile);
+                break;
+            case R.id.nav_list_user:
+                fragment = new ListUserFragment();
+                setTitle(R.string.list_user);
                 break;
             case R.id.nav_settings:
                 fragment = new ConfigFragment();

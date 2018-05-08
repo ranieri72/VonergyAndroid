@@ -14,11 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vonergy.R;
-import com.vonergy.asyncTask.LoginAsync;
+import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
-import com.vonergy.model.Funcionario;
+import com.vonergy.model.User;
 import com.vonergy.util.Constants;
-import com.vonergy.util.MaskWatcher;
 import com.vonergy.view.fragment.ConfigFragment;
 
 import java.util.concurrent.ExecutionException;
@@ -39,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
 
     private boolean checked = false;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,26 +46,31 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setTitle(getResources().getString(R.string.vonergy));
         ButterKnife.bind(this);
+        //mLogin.addTextChangedListener(MaskWatcher.buildCpf());
 
-        mLogin.addTextChangedListener(MaskWatcher.buildCpf());
-        mLogin.setText("211.159.157-20");
-        mPassword.setText("21115915720");
+        sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
+        mLogin.setText(sharedPreferences.getString(Constants.loginPreference, ""));
+        mPassword.setText(sharedPreferences.getString(Constants.passwordPreference, ""));
+
+        // temp
+        //mLogin.setText("irineutesteemail@gmail.com");
+        //mPassword.setText("123");
     }
 
     @OnClick(R.id.btnLogin)
     public void login() {
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
-        Funcionario u = new Funcionario();
-        u.setCpf(mLogin.getText().toString());
+        User u = new User();
+        u.setEmail(mLogin.getText().toString());
         u.setPassword(mPassword.getText().toString());
         AppSession.user = u;
         try {
-            LoginAsync loginTask = new LoginAsync();
-            loginTask.setProgressBar(mProgressBar);
-            if (!loginTask.execute().get()) {
+            UserAsync task = new UserAsync();
+            task.setProgressBar(mProgressBar);
+            AppSession.user = task.execute(User.login).get().get(0);
+            if (AppSession.user != null) {
                 if (checked) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.loginPreference, u.getCpf());
+                    editor.putString(Constants.loginPreference, u.getEmail());
                     editor.putString(Constants.passwordPreference, u.getPassword());
                     editor.apply();
                 }

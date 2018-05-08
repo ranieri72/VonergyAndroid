@@ -2,9 +2,18 @@ package com.vonergy.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+public class User {
 
-public class Funcionario {
+    public static final int male = 1;
+    public static final int female = 2;
+
+    public static final int single = 1;
+    public static final int married = 2;
+    public static final int divorced = 3;
+    public static final int widowed = 4;
+
+    public static final int login = 1;
+    public static final int listUser = 2;
 
     @SerializedName("Nome")
     private String name;
@@ -24,8 +33,8 @@ public class Funcionario {
     @SerializedName("OrgaoExpeditor")
     private String rgsAgency;
 
-
-    private Date birthDate;
+    @SerializedName("DataNascimento")
+    private String birthDate;
 
     @SerializedName("NomeMae")
     private String mothersName;
@@ -34,10 +43,10 @@ public class Funcionario {
     private String fathersName;
 
     @SerializedName("Sexo")
-    private Sexo sex;
+    private int sex;
 
-
-    private EstadoCivil maritalStatus;
+    @SerializedName("EstadoCivil")
+    private int maritalStatus;
 
     @SerializedName("Logradouro")
     private String street;
@@ -60,19 +69,11 @@ public class Funcionario {
     @SerializedName("Uf")
     private String state;
 
-    @SerializedName("Referencia")
-    private String complement;
-
     @SerializedName("Telefone")
     private String phone;
 
     @SerializedName("Celular")
     private String cellphone;
-
-
-
-
-
 
     public String getCpf() {
         return cpf;
@@ -122,11 +123,11 @@ public class Funcionario {
         this.rgsAgency = rgsAgency;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -146,19 +147,19 @@ public class Funcionario {
         this.fathersName = fathersName;
     }
 
-    public Sexo getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Sexo sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
-    public EstadoCivil getMaritalStatus() {
+    public int getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(EstadoCivil maritalStatus) {
+    public void setMaritalStatus(int maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
 
@@ -216,14 +217,6 @@ public class Funcionario {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public String getComplement() {
-        return complement;
-    }
-
-    public void setComplement(String complement) {
-        this.complement = complement;
     }
 
     public String getPhone() {

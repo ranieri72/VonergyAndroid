@@ -9,6 +9,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.vonergy.R;
+import com.vonergy.connection.AppSession;
+import com.vonergy.model.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,6 +90,45 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.activity_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
+
+        mName.setText(AppSession.user.getName());
+        mRg.setText(AppSession.user.getRg());
+        mAgency.setText(AppSession.user.getRgsAgency());
+        mBirthDate.setText(AppSession.user.getBirthDate());
+        mMothersName.setText(AppSession.user.getMothersName());
+        mFathersName.setText(AppSession.user.getFathersName());
+
+        if (AppSession.user.getSex() == User.male) {
+            mRadioButtonM.setChecked(true);
+        } else {
+            mRadioButtonM.setChecked(false);
+        }
+
+        switch (AppSession.user.getMaritalStatus()) {
+            case User.single:
+                mRadioSingle.setChecked(true);
+                break;
+            case User.married:
+                mRadioMarried.setChecked(true);
+                break;
+            case User.divorced:
+                mRadioDivorced.setChecked(true);
+                break;
+            case User.widowed:
+                mRadioWidowed.setChecked(true);
+                break;
+        }
+
+        mStreet.setText(AppSession.user.getStreet());
+        mNeighborhood.setText(AppSession.user.getNeighborhood());
+        mCity.setText(AppSession.user.getCity());
+        mHouseNumber.setText(AppSession.user.getHouseNumber());
+        mReference.setText(AppSession.user.getReference());
+        mCep.setText(AppSession.user.getCep());
+        mState.setText(AppSession.user.getState());
+        mTelephone.setText(AppSession.user.getPhone());
+        mCellphone.setText(AppSession.user.getCellphone());
+
         return layout;
     }
 

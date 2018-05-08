@@ -57,7 +57,10 @@
     <string name="history">Histórico</string>
     <string name="hourly_history">Por Hora</string>
     <string name="daily_history">Diário</string>
+    <string name="weekly_history">Semanal</string>
     <string name="monthly_history">Mensal</string>
+    <string name="annual_history">Anual</string>
+    <string name="list_user">Lista de usuários</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>

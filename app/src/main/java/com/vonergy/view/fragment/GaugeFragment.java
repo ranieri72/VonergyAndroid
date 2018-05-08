@@ -14,7 +14,7 @@ import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
-import com.vonergy.model.Consumo;
+import com.vonergy.model.Consumption;
 
 import java.util.List;
 import java.util.Locale;
@@ -72,12 +72,12 @@ public class GaugeFragment extends Fragment {
 
     private void updatePower() {
         //float maxValue = Float.MIN_VALUE, value;
-        float maxValue = 400000, value;
+        float maxValue = 100, value;
 
         try {
             ConsumptionAsync task = new ConsumptionAsync();
             task.setProgressBar(mProgressBar);
-            List<Consumo> listConsumption = task.execute(historyType).get();
+            List<Consumption> listConsumption = task.execute(historyType).get();
             if (listConsumption != null && !listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();
                 maxValue = Math.max(maxValue, value);

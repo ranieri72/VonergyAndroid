@@ -7,15 +7,15 @@ import android.widget.ProgressBar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.vonergy.connection.Constants;
+import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.connection.Requester;
-import com.vonergy.model.Consumo;
+import com.vonergy.model.Consumption;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
+public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>> {
 
     private ProgressBar bar;
 
@@ -28,34 +28,40 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
     }
 
     @Override
-    protected List<Consumo> doInBackground(Integer... params) {
+    protected List<Consumption> doInBackground(Integer... params) {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'hh:mm:ss").create();//2018-04-15T18:47:13
         String api = "";
 
         switch (params[0]) {
-            case Consumo.consumptionInRealTime:
-                api = Constants.consumptionInRealTime;
+            case Consumption.consumptionInRealTime:
+                api = ConnectionConstants.consumptionInRealTime;
                 break;
-            case Consumo.consumptionPerHour:
-                api = Constants.consumptionPerHour;
+            case Consumption.consumptionPerHour:
+                api = ConnectionConstants.consumptionPerHour;
                 break;
-            case Consumo.dailyConsumption:
-                api = Constants.dailyConsumption;
+            case Consumption.dailyConsumption:
+                api = ConnectionConstants.dailyConsumption;
                 break;
-            case Consumo.monthlyConsumption:
-                api = Constants.monthlyConsumption;
+            case Consumption.weeklyConsumption:
+                api = ConnectionConstants.weeklyConsumption;
+                break;
+            case Consumption.monthlyConsumption:
+                api = ConnectionConstants.monthlyConsumption;
+                break;
+            case Consumption.annualConsumption:
+                api = ConnectionConstants.annualConsumption;
                 break;
         }
         try {
             String response = new Requester().get(api);
-            List<Consumo> list;
-            if (params[0] == Consumo.consumptionInRealTime) {
-                Consumo consumption = new Consumo();
+            List<Consumption> list;
+            if (params[0] == Consumption.consumptionInRealTime) {
+                Consumption consumption = new Consumption();
                 list = new ArrayList<>();
                 consumption.setPower(Float.parseFloat(response));
                 list.add(consumption);
             } else {
-                Type listType = new TypeToken<ArrayList<Consumo>>() {
+                Type listType = new TypeToken<ArrayList<Consumption>>() {
                 }.getType();
                 list = gson.fromJson(response, listType);
             }
@@ -67,7 +73,7 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumo>> {
     }
 
     @Override
-    protected void onPostExecute(List<Consumo> listConsumption) {
+    protected void onPostExecute(List<Consumption> listConsumption) {
         super.onPostExecute(listConsumption);
         if (bar != null) {
             bar.setVisibility(View.GONE);

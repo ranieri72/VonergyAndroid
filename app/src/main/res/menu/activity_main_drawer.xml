@@ -12,6 +12,9 @@
         <item
             android:id="@+id/nav_profile"
             android:title="@string/profile" />
+        <item
+            android:id="@+id/nav_list_user"
+            android:title="@string/list_user" />
         <item android:title="@string/history">
             <menu>
                 <item
@@ -21,8 +24,14 @@
                     android:id="@+id/nav_daily_history"
                     android:title="@string/daily_history" />
                 <item
+                    android:id="@+id/nav_weekly_history"
+                    android:title="@string/weekly_history" />
+                <item
                     android:id="@+id/nav_monthly_history"
                     android:title="@string/monthly_history" />
+                <item
+                    android:id="@+id/nav_annual_history"
+                    android:title="@string/annual_history" />
             </menu>
         </item>
     </group>

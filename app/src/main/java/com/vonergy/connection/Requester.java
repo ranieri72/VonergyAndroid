@@ -26,14 +26,14 @@ public class Requester {
     }
 
     public String post(String api, String json) throws IOException {
-        String serverUrl = Constants.getServerUrl(ipv4) + api;
+        String serverUrl = ConnectionConstants.getServerUrl(ipv4) + api;
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url(serverUrl).post(body).build();
         return client.newCall(request).execute().body().string();
     }
 
     public String get(String api) throws IOException {
-        String serverUrl = Constants.getServerUrl(ipv4) + api;
+        String serverUrl = ConnectionConstants.getServerUrl(ipv4) + api;
         Request request = new Request.Builder().url(serverUrl).build();
         Response response = client.newCall(request).execute();
         return response.body().string();
