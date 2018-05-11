@@ -1,14 +1,15 @@
 package com.vonergy.view.fragment;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
@@ -82,13 +83,15 @@ public class GaugeFragment extends Fragment {
                 value = listConsumption.get(0).getPower();
                 maxValue = Math.max(maxValue, value);
                 setupGauger(value, 0, Math.round(maxValue));
+            } else {
+                dialogError(getResources().getString(R.string.noConsumption));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+            dialogError(getResources().getString(R.string.consumptionError));
         } catch (ExecutionException e) {
             e.printStackTrace();
-            Toast.makeText(getActivity(), getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+            dialogError(getResources().getString(R.string.consumptionError));
         }
     }
 
@@ -116,12 +119,25 @@ public class GaugeFragment extends Fragment {
         speedometer.speedTo(tempValue);
         speedometer.setLowSpeedPercent(50);
         speedometer.setMediumSpeedPercent(75);
-        //speedometer.setTicks(15, 20, 25, 30, 35);
+        speedometer.setTicks(0, 25, 50, 75, 100);
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
             @Override
             public String getTickLabel(int tickPosition, int tick) {
                 return String.format(Locale.getDefault(), "%d kW", tick);
             }
         });
+    }
+
+    private void dialogError(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.error));
+        builder.setMessage(msg);
+
+        builder.setNeutralButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        AlertDialog alerta = builder.create();
+        alerta.show();
     }
 }

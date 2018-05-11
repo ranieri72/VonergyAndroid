@@ -1,7 +1,9 @@
 package com.vonergy.view.fragment;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +17,14 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.vonergy.R;
+import com.vonergy.asyncTask.ConsumptionAsync;
 import com.vonergy.model.Consumption;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,52 +72,54 @@ public class ChartFragment extends Fragment {
         ArrayList<Entry> entries = new ArrayList<>();
         //ArrayList<BarEntry> entries = new ArrayList<>();
 
-//        try {
-//            ConsumptionAsync task = new ConsumptionAsync();
-//            List<Consumption> listConsumption = task.execute(historyType).get();
-
-        List<Consumption> listConsumption = null;
-        Consumption consumo;
-        String dt = "2018-04-15T18:47:13";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Calendar c = Calendar.getInstance();
         try {
-            c.setTime(sdf.parse(dt));
-            Random r = new Random();
-            listConsumption = new ArrayList<>();
-            for (int x = 0; x < 24; x++) {
-                consumo = new Consumption();
-                consumo.setRegistrationDate(c.getTime());
-                consumo.setPower(r.nextInt(40) + 65);
-                listConsumption.add(consumo);
-                c.add(Calendar.DATE, 1);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            ConsumptionAsync task = new ConsumptionAsync();
+            List<Consumption> listConsumption = task.execute(historyType).get();
 
-        if (listConsumption != null) {
-            for (Consumption consumption : listConsumption) {
-                key = consumption.getRegistrationDate().getTime();
-                value = consumption.getPower();
-
-                minValue = Math.min(minValue, value);
-                maxValue = Math.max(maxValue, value);
-                minKey = Math.min(minKey, key);
-                maxKey = Math.max(maxKey, key);
-
-                entries.add(new Entry(key, value));
-                //entries.add(new BarEntry(key, value));
-            }
-            if (!entries.isEmpty()) {
-                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
-            }
-        }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
+//        List<Consumption> listConsumption = null;
+//        Consumption consumo;
+//        String dt = "2018-04-15T18:47:13";
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//        Calendar c = Calendar.getInstance();
+//        try {
+//            c.setTime(sdf.parse(dt));
+//            Random r = new Random();
+//            listConsumption = new ArrayList<>();
+//            for (int x = 0; x < 24; x++) {
+//                consumo = new Consumption();
+//                consumo.setRegistrationDate(c.getTime());
+//                consumo.setPower(r.nextInt(40) + 65);
+//                listConsumption.add(consumo);
+//                c.add(Calendar.DATE, 1);
+//            }
+//        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
+
+            if (listConsumption != null && !listConsumption.isEmpty()) {
+                for (Consumption consumption : listConsumption) {
+                    key = consumption.getRegistrationDate().getTime();
+                    value = consumption.getPower();
+
+                    minValue = Math.min(minValue, value);
+                    maxValue = Math.max(maxValue, value);
+                    minKey = Math.min(minKey, key);
+                    maxKey = Math.max(maxKey, key);
+
+                    entries.add(new Entry(key, value));
+                    //entries.add(new BarEntry(key, value));
+                }
+                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+            } else {
+                dialogError(getResources().getString(R.string.noConsumption));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            dialogError(getResources().getString(R.string.consumptionError));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            dialogError(getResources().getString(R.string.consumptionError));
+        }
     }
 
     @Override
@@ -171,6 +174,19 @@ public class ChartFragment extends Fragment {
             }
         };
         xAxis.setValueFormatter(formatter);
+    }
+
+    private void dialogError(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.error));
+        builder.setMessage(msg);
+
+        builder.setNeutralButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        AlertDialog alerta = builder.create();
+        alerta.show();
     }
 
 //    private void setChart() {

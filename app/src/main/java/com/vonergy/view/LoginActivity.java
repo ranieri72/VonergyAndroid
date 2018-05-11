@@ -1,9 +1,11 @@
 package com.vonergy.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +13,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vonergy.R;
 import com.vonergy.asyncTask.UserAsync;
@@ -78,14 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(it);
                 finish();
             } else {
-                Toast.makeText(this, getResources().getString(R.string.invalidLogin), Toast.LENGTH_LONG).show();
+                dialogError(getResources().getString(R.string.invalidLogin));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+            dialogError(getResources().getString(R.string.connectionError));
         } catch (ExecutionException e) {
             e.printStackTrace();
-            Toast.makeText(this, getResources().getString(R.string.connectionError) + " " + e.getMessage(), Toast.LENGTH_LONG).show();
+            dialogError(getResources().getString(R.string.connectionError));
         }
     }
 
@@ -107,6 +108,19 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void dialogError(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.error));
+        builder.setMessage(msg);
+
+        builder.setNeutralButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        AlertDialog alerta = builder.create();
+        alerta.show();
     }
 
     private void optionConfig() {

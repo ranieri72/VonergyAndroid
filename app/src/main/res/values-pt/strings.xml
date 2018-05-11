@@ -5,6 +5,8 @@
     <string name="no">Não</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
+    <string name="connectionError">Error de Conexão!</string>
+    <string name="error">Erro!</string>
 
     // Login
 
@@ -13,7 +15,6 @@
     <string name="password">Senha</string>
     <string name="signin">Entrar</string>
     <string name="welcome">Bem-vindo!</string>
-    <string name="connectionError">Error de Conexão!</string>
     <string name="invalidLogin">Login inválido!</string>
     <string name="welcomeText">Digite seu CPF e senha para entrar</string>
     <string name="savePassword">Entrar automaticamente</string>
@@ -72,4 +73,6 @@
     <string name="consumo">Consumo</string>
     <string name="buscando">Buscando</string>
     <string name="kilowatt">%.1f kW</string>
+    <string name="consumptionError">Erro ao buscar consumo!</string>
+    <string name="noConsumption">Não há dados de consumo!</string>
 </resources>

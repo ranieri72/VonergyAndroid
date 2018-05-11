@@ -5,6 +5,8 @@
     <string name="no">No</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="connectionError">Connection error!</string>
+    <string name="error">Error!</string>
 
     // Login
     <string name="vonergy">Vonergy</string>
@@ -13,7 +15,6 @@
     <string name="password">Password</string>
     <string name="signin">Sign in</string>
     <string name="welcome">Welcome</string>
-    <string name="connectionError">Connection error!</string>
     <string name="invalidLogin">Invalid login!</string>
     <string name="welcomeText">Enter your CPF and password to enter</string>
     <string name="savePassword">Sign in automatically</string>
@@ -72,4 +73,6 @@
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
     <string name="kilowatt">%.1f kW</string>
+    <string name="consumptionError">Error fetching consumption!</string>
+    <string name="noConsumption">There is no consumption data!</string>
 </resources>
