@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         mPassword.setText(sharedPreferences.getString(Constants.passwordPreference, ""));
 
         // temp
-        //mLogin.setText("irineutesteemail@gmail.com");
-        //mPassword.setText("123");
+        mLogin.setText("irineutesteemail@gmail.com");
+        mPassword.setText("123");
     }
 
     @OnClick(R.id.btnLogin)

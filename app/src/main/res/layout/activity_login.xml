@@ -32,7 +32,7 @@
         android:layout_below="@+id/imageLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:inputType="number|text"
+
         android:textColor="@color/colorPrimary"
         android:textSize="20sp" />
 
