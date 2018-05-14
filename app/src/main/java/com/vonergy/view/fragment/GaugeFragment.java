@@ -1,9 +1,9 @@
 package com.vonergy.view.fragment;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +37,7 @@ public class GaugeFragment extends Fragment {
     private Handler mHandler;
     private int historyType;
     private ProgressBar mProgressBar;
+    private float maxValue;
 
     public static GaugeFragment newInstance(int historyType) {
         GaugeFragment f = new GaugeFragment();
@@ -73,7 +74,8 @@ public class GaugeFragment extends Fragment {
 
     private void updatePower() {
         //float maxValue = Float.MIN_VALUE, value;
-        float maxValue = 100, value;
+        float value;
+        maxValue = 30;
 
         try {
             ConsumptionAsync task = new ConsumptionAsync();
@@ -113,17 +115,23 @@ public class GaugeFragment extends Fragment {
     }
 
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {
+        int hundred = Math.round(maxValue * 1);
+        int seventyFive = (int) Math.round(maxValue * 0.75);
+        int fifty = (int) Math.round(maxValue * 0.5);
+        int twentyFive = (int) Math.round(maxValue * 0.25);
+
         mTemperature.setText(String.format(getResources().getString(R.string.kilowatt), tempValue));
         speedometer.setMinSpeed(minTemp);
         speedometer.setMaxSpeed(maxTemp);
         speedometer.speedTo(tempValue);
         speedometer.setLowSpeedPercent(50);
         speedometer.setMediumSpeedPercent(75);
-        speedometer.setTicks(0, 25, 50, 75, 100);
+        speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
+        speedometer.setUnit("kWh");
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
             @Override
             public String getTickLabel(int tickPosition, int tick) {
-                return String.format(Locale.getDefault(), "%d kW", tick);
+                return String.format(Locale.getDefault(), "%d kWh", tick);
             }
         });
     }

@@ -72,7 +72,10 @@
     <string name="consumo_atual">Current Consumption</string>
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
-    <string name="kilowatt">%.1f kW</string>
+    <string name="kilowatt">%.1f kWh</string>
     <string name="consumptionError">Error fetching consumption!</string>
     <string name="noConsumption">There is no consumption data!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

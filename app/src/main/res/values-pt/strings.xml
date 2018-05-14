@@ -72,7 +72,7 @@
     <string name="consumo_atual">Consumo Atual</string>
     <string name="consumo">Consumo</string>
     <string name="buscando">Buscando</string>
-    <string name="kilowatt">%.1f kW</string>
+    <string name="kilowatt">%.1f kWh</string>
     <string name="consumptionError">Erro ao buscar consumo!</string>
     <string name="noConsumption">Não há dados de consumo!</string>
 </resources>

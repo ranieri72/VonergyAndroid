@@ -1,8 +1,8 @@
 package com.vonergy.view.fragment;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -39,8 +40,7 @@ public class ChartFragment extends Fragment {
 
     Unbinder unbinder;
     private int historyType;
-    private LineDataSet dataSet;
-    private LineData lineData;
+    private String dateFormat;
 
     //private YAxis leftAxis;
     //private YAxis rightAxis;
@@ -60,6 +60,24 @@ public class ChartFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
         Bundle args = getArguments();
         historyType = args.getInt("historyType", 0);
+
+        switch (historyType) {
+            case Consumption.consumptionPerHour:
+                dateFormat = "hh:mm";
+                break;
+            case Consumption.dailyConsumption:
+                dateFormat = "dd-MM-yy";
+                break;
+            case Consumption.weeklyConsumption:
+                dateFormat = "dd-MM-yy";
+                break;
+            case Consumption.monthlyConsumption:
+                dateFormat = "MMM-yy";
+                break;
+            case Consumption.annualConsumption:
+                dateFormat = "yyyy";
+                break;
+        }
         //setChart();
         return layout;
     }
@@ -129,8 +147,8 @@ public class ChartFragment extends Fragment {
     }
 
     public void setValueToChart(ArrayList<Entry> entries, float minY, float maxY, float minX, float maxX) {
-        dataSet = new LineDataSet(entries, getResources().getString(R.string.consumo));
-        lineData = new LineData(dataSet);
+        LineDataSet dataSet = new LineDataSet(entries, getResources().getString(R.string.consumo));
+        LineData lineData = new LineData(dataSet);
         mCharts.setData(lineData);
         dataSet.setColor(getResources().getColor(R.color.white));
         dataSet.setDrawCircles(false);
@@ -140,7 +158,7 @@ public class ChartFragment extends Fragment {
         mCharts.setScaleYEnabled(false);
         mCharts.getDescription().setText("");
         mCharts.getLegend().setEnabled(false);
-        mCharts.animateX(2500);
+        mCharts.animateX(2000);
 
         YAxis leftAxis = mCharts.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
@@ -166,7 +184,7 @@ public class ChartFragment extends Fragment {
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
-            private SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+            private SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {

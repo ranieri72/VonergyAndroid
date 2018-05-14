@@ -19,7 +19,6 @@ import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
 import com.vonergy.model.User;
 import com.vonergy.util.Constants;
-import com.vonergy.view.fragment.ConfigFragment;
 
 import java.util.concurrent.ExecutionException;
 
@@ -124,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void optionConfig() {
-        Intent it = new Intent(this, ConfigFragment.class);
+        Intent it = new Intent(this, ConfigActivity.class);
         startActivity(it);
     }
 }

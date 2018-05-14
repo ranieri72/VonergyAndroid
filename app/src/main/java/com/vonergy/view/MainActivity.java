@@ -1,13 +1,13 @@
 package com.vonergy.view;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,7 +24,6 @@ import com.vonergy.connection.AppSession;
 import com.vonergy.model.Consumption;
 import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ChartFragment;
-import com.vonergy.view.fragment.ConfigFragment;
 import com.vonergy.view.fragment.GaugeFragment;
 import com.vonergy.view.fragment.ListUserFragment;
 import com.vonergy.view.fragment.ProfileFragment;
@@ -165,8 +164,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle(R.string.list_user);
                 break;
             case R.id.nav_settings:
-                fragment = new ConfigFragment();
-                setTitle(R.string.settings);
+                Intent it = new Intent(this, ConfigActivity.class);
+                startActivity(it);
                 break;
             case R.id.nav_logout:
                 dialogLogout();
@@ -174,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (fragment != null) {
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
