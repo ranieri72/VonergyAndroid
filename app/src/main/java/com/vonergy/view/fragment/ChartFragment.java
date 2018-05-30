@@ -78,7 +78,6 @@ public class ChartFragment extends Fragment {
                 dateFormat = "yyyy";
                 break;
         }
-        //setChart();
         return layout;
     }
 
@@ -88,31 +87,11 @@ public class ChartFragment extends Fragment {
 
         float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
         ArrayList<Entry> entries = new ArrayList<>();
-        //ArrayList<BarEntry> entries = new ArrayList<>();
 
         try {
             ConsumptionAsync task = new ConsumptionAsync();
             List<Consumption> listConsumption = task.execute(historyType).get();
 
-//        List<Consumption> listConsumption = null;
-//        Consumption consumo;
-//        String dt = "2018-04-15T18:47:13";
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-//        Calendar c = Calendar.getInstance();
-//        try {
-//            c.setTime(sdf.parse(dt));
-//            Random r = new Random();
-//            listConsumption = new ArrayList<>();
-//            for (int x = 0; x < 24; x++) {
-//                consumo = new Consumption();
-//                consumo.setRegistrationDate(c.getTime());
-//                consumo.setPower(r.nextInt(40) + 65);
-//                listConsumption.add(consumo);
-//                c.add(Calendar.DATE, 1);
-//            }
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
 
             if (listConsumption != null && !listConsumption.isEmpty()) {
                 for (Consumption consumption : listConsumption) {
@@ -123,9 +102,8 @@ public class ChartFragment extends Fragment {
                     maxValue = Math.max(maxValue, value);
                     minKey = Math.min(minKey, key);
                     maxKey = Math.max(maxKey, key);
-
                     entries.add(new Entry(key, value));
-                    //entries.add(new BarEntry(key, value));
+
                 }
                 setValueToChart(entries, minValue, maxValue, minKey, maxKey);
             } else {
@@ -150,7 +128,7 @@ public class ChartFragment extends Fragment {
         LineDataSet dataSet = new LineDataSet(entries, getResources().getString(R.string.consumo));
         LineData lineData = new LineData(dataSet);
         mCharts.setData(lineData);
-        dataSet.setColor(getResources().getColor(R.color.white));
+        dataSet.setColor(getResources().getColor(R.color.black));
         dataSet.setDrawCircles(false);
         dataSet.setDrawValues(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -164,13 +142,13 @@ public class ChartFragment extends Fragment {
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setAxisMinimum(minY);
         leftAxis.setAxisMaximum(maxY);
-        leftAxis.setTextColor(getResources().getColor(R.color.white));
+        leftAxis.setTextColor(getResources().getColor(R.color.black));
 
         YAxis rightAxis = mCharts.getAxisRight();
         rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         rightAxis.setAxisMinimum(minY);
         rightAxis.setAxisMaximum(maxY);
-        rightAxis.setTextColor(getResources().getColor(R.color.white));
+        rightAxis.setTextColor(getResources().getColor(R.color.black));
 
         XAxis xAxis = mCharts.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -180,7 +158,7 @@ public class ChartFragment extends Fragment {
         xAxis.setAxisMaximum(maxX);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        xAxis.setTextColor(getResources().getColor(R.color.white));
+        xAxis.setTextColor(getResources().getColor(R.color.black));
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
@@ -206,76 +184,4 @@ public class ChartFragment extends Fragment {
         AlertDialog alerta = builder.create();
         alerta.show();
     }
-
-//    private void setChart() {
-//        mCharts.setDrawBarShadow(false);
-//        mCharts.setDrawValueAboveBar(true);
-//
-//        mCharts.getDescription().setEnabled(false);
-//
-//        // if more than 60 entries are displayed in the chart, no values will be
-//        // drawn
-//        mCharts.setMaxVisibleValueCount(60);
-//
-//        // scaling can now only be done on x- and y-axis separately
-//        mCharts.setPinchZoom(false);
-//
-//        mCharts.setDrawGridBackground(false);
-//        // mChart.setDrawYLabels(false);
-//
-//        mCharts.invalidate();
-//        mCharts.setScaleYEnabled(false);
-//        mCharts.getDescription().setText("");
-//        mCharts.getLegend().setEnabled(false);
-//        mCharts.animateX(2500);
-//
-//        leftAxis = mCharts.getAxisLeft();
-//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-//
-//        rightAxis = mCharts.getAxisRight();
-//        rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-//
-//        xAxis = mCharts.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setDrawGridLines(true);
-//        xAxis.setLabelCount(5);
-//        xAxis.setGranularity(1f);
-//        xAxis.setGranularityEnabled(true);
-//
-//        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-//
-//            private SimpleDateFormat sdf = new SimpleDateFormat("dd:MM");
-//
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return sdf.format(new Date((long) value));
-//            }
-//        };
-//        xAxis.setValueFormatter(formatter);
-//    }
-
-//    public void setValueToChart(List<BarEntry> entries, float minY, float maxY, float minX,
-//                                float maxX) {
-//        leftAxis.setAxisMinimum(minY);
-//        leftAxis.setAxisMaximum(maxY);
-//
-//        rightAxis.setAxisMinimum(minY);
-//        rightAxis.setAxisMaximum(maxY);
-//
-//        xAxis.setAxisMinimum(minX);
-//        xAxis.setAxisMaximum(maxX);
-//
-//        BarDataSet dataSet = new BarDataSet(entries, getResources().getString(R.string.consumo));
-//        dataSet.setDrawIcons(false);
-//        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-//        //dataSet.setColor(getResources().getColor(R.color.colorAccent));
-//        dataSet.setDrawValues(false);
-//        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-//        dataSets.add(dataSet);
-//
-//        BarData barData = new BarData(dataSets);
-//        barData.setValueTextSize(10f);
-//        barData.setBarWidth(0.9f);
-//        mCharts.setData(barData);
-//    }
 }

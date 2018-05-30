@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.edtPassword)
     TextView mPassword;
 
-    @BindView(R.id.progressBar)
+    @BindView(R.id.progressBarLogin)
     ProgressBar mProgressBar;
 
     private boolean checked = false;
@@ -52,9 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         mLogin.setText(sharedPreferences.getString(Constants.loginPreference, ""));
         mPassword.setText(sharedPreferences.getString(Constants.passwordPreference, ""));
 
-        // temp
-        mLogin.setText("irineutesteemail@gmail.com");
-        mPassword.setText("123");
     }
 
     @OnClick(R.id.btnLogin)

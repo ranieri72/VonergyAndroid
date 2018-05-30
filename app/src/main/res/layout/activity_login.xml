@@ -1,92 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".view.LoginActivity">
-
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/logo" />
-
-    <TextView
-        android:id="@+id/tvUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edtLogin"
-        android:layout_below="@+id/imageLogo"
-        android:text="@string/user"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/edtLogin"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tvPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edtLogin"
-        android:layout_below="@+id/edtLogin"
-        android:text="@string/password"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/edtPassword"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPassword"
-        android:layout_centerHorizontal="true"
-
-        android:inputType="numberPassword"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp" />
-
-    <CheckBox
-        android:id="@+id/savePassword"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtPassword"
-        android:layout_centerHorizontal="true"
-        android:buttonTint="@color/colorPrimary"
-        android:onClick="onCheckboxClicked"
-        android:text="@string/savePassword"
-        android:textColor="@color/white" />
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:visibility="invisible" />
+        android:layout_height="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="250dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/signin"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+
+            <EditText
+                android:id="@+id/edtLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_padding"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/ic_account"
+                android:hint="@string/edt_username"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/small_padding"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_color"
+                android:drawableEnd="@drawable/ic_lock_password"
+                android:hint="@string/edt_password"
+                android:inputType="numberPassword"
+                android:padding="@dimen/small_padding"
+                android:textColor="@color/input_login"
+                android:textColorHint="@color/input_login_hint" />
+
+
+            <CheckBox
+                android:id="@+id/savePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:buttonTint="@color/colorPrimary"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/savePassword"
+                android:textColor="@color/black" />
+
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:background="@drawable/click_button_blue"
+                android:text="@string/bnt_login"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="@dimen/text_medium" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
