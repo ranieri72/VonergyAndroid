@@ -54,7 +54,7 @@
     <string name="numero">House Number</string>
 
     // Menu
-    <string name="home">Dashboard</string>
+    <string name="home">Página Inicial</string>
     <string name="history">History</string>
     <string name="hourly_history">Hourly</string>
     <string name="daily_history">Daily</string>
@@ -90,4 +90,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="url">vonergyapi.azurewebsites.net</string>
+    <string name="edt_username">Email</string>
+    <string name="edt_password">Senha</string>
+    <string name="bnt_login">Entrar</string>
 </resources>

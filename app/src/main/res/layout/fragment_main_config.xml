@@ -3,28 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/gradient_background"
     tools:context=".view.fragment.MainConfigFragment">
 
-    <TextView
-        android:id="@+id/txtServerIP"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/serverIP"
-        android:textColor="@color/white"
-        android:textSize="15sp" />
+
 
     <EditText
         android:id="@+id/edtServerIP"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtServerIP"
+        android:background="@color/white_color"
+        android:hint="@string/serverIP"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp" />
+        android:layout_margin="@dimen/large_padding"
+        android:padding="@dimen/small_padding"
+        android:textColor="@color/input_login"
+        android:textColorHint="@color/input_login_hint" />
 
     <Button
         android:id="@+id/btnSave"
@@ -33,7 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/click_button_blue"
         android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="20sp" />

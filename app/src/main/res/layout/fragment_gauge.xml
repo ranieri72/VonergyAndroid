@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/gradient_background"
     tools:context=".view.fragment.GaugeFragment">
 
     <com.github.anastr.speedviewlib.SpeedView
@@ -13,18 +13,18 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/temperature"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        app:sv_centerCircleColor="@color/colorPrimaryDark"
+        android:layout_margin="@dimen/medium_padding"
+        app:sv_centerCircleColor="@color/black"
         app:sv_endDegree="340"
         app:sv_highSpeedColor="#823c3c"
-        app:sv_indicatorColor="@color/white"
+        app:sv_indicatorColor="@color/black"
         app:sv_lowSpeedColor="#3c823c"
-        app:sv_markColor="@color/white"
+        app:sv_markColor="@color/black"
         app:sv_mediumSpeedColor="#82823c"
         app:sv_speedTextColor="@color/black"
         app:sv_speedometerMode="TOP"
         app:sv_startDegree="200"
-        app:sv_textColor="@color/white"
+        app:sv_textColor="@color/black"
         app:sv_unitTextColor="@color/black"
         app:sv_withTremble="false" />
 
@@ -35,7 +35,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/consumo_atual"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:textSize="60sp" />
 
     <TextView
