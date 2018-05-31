@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -31,16 +32,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.vonergy.model.Consumption.kWhCost;
+
 public class ChartFragment extends Fragment {
 
     @BindView(R.id.chart)
     LineChart mCharts;
+
+    @BindView(R.id.cost)
+    TextView mCost;
 
     //BarChart mCharts;
 
     Unbinder unbinder;
     private int historyType;
     private String dateFormat;
+    private int multiplier;
 
     //private YAxis leftAxis;
     //private YAxis rightAxis;
@@ -64,18 +71,23 @@ public class ChartFragment extends Fragment {
         switch (historyType) {
             case Consumption.consumptionPerHour:
                 dateFormat = "hh:mm";
+                multiplier = 1;
                 break;
             case Consumption.dailyConsumption:
                 dateFormat = "dd-MM-yy";
+                multiplier = 24;
                 break;
             case Consumption.weeklyConsumption:
                 dateFormat = "dd-MM-yy";
+                multiplier = 168;
                 break;
             case Consumption.monthlyConsumption:
                 dateFormat = "MMM-yy";
+                multiplier = 720;
                 break;
             case Consumption.annualConsumption:
                 dateFormat = "yyyy";
+                multiplier = 8760;
                 break;
         }
         //setChart();
@@ -86,7 +98,7 @@ public class ChartFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value;
+        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value, totalValue = 0;
         ArrayList<Entry> entries = new ArrayList<>();
         //ArrayList<BarEntry> entries = new ArrayList<>();
 
@@ -123,6 +135,7 @@ public class ChartFragment extends Fragment {
                     maxValue = Math.max(maxValue, value);
                     minKey = Math.min(minKey, key);
                     maxKey = Math.max(maxKey, key);
+                    totalValue += value;
 
                     entries.add(new Entry(key, value));
                     //entries.add(new BarEntry(key, value));
@@ -137,6 +150,8 @@ public class ChartFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
             dialogError(getResources().getString(R.string.consumptionError));
+        } finally {
+            mCost.setText(String.format(getResources().getString(R.string.cost), (totalValue) * kWhCost));
         }
     }
 

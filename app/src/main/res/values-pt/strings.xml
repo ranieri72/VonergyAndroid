@@ -62,6 +62,7 @@
     <string name="monthly_history">Mensal</string>
     <string name="annual_history">Anual</string>
     <string name="list_user">Lista de usuários</string>
+    <string name="list_device">Lista de aparelhos</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -72,7 +73,18 @@
     <string name="consumo_atual">Consumo Atual</string>
     <string name="consumo">Consumo</string>
     <string name="buscando">Buscando</string>
+    <string name="cost">Custo: R$%.2f</string>
     <string name="kilowatt">%.1f kWh</string>
     <string name="consumptionError">Erro ao buscar consumo!</string>
     <string name="noConsumption">Não há dados de consumo!</string>
+
+    // Device
+    <string name="model">Modelo:</string>
+    <string name="brand">Marca:</string>
+    <string name="minimumPower">Min. Potência:</string>
+    <string name="maximumPower">Max. Potência:</string>
+    <string name="minimumVoltage">Min. Tensão:</string>
+    <string name="maximumVoltage">Max. Tensão:</string>
+    <string name="minimalCurrent">Min. Corrente:</string>
+    <string name="maximumCurrent">Max. Corrente:</string>
 </resources>

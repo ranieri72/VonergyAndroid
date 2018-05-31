@@ -13,6 +13,8 @@ public class Consumption {
     public static final int monthlyConsumption = 4;
     public static final int annualConsumption = 5;
 
+    public static final float kWhCost = 0.56f;
+
     private long Id;
 
     @SerializedName("Potencia")

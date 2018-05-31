@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.vonergy.R;
-import com.vonergy.asyncTask.UserAsync;
-import com.vonergy.model.User;
-import com.vonergy.view.adapter.UserAdapter;
+import com.vonergy.asyncTask.DeviceAsync;
+import com.vonergy.model.Device;
+import com.vonergy.view.adapter.DeviceAdapter;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -19,26 +19,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ListUserFragment extends Fragment {
+public class ListDeviceFragment extends Fragment {
 
-    @BindView(R.id.listUser)
+    @BindView(R.id.listDevice)
     ListView mListView;
 
     Unbinder unbinder;
-    UserAdapter mAdapter;
-    List<User> mListUser;
+    DeviceAdapter mAdapter;
+    List<Device> mListDevice;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_list_user, container, false);
+        View layout = inflater.inflate(R.layout.fragment_list_device, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
-        UserAsync task = new UserAsync();
+        DeviceAsync task = new DeviceAsync();
         try {
-            mListUser = task.execute(User.listUser).get();
-            if (mListUser != null && mListUser.size() > 0) {
-                mAdapter = new UserAdapter(getActivity(), mListUser);
+            mListDevice = task.execute().get();
+            if (mListDevice != null && mListDevice.size() > 0) {
+                mAdapter = new DeviceAdapter(getActivity(), mListDevice);
                 mListView.setAdapter(mAdapter);
             }
         } catch (InterruptedException e) {
