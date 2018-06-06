@@ -87,6 +87,9 @@
     <string name="maximumVoltage">Max. Voltage:</string>
     <string name="minimalCurrent">Min. Current:</string>
     <string name="maximumCurrent">Max. Current:</string>
+    <string name="maximumCost">Max. Cost:</string>
+    <string name="deviceID">Id Device:</string>
+    <string name="deviceSerial">Serial Number:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

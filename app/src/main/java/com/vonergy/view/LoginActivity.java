@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.progressBarLogin)
     ProgressBar mProgressBar;
 
-    @BindView(R.id.sign_in_button)
-    SignInButton mSignInButton;
+    //@BindView(R.id.sign_in_button)
+    //SignInButton mSignInButton;
 
     private GoogleSignInClient mGoogleSignInClient;
     private boolean checked = false;
@@ -145,11 +145,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.sign_in_button)
+/*    @OnClick(R.id.sign_in_button)
     public void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+    }*/
 
     public void onCheckboxClicked(View view) {
         checked = ((CheckBox) view).isChecked();

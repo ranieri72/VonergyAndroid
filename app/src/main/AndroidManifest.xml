@@ -51,6 +51,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".view.DetailDeviceActivity"></activity>
     </application>
 
 </manifest>
