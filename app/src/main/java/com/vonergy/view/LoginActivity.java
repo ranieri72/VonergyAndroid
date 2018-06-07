@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(Constants.passwordPreference, u.getPassword());
                     editor.apply();
                 }
-                Intent it = new Intent(this, MainActivity.class);
+                Intent it = new Intent(this, VonergyActivity.class);
                 startActivity(it);
                 finish();
             } else {

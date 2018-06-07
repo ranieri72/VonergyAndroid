@@ -17,6 +17,7 @@ import com.vonergy.model.User;
 import com.vonergy.util.Constants;
 import com.vonergy.util.Util;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class SplashActivity extends AppCompatActivity {
@@ -77,9 +78,12 @@ public class SplashActivity extends AppCompatActivity {
                     if (AppSession.user.getEmail().equals("")) {
                         it = new Intent(SplashActivity.this, LoginActivity.class);
                     } else {
-                        AppSession.user = new UserAsync().execute(User.login).get().get(0);
+                        List<User> listUser =  new UserAsync().execute(User.login).get();
+                        if(listUser != null && !listUser.isEmpty()){
+                            AppSession.user = listUser.get(0);
+                        }
                         if (AppSession.user != null) {
-                            it = new Intent(SplashActivity.this, MainActivity.class);
+                            it = new Intent(SplashActivity.this, VonergyActivity.class);
                         } else {
                             it = new Intent(SplashActivity.this, LoginActivity.class);
                         }

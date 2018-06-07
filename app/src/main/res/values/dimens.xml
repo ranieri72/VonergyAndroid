@@ -11,6 +11,8 @@
     <dimen name="small_padding">8dp</dimen>
     <dimen name="medium_padding">16dp</dimen>
     <dimen name="large_padding">24dp</dimen>
+    <dimen name="very_large_padding">96dp</dimen>
+    <dimen name="very_very_large_padding">172dp</dimen>
 
     <dimen name="menu_margin_top">18dp</dimen>
 

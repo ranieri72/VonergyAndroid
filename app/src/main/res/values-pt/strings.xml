@@ -75,4 +75,6 @@
     <string name="kilowatt">%.1f kWh</string>
     <string name="consumptionError">Erro ao buscar consumo!</string>
     <string name="noConsumption">Não há dados de consumo!</string>
+    <string name="consumoMensal">Seu consumo mensal</string>
+    <string name="consumoSemanal">Seu consumo semanal</string>
 </resources>
