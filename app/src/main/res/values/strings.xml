@@ -62,6 +62,7 @@
     <string name="monthly_history">Monthly</string>
     <string name="annual_history">Annual</string>
     <string name="list_user">User list</string>
+    <string name="list_device">Device list</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -72,9 +73,23 @@
     <string name="consumo_atual">Current Consumption</string>
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
+    <string name="cost">Cost: R$%.2f</string>
     <string name="kilowatt">%.1f kWh</string>
     <string name="consumptionError">Error fetching consumption!</string>
     <string name="noConsumption">There is no consumption data!</string>
+
+    // Device
+    <string name="model">Model:</string>
+    <string name="brand">Brand:</string>
+    <string name="minimumPower">Min. Power:</string>
+    <string name="maximumPower">Max. Power:</string>
+    <string name="minimumVoltage">Min. Voltage:</string>
+    <string name="maximumVoltage">Max. Voltage:</string>
+    <string name="minimalCurrent">Min. Current:</string>
+    <string name="maximumCurrent">Max. Current:</string>
+    <string name="maximumCost">Max. Cost:</string>
+    <string name="deviceID">Id Device:</string>
+    <string name="deviceSerial">Serial Number:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

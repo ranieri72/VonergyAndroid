@@ -14,6 +14,13 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.vonergy.R;
 import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
@@ -26,7 +33,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.vonergy.util.Util.refreshedToken;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private static final String TAG = "SignInActivity";
+    private static final int RC_SIGN_IN = 9001;
 
     @BindView(R.id.edtLogin)
     TextView mLogin;
@@ -37,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.progressBarLogin)
     ProgressBar mProgressBar;
 
+    //@BindView(R.id.sign_in_button)
+    //SignInButton mSignInButton;
+
+    private GoogleSignInClient mGoogleSignInClient;
     private boolean checked = false;
     private SharedPreferences sharedPreferences;
 
@@ -47,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         setTitle(getResources().getString(R.string.vonergy));
         ButterKnife.bind(this);
         //mLogin.addTextChangedListener(MaskWatcher.buildCpf());
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
         mLogin.setText(sharedPreferences.getString(Constants.loginPreference, ""));
@@ -59,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         User u = new User();
         u.setEmail(mLogin.getText().toString());
         u.setPassword(mPassword.getText().toString());
+        u.setFirebaseToken(refreshedToken);
         AppSession.user = u;
         try {
             UserAsync task = new UserAsync();
@@ -85,6 +107,49 @@ public class LoginActivity extends AppCompatActivity {
             dialogError(getResources().getString(R.string.connectionError));
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            AppSession.user.setName(account.getDisplayName());
+            AppSession.user.setEmail(account.getEmail());
+            Intent it = new Intent(this, MainActivity.class);
+            startActivity(it);
+            finish();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            User u = new User();
+            u.setEmail(account.getDisplayName());
+            u.setPassword(account.getEmail());
+            AppSession.user = u;
+            Intent it = new Intent(this, MainActivity.class);
+            startActivity(it);
+            finish();
+        } catch (ApiException e) {
+            dialogError(getResources().getString(R.string.invalidLogin));
+        }
+    }
+
+/*    @OnClick(R.id.sign_in_button)
+    public void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }*/
 
     public void onCheckboxClicked(View view) {
         checked = ((CheckBox) view).isChecked();

@@ -25,10 +25,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.vonergy.model.Consumption.kWhCost;
+
 public class GaugeFragment extends Fragment {
 
     @BindView(R.id.temperature)
     TextView mTemperature;
+
+    @BindView(R.id.cost)
+    TextView mCost;
 
     @BindView(R.id.tempView)
     SpeedView speedometer;
@@ -75,7 +80,7 @@ public class GaugeFragment extends Fragment {
     private void updatePower() {
         //float maxValue = Float.MIN_VALUE, value;
         float value;
-        maxValue = 30;
+        maxValue = 50;
 
         try {
             ConsumptionAsync task = new ConsumptionAsync();
@@ -121,6 +126,7 @@ public class GaugeFragment extends Fragment {
         int twentyFive = (int) Math.round(maxValue * 0.25);
 
         mTemperature.setText(String.format(getResources().getString(R.string.kilowatt), tempValue));
+        mCost.setText(String.format(getResources().getString(R.string.cost), tempValue * kWhCost));
         speedometer.setMinSpeed(minTemp);
         speedometer.setMaxSpeed(maxTemp);
         speedometer.speedTo(tempValue);

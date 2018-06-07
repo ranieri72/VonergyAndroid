@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.vonergy.R;
 import com.vonergy.connection.AppSession;
 import com.vonergy.model.Consumption;
 import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ChartFragment;
 import com.vonergy.view.fragment.GaugeFragment;
+import com.vonergy.view.fragment.ListDeviceFragment;
 import com.vonergy.view.fragment.ListUserFragment;
 import com.vonergy.view.fragment.ProfileFragment;
 
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView mName;
     TextView mEmail;
     private SharedPreferences sharedPreferences;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -123,9 +136,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.passwordPreference, "");
         editor.apply();
-        Intent it = new Intent(this, LoginActivity.class);
-        startActivity(it);
-        finish();
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
     }
 
     private void showViewSelected(int ItemId) {
@@ -162,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_list_user:
                 fragment = new ListUserFragment();
                 setTitle(R.string.list_user);
+                break;
+            case R.id.nav_list_device:
+                fragment = new ListDeviceFragment();
+                setTitle(R.string.list_device);
                 break;
             case R.id.nav_settings:
                 Intent it = new Intent(this, ConfigActivity.class);

@@ -3,12 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".view.fragment.ChartFragment"
     android:background="@drawable/gradient_background">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="350dp" />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cost"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp" />
 
 </LinearLayout>

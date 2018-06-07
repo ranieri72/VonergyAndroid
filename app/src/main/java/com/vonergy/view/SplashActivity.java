@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
+import android.util.Log;
 
 import com.vonergy.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
 import com.vonergy.connection.ConnectionConstants;
@@ -19,6 +22,8 @@ import com.vonergy.util.Util;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static com.vonergy.util.Util.refreshedToken;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -37,6 +42,10 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void redirect(){
+        //FirebaseApp.initializeApp(this);
+        //refreshedToken = FirebaseApp.getInstance().getToken(false);
+        refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("Firebase", "Refreshed token: " + refreshedToken);
 
         final long[] id = {0};
 
@@ -46,9 +55,10 @@ public class SplashActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
                 Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, ConnectionConstants.ipv4);
 
-                AppSession.user = new User();
-                AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
-                AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
+        AppSession.user = new User();
+        AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
+        AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
+        AppSession.user.setFirebaseToken(refreshedToken);
 
                 Intent it = null;
 

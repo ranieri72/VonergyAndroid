@@ -38,4 +38,14 @@
         android:textColor="@color/black"
         android:textSize="60sp" />
 
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/temperature"
+        android:layout_centerHorizontal="true"
+        android:text="@string/cost"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40sp" />
+
 </RelativeLayout>

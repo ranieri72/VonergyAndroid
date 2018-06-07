@@ -18,6 +18,8 @@ public class User {
     @SerializedName("Nome")
     private String name;
 
+    private String firebaseToken;
+
     @SerializedName("Email")
     private String email;
 
@@ -233,5 +235,13 @@ public class User {
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
+    }
+
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
     }
 }
