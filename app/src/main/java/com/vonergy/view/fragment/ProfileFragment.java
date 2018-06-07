@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.activity_profile, container, false);
+        View layout = inflater.inflate(R.layout.activity_profile_, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
         mName.setText(AppSession.user.getName());

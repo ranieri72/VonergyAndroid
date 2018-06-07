@@ -1,465 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
-        tools:context=".view.fragment.ProfileFragment">
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvEmployee"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:text="@string/user"
-            android:textColor="@color/colorPrimary"
-            android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/tvEmployee"
-            android:text="@string/nome"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:paddingTop="30dp">
 
-
-        <EditText
-            android:id="@+id/edtName"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-
-        <TextView
-            android:id="@+id/tvRg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtName"
-            android:text="@string/rg"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtRg"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvRg"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="number"
-            android:maxLength="12"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvAgency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtRg"
-            android:text="@string/orgao_expedidor"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtAgency"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvAgency"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvBirthDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtAgency"
-            android:text="@string/data_nasc"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtBirthDate"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBirthDate"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="date"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvMothersName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtBirthDate"
-            android:text="@string/nome_mae"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtMothersName"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMothersName"
-            android:layout_centerHorizontal="true"
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvFathersName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtMothersName"
-            android:text="@string/nome_pai"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtFathersName"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvFathersName"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <RadioGroup
-            android:id="@+id/radio"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtFathersName"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButtonM"
+            <TextView
+                android:id="@+id/txtNome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:paddingBottom="@dimen/small_padding"
+                android:text="@string/nome" />
 
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="M"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_padding"
+                android:background="@color/white"
+                android:enabled="false"
+                android:padding="@dimen/small_padding" />
 
-            <RadioButton
-                android:id="@+id/radioButtonF"
+            <TextView
+                android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/radioButtonM"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="F"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </RadioGroup>
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:paddingBottom="@dimen/small_padding"
+                android:text="@string/edt_username" />
 
-        <TextView
-            android:id="@+id/tvMaritalStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/radio"
-            android:text="@string/estado_civil"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_padding"
+                android:background="@color/white"
+                android:enabled="false"
+                android:padding="@dimen/small_padding" />
 
-        <RadioGroup
-            android:id="@+id/radio2"
-            android:layout_width="304dp"
-            android:layout_height="87dp"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/tvMaritalStatus"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radioSingle"
+            <TextView
+                android:id="@+id/txtCelular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="@string/solteiro"
-                android:textColor="@color/white" />
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black"
+                android:paddingBottom="@dimen/small_padding"
+                android:text="@string/Celular" />
 
-            <RadioButton
-                android:id="@+id/radioMarried"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/edtCelular"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="@string/casado"
-                android:textColor="@color/white" />
-
-            <RadioButton
-                android:id="@+id/radioDivorced"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="@string/divorciado"
-                android:textColor="@color/white" />
-
-            <RadioButton
-                android:id="@+id/radioWidowed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/colorPrimary"
-                android:text="@string/viuvo"
-                android:textColor="@color/white" />
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tvStreet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/radio2"
-            android:paddingTop="4dp"
-            android:text="@string/rua"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtStreet"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvStreet"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvNeighborhood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtStreet"
-            android:paddingTop="4dp"
-            android:text="@string/Bairro"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtNeighborhood"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNeighborhood"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtNeighborhood"
-            android:paddingTop="4dp"
-            android:text="@string/Cidade"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtCity"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCity"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvHouseNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtCity"
-            android:paddingTop="4dp"
-            android:text="@string/numero"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtHouseNumber"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvHouseNumber"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvReference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtHouseNumber"
-            android:paddingTop="4dp"
-            android:text="@string/Referencia"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtReference"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvReference"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvCep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtReference"
-            android:paddingTop="4dp"
-            android:text="@string/Cep"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+                android:layout_marginBottom="@dimen/medium_padding"
+                android:background="@color/white"
+                android:enabled="false"
+                android:padding="@dimen/small_padding" />
 
 
-        <EditText
-            android:id="@+id/edtCep"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCep"
-            android:layout_centerHorizontal="true"
 
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtCep"
-            android:paddingTop="4dp"
-            android:text="@string/UF"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-        <EditText
-            android:id="@+id/edtState"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvState"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvComplement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtState"
-            android:paddingTop="4dp"
-            android:text="@string/Complemento"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-
-        <EditText
-            android:id="@+id/edtComplement"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvComplement"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvTelephone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtComplement"
-            android:paddingTop="4dp"
-            android:text="@string/Telefone"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtTelephone"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTelephone"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvCellphone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/edtName"
-            android:layout_below="@+id/edtTelephone"
-            android:paddingTop="4dp"
-            android:text="@string/Celular"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/edtCellphone"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCellphone"
-            android:layout_centerHorizontal="true"
-
-            android:inputType="text"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
 
 
     </RelativeLayout>
-</ScrollView>
+
+
+</RelativeLayout>

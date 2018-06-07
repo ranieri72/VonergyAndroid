@@ -1,6 +1,8 @@
 package com.vonergy.view;
 
-import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,11 +17,12 @@ import android.view.MenuItem;
 
 import com.vonergy.R;
 import com.vonergy.model.Consumption;
+import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ConsumoDiarioFragment;
 import com.vonergy.view.fragment.ConsumoMensalFragment;
 import com.vonergy.view.fragment.ConsumoPorHoraFragment;
-import com.vonergy.view.fragment.ConsumoSemanalFragment;
 import com.vonergy.view.fragment.ConsumoTempoRealFragment;
+import com.vonergy.view.fragment.ProfileFragment;
 
 public class VonergyActivity extends AppCompatActivity {
 
@@ -33,9 +36,9 @@ public class VonergyActivity extends AppCompatActivity {
 
     ConsumoPorHoraFragment mConsumoPorHoraFragment;
 
-    ConsumoSemanalFragment mConsumoSemanalFragment;
-
     ConsumoMensalFragment mConsumoMensalFragment;
+
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -46,6 +49,8 @@ public class VonergyActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
 
 
         buildViewPager();
@@ -88,24 +93,19 @@ public class VonergyActivity extends AppCompatActivity {
                     }
                     return mConsumoDiarioFragment;
                 case 3:
-                    if (mConsumoSemanalFragment == null) {
-                        mConsumoSemanalFragment = ConsumoSemanalFragment.newInstance(Consumption.weeklyConsumption);
-                    }
-                    return mConsumoSemanalFragment;
-                case 4:
                     if (mConsumoMensalFragment == null) {
                         mConsumoMensalFragment = ConsumoMensalFragment.newInstance(Consumption.monthlyConsumption);
                     }
                     return mConsumoMensalFragment;
                 default:
-                    return mConsumoTempoRealFragment;
+                    return null;
             }
 
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
         @Override
@@ -118,8 +118,6 @@ public class VonergyActivity extends AppCompatActivity {
                 case 2:
                     return "Dia";
                 case 3:
-                    return "Semana";
-                case 4:
                     return "Mês";
                 default:
                     return "";
@@ -134,9 +132,27 @@ public class VonergyActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
+            case R.id.action_profile:
+                Intent it = new Intent(this, ProfileActivity.class);
+                startActivity(it);
+                return true;
+            case R.id.action_sair:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    void logout(){
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.passwordPreference, "");
+        editor.putString(Constants.loginPreference, "");
+
+        Intent it = new Intent(this, LoginActivity.class);
+        startActivity(it);
+
     }
 
     @Override

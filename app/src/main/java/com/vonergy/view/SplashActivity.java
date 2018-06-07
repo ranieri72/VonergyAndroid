@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
     public void redirect(){
         //FirebaseApp.initializeApp(this);
         //refreshedToken = FirebaseApp.getInstance().getToken(false);
-        refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Util.refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("Firebase", "Refreshed token: " + refreshedToken);
 
         final long[] id = {0};
@@ -55,10 +55,13 @@ public class SplashActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
                 Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, ConnectionConstants.ipv4);
 
-        AppSession.user = new User();
-        AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
-        AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
-        AppSession.user.setFirebaseToken(refreshedToken);
+                User user = new User();
+
+
+//        AppSession.user = new User();
+////        AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
+////        AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
+////        AppSession.user.setFirebaseToken(refreshedToken);
 
                 Intent it = null;
 
@@ -85,14 +88,15 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
                 try {
-                    if (AppSession.user.getEmail().equals("")) {
+                    if (sharedPreferences.getString(Constants.loginPreference, "").equals("")) {
                         it = new Intent(SplashActivity.this, LoginActivity.class);
                     } else {
                         List<User> listUser =  new UserAsync().execute(User.login).get();
+                        User usuruarioLogado = null;
                         if(listUser != null && !listUser.isEmpty()){
-                            AppSession.user = listUser.get(0);
+                            usuruarioLogado = listUser.get(0);
                         }
-                        if (AppSession.user != null) {
+                        if (usuruarioLogado != null) {
                             it = new Intent(SplashActivity.this, VonergyActivity.class);
                         } else {
                             it = new Intent(SplashActivity.this, LoginActivity.class);
