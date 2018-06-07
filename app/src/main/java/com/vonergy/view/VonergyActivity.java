@@ -129,11 +129,14 @@ public class VonergyActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent it;
         switch (item.getItemId()) {
             case R.id.action_settings:
+                it = new Intent(this, SettingActivity.class);
+                startActivity(it);
                 return true;
             case R.id.action_profile:
-                Intent it = new Intent(this, ProfileActivity.class);
+                it = new Intent(this, ProfileActivity.class);
                 startActivity(it);
                 return true;
             case R.id.action_sair:

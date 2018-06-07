@@ -44,7 +44,6 @@ dependencies {
     // Graficos
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
-
     // para requisições http
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 

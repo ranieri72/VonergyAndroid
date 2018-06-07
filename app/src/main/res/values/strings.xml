@@ -103,4 +103,8 @@
     <string name="consumoPorHora">Seu consumo por hora</string>
     <string name="consumoMensal">Seu consumo mensal</string>
     <string name="consumoSemanal">Seu consumo semanal</string>
+    <string name="limite_minino">Limite mínimo (kwh)</string>
+    <string name="limite_medio">Limite médio (kwh)</string>
+    <string name="limite_maximo">Limite máximo (kwh)</string>
+    <string name="configurar">Configurar</string>
 </resources>
