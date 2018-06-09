@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             task.setProgressBar(mProgressBar);
             AppSession.user = user;
             List<User> userList = task.execute(User.login).get();
-            if (userList != null && !userList.isEmpty()) {
+            if (userList != null && !userList.isEmpty() && userList.get(0) != null) {
                 AppSession.user = userList.get(0);
                 if (checked) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
