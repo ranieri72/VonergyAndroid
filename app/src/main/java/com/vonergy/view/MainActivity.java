@@ -20,8 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-//import com.google.android.gms.auth.api.signin.GoogleSignIn;
-//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView mName;
     TextView mEmail;
     private SharedPreferences sharedPreferences;
-//    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -135,16 +135,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AppSession.user = null;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.passwordPreference, "");
-//        editor.apply();
-//        mGoogleSignInClient.signOut()
-//                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        Intent it = new Intent(MainActivity.this, LoginActivity.class);
-//                        startActivity(it);
-//                        finish();
-//                    }
-//                });
+        editor.apply();
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
     }
 
     private void showViewSelected(int ItemId) {

@@ -8,7 +8,7 @@ public class ConnectionConstants {
     private static final String http = "https://";
     private static final String api = "/api/";
 
-    private static final String user = "FuncionarioMobile/";
+    private static final String user = "Funcionario/";
     public static final String login = user + "Acessar";
     public static final String listUser = user + "listar";
 

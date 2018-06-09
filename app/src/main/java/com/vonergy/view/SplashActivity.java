@@ -1,18 +1,16 @@
 package com.vonergy.view;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ProgressBar;
 import android.util.Log;
+import android.widget.ProgressBar;
 
-import com.vonergy.R;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.vonergy.R;
 import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
 import com.vonergy.connection.ConnectionConstants;
@@ -41,9 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         redirect();
     }
 
-    public void redirect(){
-        //FirebaseApp.initializeApp(this);
-        //refreshedToken = FirebaseApp.getInstance().getToken(false);
+    public void redirect() {
         Util.refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("Firebase", "Refreshed token: " + refreshedToken);
 
@@ -56,23 +52,20 @@ public class SplashActivity extends AppCompatActivity {
                 Util.ipv4 = sharedPreferences.getString(Constants.serverIpPreference, ConnectionConstants.ipv4);
 
                 User user = new User();
-
-
-//        AppSession.user = new User();
-////        AppSession.user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
-////        AppSession.user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
-////        AppSession.user.setFirebaseToken(refreshedToken);
+                user.setEmail(sharedPreferences.getString(Constants.loginPreference, ""));
+                user.setPassword(sharedPreferences.getString(Constants.passwordPreference, ""));
+                user.setFirebaseToken(refreshedToken);
 
                 Intent it = null;
 
-                while(progressStatus < 100){
+                while (progressStatus < 100) {
                     // Update the progress status
-                    progressStatus +=1;
+                    progressStatus += 1;
 
                     // Try to sleep the thread for 20 milliseconds
-                    try{
+                    try {
                         Thread.sleep(30);
-                    }catch(InterruptedException e){
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
@@ -88,15 +81,14 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
                 try {
-                    if (sharedPreferences.getString(Constants.loginPreference, "").equals("")) {
+                    if (user.getEmail().equals("") || user.getPassword().equals("")) {
                         it = new Intent(SplashActivity.this, LoginActivity.class);
                     } else {
-                        List<User> listUser =  new UserAsync().execute(User.login).get();
-                        User usuruarioLogado = null;
-                        if(listUser != null && !listUser.isEmpty()){
-                            usuruarioLogado = listUser.get(0);
+                        List<User> listUser = new UserAsync().execute(User.login).get();
+                        if (listUser != null && !listUser.isEmpty()) {
+                            user = listUser.get(0);
                         }
-                        if (usuruarioLogado != null) {
+                        if (user != null) {
                             it = new Intent(SplashActivity.this, VonergyActivity.class);
                         } else {
                             it = new Intent(SplashActivity.this, LoginActivity.class);
@@ -110,11 +102,10 @@ public class SplashActivity extends AppCompatActivity {
                     if (it == null) {
                         it = new Intent(SplashActivity.this, LoginActivity.class);
                     }
+                    AppSession.user = user;
                     startActivity(it);
                     finish();
                 }
-                // Fecha esta activity
-                finish();
             }
         }).start(); // Start the operation
 

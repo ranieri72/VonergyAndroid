@@ -14,11 +14,10 @@ import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-//import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.vonergy.R;
@@ -27,6 +26,7 @@ import com.vonergy.connection.AppSession;
 import com.vonergy.model.User;
 import com.vonergy.util.Constants;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
@@ -37,7 +37,6 @@ import static com.vonergy.util.Util.refreshedToken;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
 
     @BindView(R.id.edtLogin)
@@ -49,10 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.progressBarLogin)
     ProgressBar mProgressBar;
 
-    //@BindView(R.id.sign_in_button)
-    //SignInButton mSignInButton;
-
-//    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
     private boolean checked = false;
     private SharedPreferences sharedPreferences;
 
@@ -67,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
         mLogin.setText(sharedPreferences.getString(Constants.loginPreference, ""));
@@ -85,12 +81,14 @@ public class LoginActivity extends AppCompatActivity {
         try {
             UserAsync task = new UserAsync();
             task.setProgressBar(mProgressBar);
-            user = task.execute(User.login).get().get(0);
-            if (user != null) {
+            AppSession.user = user;
+            List<User> userList = task.execute(User.login).get();
+            if (userList != null && !userList.isEmpty()) {
+                AppSession.user = userList.get(0);
                 if (checked) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.loginPreference, user.getEmail());
-                    editor.putString(Constants.passwordPreference, user.getPassword());
+                    editor.putString(Constants.loginPreference, AppSession.user.getEmail());
+                    editor.putString(Constants.passwordPreference, AppSession.user.getPassword());
                     editor.apply();
                 }
                 Intent it = new Intent(this, VonergyActivity.class);
@@ -111,22 +109,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        if (account != null) {
-//            AppSession.user.setName(account.getDisplayName());
-//            AppSession.user.setEmail(account.getEmail());
-//            Intent it = new Intent(this, MainActivity.class);
-//            startActivity(it);
-//            finish();
-//        }
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            AppSession.user.setName(account.getDisplayName());
+            AppSession.user.setEmail(account.getEmail());
+            Intent it = new Intent(this, VonergyActivity.class);
+            startActivity(it);
+            finish();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//            handleSignInResult(task);
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
     }
 
@@ -137,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
             u.setEmail(account.getDisplayName());
             u.setPassword(account.getEmail());
             AppSession.user = u;
-            Intent it = new Intent(this, MainActivity.class);
+            Intent it = new Intent(this, VonergyActivity.class);
             startActivity(it);
             finish();
         } catch (ApiException e) {
@@ -145,11 +143,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-/*    @OnClick(R.id.sign_in_button)
+    @OnClick(R.id.sign_in_button)
     public void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }*/
+    }
 
     public void onCheckboxClicked(View view) {
         checked = ((CheckBox) view).isChecked();

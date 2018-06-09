@@ -3,26 +3,32 @@ package com.vonergy.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.vonergy.R;
+import com.vonergy.connection.AppSession;
 import com.vonergy.model.Consumption;
 import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ConsumoDiarioFragment;
 import com.vonergy.view.fragment.ConsumoMensalFragment;
 import com.vonergy.view.fragment.ConsumoPorHoraFragment;
 import com.vonergy.view.fragment.ConsumoTempoRealFragment;
-import com.vonergy.view.fragment.ProfileFragment;
 
 public class VonergyActivity extends AppCompatActivity {
 
@@ -40,22 +46,25 @@ public class VonergyActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    private GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vonergy);
 
+        sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        sharedPreferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
-
-
         buildViewPager();
-
-
     }
 
     private void buildViewPager() {
@@ -100,7 +109,6 @@ public class VonergyActivity extends AppCompatActivity {
                 default:
                     return null;
             }
-
         }
 
         @Override
@@ -123,8 +131,6 @@ public class VonergyActivity extends AppCompatActivity {
                     return "";
             }
         }
-
-
     }
 
     @Override
@@ -147,15 +153,20 @@ public class VonergyActivity extends AppCompatActivity {
         }
     }
 
-    void logout(){
-
+    void logout() {
+        AppSession.user = null;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.passwordPreference, "");
-        editor.putString(Constants.loginPreference, "");
-
-        Intent it = new Intent(this, LoginActivity.class);
-        startActivity(it);
-
+        editor.apply();
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent it = new Intent(VonergyActivity.this, LoginActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
     }
 
     @Override
