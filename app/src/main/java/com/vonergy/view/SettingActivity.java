@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vonergy.R;
+import com.vonergy.db.DAOVonergy;
+import com.vonergy.model.Parametro;
 import com.vonergy.util.Constants;
 
 import butterknife.BindView;
@@ -36,6 +38,8 @@ public class SettingActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
 
+    DAOVonergy mDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,20 +49,15 @@ public class SettingActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        preferences = getSharedPreferences(Constants.vonergyPreference, Context.MODE_PRIVATE);
+        mDAO = new DAOVonergy(this);
 
-        if(preferences.getFloat(Constants.LIMITE_MINIMO, 0) != 0){
-            mEdtLimiteMinimo.setText(String.valueOf(preferences.getFloat(Constants.LIMITE_MINIMO, 0)));
+        Parametro parametro = mDAO.getParametros();
+        if(parametro != null){
+            mEdtLimiteMinimo.setText(String.valueOf(parametro.getLimiteMinimo()));
+            mEdtLimiteMedio.setText(String.valueOf(parametro.getLimiteMedio()));
+            mEdtLimiteMaximo.setText(String.valueOf(parametro.getLimiteMaximo()));
+
         }
-
-        if(preferences.getFloat(Constants.LIMITE_MEDIO, 0) != 0){
-            mEdtLimiteMedio.setText(String.valueOf(preferences.getFloat(Constants.LIMITE_MEDIO, 0)));
-        }
-
-        if(preferences.getFloat(Constants.LIMITE_MAXIMO, 0) != 0){
-            mEdtLimiteMaximo.setText(String.valueOf(preferences.getFloat(Constants.LIMITE_MAXIMO, 0)));
-        }
-
         mBtnConfigurar.setOnClickListener(new BotaoConfigurar());
     }
 
@@ -95,11 +94,13 @@ public class SettingActivity extends AppCompatActivity {
                 mEdtLimiteMedio.setError("Verificar");
             }
 
-            SharedPreferences.Editor editor = preferences.edit();
 
-            editor.putFloat(Constants.LIMITE_MINIMO, limiteMinimo);
-            editor.putFloat(Constants.LIMITE_MEDIO, limiteMedio);
-            editor.putFloat(Constants.LIMITE_MAXIMO, limiteMaximo);
+            Parametro parametro = new Parametro(limiteMinimo, limiteMedio, limiteMaximo);
+            if(!mDAO.existeParametro()){
+                mDAO.insertParamentos(parametro);
+            }else{
+                mDAO.updateParametros(parametro);
+            }
 
             Toast.makeText(SettingActivity.this, "Configurações realizadas com sucesso", Toast.LENGTH_SHORT).show();
 
