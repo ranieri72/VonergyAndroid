@@ -32,8 +32,6 @@ public class ConsumoTempoRealFragment extends Fragment {
 
     private String formatoData;
 
-    private ProgressDialog pDialog;
-
     private float maxValue;
 
     private Handler mHandler;
@@ -58,6 +56,7 @@ public class ConsumoTempoRealFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_consumo_tempo_real, container, false);
         speedometer = layout.findViewById(R.id.tempView);
+        mProgressBar = layout.findViewById(R.id.progressBarLogin);
 
         Bundle args = getArguments();
         tipoConsumo = args.getInt(CHAVE_TIPO_CONSUMO, 0);
@@ -159,15 +158,7 @@ public class ConsumoTempoRealFragment extends Fragment {
 //        unbinder.unbind();
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 
 
 }

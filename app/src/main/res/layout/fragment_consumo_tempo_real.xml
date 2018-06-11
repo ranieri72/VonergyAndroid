@@ -14,7 +14,10 @@
         android:layout_marginLeft="@dimen/medium_padding"
         android:layout_marginRight="@dimen/medium_padding"
         android:layout_marginTop="@dimen/very_large_padding"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
+
+      <include layout="@layout/progress_loading"></include>
 
         <TextView
             android:layout_width="match_parent"

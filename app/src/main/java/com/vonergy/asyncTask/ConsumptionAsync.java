@@ -1,5 +1,6 @@
 package com.vonergy.asyncTask;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>
 
     private ProgressBar bar;
 
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -26,6 +28,8 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>
             bar.setVisibility(View.VISIBLE);
         }
     }
+
+
 
     @Override
     protected List<Consumption> doInBackground(Integer... params) {
