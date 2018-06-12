@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,12 +30,18 @@ import com.vonergy.view.fragment.ConsumoDiarioFragment;
 import com.vonergy.view.fragment.ConsumoMensalFragment;
 import com.vonergy.view.fragment.ConsumoPorHoraFragment;
 import com.vonergy.view.fragment.ConsumoTempoRealFragment;
+import com.vonergy.view.fragment.ListDeviceFragment;
+import com.vonergy.view.fragment.ListUserFragment;
+import com.vonergy.view.fragment.ListDeviceActivity;
 
 public class VonergyActivity extends AppCompatActivity {
 
     ViewPager mViewPager;
 
     SelectorPageAdapter selectorPageAdapter;
+    ListUserFragment mListUserFragment;
+
+    ListDeviceFragment mListDeviceFragment;
 
     ConsumoTempoRealFragment mConsumoTempoRealFragment;
 
@@ -137,17 +144,31 @@ public class VonergyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent it;
         switch (item.getItemId()) {
+            case R.id.action_list_devices:
+                it = new Intent(this, ListDeviceActivity.class);
+                startActivity(it);
+
+                return true;
+
+            case R.id.action_list_users:
+                it = new Intent(this, ListUserFragment.class);
+                startActivity(it);
+                return true;
+
             case R.id.action_settings:
                 it = new Intent(this, SettingActivity.class);
                 startActivity(it);
                 return true;
+
             case R.id.action_profile:
                 it = new Intent(this, ProfileActivity.class);
                 startActivity(it);
                 return true;
+
             case R.id.action_sair:
                 logout();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -175,5 +196,6 @@ public class VonergyActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 }
 

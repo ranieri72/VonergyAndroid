@@ -76,6 +76,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.VonergyActivity" />
         </activity>
+        <activity android:name=".view.fragment.ListDeviceActivity"></activity>
     </application>
 
 </manifest>
