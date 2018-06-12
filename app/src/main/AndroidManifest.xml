@@ -76,7 +76,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.VonergyActivity" />
         </activity>
-        <activity android:name=".view.fragment.ListDeviceActivity"></activity>
+        <activity
+            android:name=".view.fragment.ListDeviceActivity"
+            android:label="@string/list_device"
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.VonergyActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.VonergyActivity" />
+        </activity>
+        <activity
+            android:name=".view.DetailDeviceActivity"
+            android:label="Detalhes"
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.VonergyActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.VonergyActivity" />
+        </activity>
     </application>
 
 </manifest>

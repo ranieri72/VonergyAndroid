@@ -2,16 +2,14 @@ package com.vonergy.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vonergy.R;
 import com.vonergy.model.Device;
@@ -43,7 +41,7 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             TextView txt = convertView.findViewById(R.id.name_device);
 
             //3)
-           // vh.listDevices = convertView.findViewById(R.id.list_devices);
+            // vh.listDevices = convertView.findViewById(R.id.list_devices);
             vh.name = convertView.findViewById(R.id.name_device);
             vh.model = convertView.findViewById(R.id.model_value);
             vh.brand = convertView.findViewById(R.id.brand_value);
@@ -59,12 +57,10 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
                 public void onClick(View v) {
                     //Toast.makeText(context, "O id foi: "+device.getId()+" E o nome é: "+device.getName().toString(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), DetailDeviceActivity.class);
-                    //Get the value of the item you clicked
-                    intent.putExtra("id_device", device.getId());
-                    intent.putExtra("model_device", device.getModel().toString());
-                    intent.putExtra("name_device", device.getName().toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("device", device);
+                    intent.putExtras(bundle);
                     context.startActivity(intent);
-
                 }
             });
 

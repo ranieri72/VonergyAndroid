@@ -2,7 +2,12 @@ package com.vonergy.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Device {
+import java.io.Serializable;
+
+public class Device implements Serializable {
+
+    public static final int list = 1;
+    public static final int edit = 2;
 
     @SerializedName("Id")
     private long id;
@@ -33,6 +38,9 @@ public class Device {
 
     @SerializedName("CorrenteMaxima")
     private float maximumCurrent;
+
+    @SerializedName("Status")
+    private int status;
 
     public long getId() {
         return id;
@@ -113,4 +121,8 @@ public class Device {
     public void setMaximumCurrent(float maximumCurrent) {
         this.maximumCurrent = maximumCurrent;
     }
+
+    public int getStatus() { return status; }
+
+    public void setStatus(int status) { this.status = status; }
 }

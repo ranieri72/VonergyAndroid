@@ -5,16 +5,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.connection.Requester;
 import com.vonergy.model.Device;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-public class DeviceAsync extends AsyncTask<Void, Void, List<Device>> {
+public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
 
     private ProgressBar bar;
 
@@ -27,14 +22,12 @@ public class DeviceAsync extends AsyncTask<Void, Void, List<Device>> {
     }
 
     @Override
-    protected List<Device> doInBackground(Void... params) {
+    protected Device doInBackground(Device... params) {
         Gson gson = new Gson();
-
         try {
-            String response = new Requester().get(ConnectionConstants.listDevice);
-            Type listType = new TypeToken<ArrayList<Device>>() {
-            }.getType();
-            return gson.fromJson(response, listType);
+            String jsonString = gson.toJson(params[0], Device.class);
+            String response = new Requester().post(ConnectionConstants.editDevice, jsonString);
+            return gson.fromJson(response, Device.class);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -42,14 +35,10 @@ public class DeviceAsync extends AsyncTask<Void, Void, List<Device>> {
     }
 
     @Override
-    protected void onPostExecute(List<Device> listDevice) {
-        super.onPostExecute(listDevice);
+    protected void onPostExecute(Device device) {
+        super.onPostExecute(device);
         if (bar != null) {
             bar.setVisibility(View.GONE);
         }
-    }
-
-    public void setProgressBar(ProgressBar bar) {
-        this.bar = bar;
     }
 }

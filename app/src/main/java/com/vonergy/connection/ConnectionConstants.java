@@ -20,7 +20,9 @@ public class ConnectionConstants {
     public static final String monthlyConsumption = consumption + "ConsumoMesal";
     public static final String annualConsumption = consumption + "ConsumoAnual";
 
-    public static final String device = "Equipamento/listar";
+    private static final String device = "Equipamento/";
+    public static final String listDevice = device + "listar";
+    public static final String editDevice = device + "Alterar";
 
     public static String getServerUrl(String ip) {
         return http + ip + api;

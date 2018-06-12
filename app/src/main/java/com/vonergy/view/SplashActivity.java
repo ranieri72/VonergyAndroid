@@ -84,11 +84,10 @@ public class SplashActivity extends AppCompatActivity {
                     if (user.getEmail().equals("") || user.getPassword().equals("")) {
                         it = new Intent(SplashActivity.this, LoginActivity.class);
                     } else {
+                        AppSession.user = user;
                         List<User> listUser = new UserAsync().execute(User.login).get();
-                        if (listUser != null && !listUser.isEmpty()) {
-                            user = listUser.get(0);
-                        }
-                        if (user != null) {
+                        if (listUser != null && !listUser.isEmpty() && listUser.get(0) != null) {
+                            AppSession.user = listUser.get(0);
                             it = new Intent(SplashActivity.this, VonergyActivity.class);
                         } else {
                             it = new Intent(SplashActivity.this, LoginActivity.class);

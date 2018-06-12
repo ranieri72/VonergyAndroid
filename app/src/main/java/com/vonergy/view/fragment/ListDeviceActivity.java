@@ -1,7 +1,7 @@
 package com.vonergy.view.fragment;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.vonergy.R;
@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-
 
 public class ListDeviceActivity extends AppCompatActivity {
 
@@ -30,6 +29,7 @@ public class ListDeviceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_device);
+        ButterKnife.bind(this);
 
         DeviceAsync task = new DeviceAsync();
         try {
@@ -43,12 +43,8 @@ public class ListDeviceActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
     }
-
-
-
-    }
+}
 
 
 

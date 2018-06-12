@@ -9,7 +9,7 @@
     <string name="error">Erro!</string>
 
     // Login
-
+    <string name="vonergy">Vonergy</string>
     <string name="login">Login</string>
     <string name="cpf">CPF</string>
     <string name="password">Senha</string>
@@ -62,6 +62,7 @@
     <string name="monthly_history">Mensal</string>
     <string name="annual_history">Anual</string>
     <string name="list_user">Lista de usuários</string>
+    <string name="list_device">Lista de Equipamentos</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -72,7 +73,39 @@
     <string name="consumo_atual">Consumo Atual</string>
     <string name="consumo">Consumo</string>
     <string name="buscando">Buscando</string>
-    <string name="kilowatt">%.1f kWh</string>
+    <string name="cost">Custo: R$%,2f</string>
+    <string name="kilowatt">%,1f kWh</string>
     <string name="consumptionError">Erro ao buscar consumo!</string>
     <string name="noConsumption">Não há dados de consumo!</string>
+
+    // Device
+    <string name="model">Modelo:</string>
+    <string name="brand">Marca:</string>
+    <string name="minimumPower">Min. Potência:</string>
+    <string name="maximumPower">Max. Potência:</string>
+    <string name="minimumVoltage">Min. Voltagem:</string>
+    <string name="maximumVoltage">Max. Voltagem:</string>
+    <string name="minimalCurrent">Min. Corrente:</string>
+    <string name="maximumCurrent">Max. Corrente:</string>
+    <string name="maximumCost">Max. Custo:</string>
+    <string name="deviceID">Id Equipamento:</string>
+    <string name="deviceSerial">Número de Série:</string>
+    <string name="turn_on_off">Ligar/Desligar:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="url">vonergyapi.azurewebsites.net</string>
+    <string name="edt_username">Email</string>
+    <string name="edt_password">Senha</string>
+    <string name="bnt_login">Entrar</string>
+    <string name="consumoTempoReal">Seu consumo agora</string>
+    <string name="consumoDiario">Seu consumo diário</string>
+    <string name="consumoPorHora">Seu consumo por hora</string>
+    <string name="consumoMensal">Seu consumo mensal</string>
+    <string name="consumoSemanal">Seu consumo semanal</string>
+    <string name="limite_minino">Limite mínimo (kwh)</string>
+    <string name="limite_medio">Limite médio (kwh)</string>
+    <string name="limite_maximo">Limite máximo (kwh)</string>
+    <string name="configurar">Configurar</string>
 </resources>

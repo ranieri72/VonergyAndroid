@@ -73,8 +73,8 @@
     <string name="consumo_atual">Current Consumption</string>
     <string name="consumo">Consumption</string>
     <string name="buscando">Seeking</string>
-    <string name="cost">Cost: R$%.2f</string>
-    <string name="kilowatt">%.1f kWh</string>
+    <string name="cost">Cost: R$%,2f</string>
+    <string name="kilowatt">%,1f kWh</string>
     <string name="consumptionError">Error fetching consumption!</string>
     <string name="noConsumption">There is no consumption data!</string>
 
@@ -90,21 +90,22 @@
     <string name="maximumCost">Max. Cost:</string>
     <string name="deviceID">Id Device:</string>
     <string name="deviceSerial">Serial Number:</string>
+    <string name="turn_on_off">Turn On/Off:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="url">vonergyapi.azurewebsites.net</string>
     <string name="edt_username">Email</string>
-    <string name="edt_password">Senha</string>
-    <string name="bnt_login">Entrar</string>
-    <string name="consumoTempoReal">Seu consumo agora</string>
-    <string name="consumoDiario">Seu consumo diário</string>
-    <string name="consumoPorHora">Seu consumo por hora</string>
-    <string name="consumoMensal">Seu consumo mensal</string>
-    <string name="consumoSemanal">Seu consumo semanal</string>
-    <string name="limite_minino">Limite mínimo (kwh)</string>
-    <string name="limite_medio">Limite médio (kwh)</string>
-    <string name="limite_maximo">Limite máximo (kwh)</string>
-    <string name="configurar">Configurar</string>
+    <string name="edt_password">Password</string>
+    <string name="bnt_login">Login</string>
+    <string name="consumoTempoReal">Your consumption now</string>
+    <string name="consumoDiario">Your daily consumption</string>
+    <string name="consumoPorHora">Your consumption per hour</string>
+    <string name="consumoMensal">Your monthly consumption</string>
+    <string name="consumoSemanal">Your weekly consumption</string>
+    <string name="limite_minino">Minimum limit (kwh)</string>
+    <string name="limite_medio">Middle limit (kwh)</string>
+    <string name="limite_maximo">Maximum limit (kwh)</string>
+    <string name="configurar">Set up</string>
 </resources>

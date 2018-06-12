@@ -1,54 +1,101 @@
 package com.vonergy.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.vonergy.R;
-import com.vonergy.view.adapter.DeviceAdapter;
+import com.vonergy.asyncTask.EditDeviceAsync;
+import com.vonergy.model.Device;
+
+import java.util.concurrent.ExecutionException;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailDeviceActivity extends AppCompatActivity {
+
+    @BindView(R.id.name_device_value)
+    EditText name;
+
+    @BindView(R.id.model_value)
+    EditText model;
+
+    @BindView(R.id.brand_value)
+    EditText brand;
+
+    @BindView(R.id.minimumPower_value)
+    EditText minimumPower;
+
+    @BindView(R.id.maximumPower_value)
+    EditText maximumPower;
+
+    @BindView(R.id.minimumVoltage_value)
+    EditText minimumVoltage;
+
+    @BindView(R.id.maximumVoltage_value)
+    EditText maximumVoltage;
+
+    @BindView(R.id.switch_on_off_dt)
+    Switch switchOnOff;
+
+    Device device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_device);
+        ButterKnife.bind(this);
 
-        // Get the Intent that started this activity and extract the string
-        Intent intent      = getIntent();
-        String idDevice    = intent.getStringExtra("id_device");
-        String modelDevice = intent.getStringExtra("model_device");
-        String nameDevice  = intent.getStringExtra("name_device");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
 
-        ViewHolder vh;
-        vh = new ViewHolder();
-
-        //3)
-        vh.name         = findViewById(R.id.name_device_value_dt);
-        vh.model        = findViewById(R.id.model_value_dt);
-        vh.id           = findViewById(R.id.deviceID_value_dt);
-        vh.maxCost      = findViewById(R.id.maxCost_value_dt);
-        vh.serialNumber = findViewById(R.id.serialNumber_value_dt);
-
-
-        vh.name.setText(nameDevice);
-        vh.model.setText(modelDevice);
-        vh.id.setText(idDevice);
-        vh.maxCost.setText("9854");
-        vh.serialNumber.setText("SR-56874");
-
-       // Toast.makeText(this.getApplicationContext(), "A INTENT FOI: "+message, Toast.LENGTH_SHORT).show();
-
+        assert bundle != null;
+        device = (Device) bundle.getSerializable("device");
+        setDevice(device);
     }
 
-    private static class ViewHolder {
-        TextView name;
-        TextView model;
-        TextView id;
-        TextView maxCost;
-        TextView serialNumber;
+    @OnClick(R.id.btnSave)
+    public void edit() {
+        EditDeviceAsync task = new EditDeviceAsync();
+        try {
+            device.setName(name.getText().toString());
+            device.setModel(model.getText().toString());
+            device.setBrand(brand.getText().toString());
+            device.setMinimumPower(Float.parseFloat(minimumPower.getText().toString()));
+            device.setMaximumPower(Float.parseFloat(maximumPower.getText().toString()));
+            device.setMinimumVoltage(Float.parseFloat(minimumVoltage.getText().toString()));
+            device.setMaximumVoltage(Float.parseFloat(maximumVoltage.getText().toString()));
+            device.setStatus(switchOnOff.isChecked() ? 1 : 0);
+
+            device = task.execute(device).get();
+            if (device != null && !device.getName().isEmpty()) {
+                setDevice(device);
+                Toast.makeText(this, getString(R.string.savedMsg), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+        }
     }
 
+    private void setDevice(Device device) {
+        name.setText(device.getName());
+        model.setText(device.getModel());
+        brand.setText(device.getBrand());
+        minimumPower.setText(String.valueOf(device.getMinimumPower()));
+        maximumPower.setText(String.valueOf(device.getMaximumPower()));
+        minimumVoltage.setText(String.valueOf(device.getMinimumVoltage()));
+        maximumVoltage.setText(String.valueOf(device.getMaximumVoltage()));
+        switchOnOff.setChecked(device.getStatus() == 1);
+    }
 }
