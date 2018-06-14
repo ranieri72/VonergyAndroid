@@ -49,15 +49,12 @@ public class DetailDeviceActivity extends AppCompatActivity {
 
     Device device;
 
-    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_device);
         ButterKnife.bind(this);
-
-        mProgressDialog = new ProgressDialog(this);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -71,7 +68,6 @@ public class DetailDeviceActivity extends AppCompatActivity {
     @OnClick(R.id.btnSalvarConfiguracao)
     public void edit() {
         EditDeviceAsync task = new EditDeviceAsync();
-        task.setProgressDialog(this.mProgressDialog);
         try {
             device.setName(name.getText().toString());
             device.setModel(model.getText().toString());
