@@ -15,7 +15,7 @@ public class ConnectionConstants {
     private static final String consumption = "Consumo/";
     public static final String consumptionInRealTime = consumption + "ConsumoReal";
     public static final String consumptionPerHour = consumption + "ConsumoHora";
-    public static final String dailyConsumption = consumption + "ConsumoDiario";
+    public static final String dailyConsumption = consumption + "ConsumoDiarioDicionario";
     public static final String weeklyConsumption = consumption + "ConsumoSemanal";
     public static final String monthlyConsumption = consumption + "ConsumoMesal";
     public static final String annualConsumption = consumption + "ConsumoAnual";

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_color"
+    android:layout_margin="@dimen/medium_padding"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/small_padding">
+
+        <TextView
+            android:id="@+id/txtNomeUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="@dimen/medium_padding"
+            android:paddingTop="@dimen/medium_padding"
+            android:text="@string/nome"
+            android:textColor="@color/black_color"
+            android:textSize="@dimen/text_large"/>
+
+        <TextView
+            android:id="@+id/txtEmailUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/txtNomeUsuario"
+            android:paddingLeft="@dimen/medium_padding"
+            android:paddingTop="@dimen/very_small_padding"
+            android:text="Cerveja Antartica gelada"
+            android:textColor="@color/cinza_claro"
+            android:textSize="@dimen/text_medium"/>/
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

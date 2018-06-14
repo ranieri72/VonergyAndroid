@@ -3,11 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.ListDeviceFragment">
+    tools:context=".view.fragment.ListDeviceFragment"
+    android:background="@drawable/gradient_background">
 
-    <ListView
-        android:id="@+id/listDevice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_padding"
+        android:layout_margin="@dimen/medium_padding"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_padding"
+
+            android:background="@color/white"
+            android:text="@string/consumoMensal"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large" />
+
+        <ListView
+            android:id="@+id/listDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTitulo"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

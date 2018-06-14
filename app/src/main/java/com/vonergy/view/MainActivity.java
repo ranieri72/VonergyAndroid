@@ -32,7 +32,6 @@ import com.vonergy.util.Constants;
 import com.vonergy.view.fragment.ChartFragment;
 import com.vonergy.view.fragment.GaugeFragment;
 import com.vonergy.view.fragment.ListDeviceFragment;
-import com.vonergy.view.fragment.ListUserFragment;
 import com.vonergy.view.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -179,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle(R.string.profile);
                 break;
             case R.id.nav_list_user:
-                fragment = new ListUserFragment();
+//                fragment = new ListUserFragment();
                 setTitle(R.string.list_user);
                 break;
             case R.id.nav_list_device:

@@ -47,13 +47,9 @@
         <activity
             android:name=".view.ConfigActivity"
             android:screenOrientation="portrait" />
-        <!--
-            <activity
-            android:name=".view.MainActivity"
-            android:label="@string/home"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        -->
+
+
+
 
         <service android:name=".util.MyFirebaseMessagingService">
             <intent-filter>
@@ -92,6 +88,18 @@
             android:launchMode="singleTop"
             android:parentActivityName=".view.VonergyActivity"
             android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.VonergyActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.ListUserActivity"
+            android:label="@string/list_user"
+            android:launchMode="singleTop"
+            android:parentActivityName=".view.VonergyActivity"
+            android:screenOrientation="portrait">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.VonergyActivity" />

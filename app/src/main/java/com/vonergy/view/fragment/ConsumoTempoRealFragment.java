@@ -2,6 +2,7 @@ package com.vonergy.view.fragment;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,9 @@ import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.db.DAOVonergy;
 import com.vonergy.model.Consumption;
+import com.vonergy.model.Parametro;
 
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +43,8 @@ public class ConsumoTempoRealFragment extends Fragment {
 
     SpeedView speedometer;
 
+    DAOVonergy mDAO;
+
     public ConsumoTempoRealFragment() {
         // Required empty public constructor
     }
@@ -57,6 +62,7 @@ public class ConsumoTempoRealFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_consumo_tempo_real, container, false);
         speedometer = layout.findViewById(R.id.tempView);
         mProgressBar = layout.findViewById(R.id.progressBarLogin);
+        mDAO = new DAOVonergy(getActivity());
 
         Bundle args = getArguments();
         tipoConsumo = args.getInt(CHAVE_TIPO_CONSUMO, 0);
@@ -78,6 +84,8 @@ public class ConsumoTempoRealFragment extends Fragment {
             if (listConsumption != null && !listConsumption.isEmpty()) {
                 value = listConsumption.get(0).getPower();
                 maxValue = Math.max(maxValue, value);
+
+
                 setupGauger(value, 0, Math.round(maxValue));
             } else {
                 dialogError(getResources().getString(R.string.noConsumption));
@@ -107,14 +115,27 @@ public class ConsumoTempoRealFragment extends Fragment {
         int seventyFive = (int) Math.round(maxValue * 0.75);
         int fifty = (int) Math.round(maxValue * 0.5);
         int twentyFive = (int) Math.round(maxValue * 0.25);
-
-//        mTemperature.setText(String.format(getResources().getString(R.string.kilowatt), tempValue));
         speedometer.setMinSpeed(minTemp);
         speedometer.setMaxSpeed(maxTemp);
         speedometer.speedTo(tempValue);
-        speedometer.setLowSpeedPercent(50);
-        speedometer.setMediumSpeedPercent(75);
-        speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
+
+        Parametro parametro = mDAO.getParametros();
+
+        if (parametro != null) {
+
+            int minimo = (int) parametro.getLimiteMinimo();
+            int medio = (int) parametro.getLimiteMedio();
+            int maximo = (int) parametro.getLimiteMaximo();
+            speedometer.setTicks(0, minimo, medio, maximo , hundred);
+
+        }else{
+
+            speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
+        }
+
+//        speedometer.setLowSpeedPercent(minimo);
+//        speedometer.setMediumSpeedPercent(medio);
+
         speedometer.setUnit("kWh");
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
             @Override

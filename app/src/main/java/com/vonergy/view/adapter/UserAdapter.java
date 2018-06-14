@@ -32,15 +32,12 @@ public class UserAdapter extends ArrayAdapter<User> {
         //2)
         ViewHolder vh;
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_2, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_usuario, null);
             vh = new ViewHolder();
 
             //3)
-            vh.txtName = convertView.findViewById(android.R.id.text1);
-            vh.txtEmail = convertView.findViewById(android.R.id.text2);
-
-            vh.txtName.setTextColor(context.getResources().getColor(R.color.white));
-            vh.txtEmail.setTextColor(context.getResources().getColor(R.color.white));
+            vh.txtName = convertView.findViewById(R.id.txtNomeUsuario);
+            vh.txtEmail = convertView.findViewById(R.id.txtEmailUsuario);
 
             convertView.setTag(vh);
         } else {

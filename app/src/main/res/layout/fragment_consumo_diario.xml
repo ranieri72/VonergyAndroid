@@ -39,6 +39,11 @@
         android:background="@color/white"
         android:paddingTop="@dimen/very_large_padding">
 
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/graficoPorDia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
 

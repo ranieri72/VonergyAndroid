@@ -1,7 +1,9 @@
-package com.vonergy.view.fragment;
+package com.vonergy.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,26 +21,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ListUserFragment extends Fragment {
+public class ListUserActivity extends AppCompatActivity {
 
     @BindView(R.id.listUser)
     ListView mListView;
+
+    @BindView(R.id.toolbar_user_list)
+    Toolbar mToolbar;
 
     Unbinder unbinder;
     UserAdapter mAdapter;
     List<User> mListUser;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_list_user, container, false);
-        unbinder = ButterKnife.bind(this, layout);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_list_user);
+        unbinder = ButterKnife.bind(this);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         UserAsync task = new UserAsync();
         try {
             mListUser = task.execute(User.listUser).get();
             if (mListUser != null && mListUser.size() > 0) {
-                mAdapter = new UserAdapter(getActivity(), mListUser);
+                mAdapter = new UserAdapter(this, mListUser);
                 mListView.setAdapter(mAdapter);
             }
         } catch (InterruptedException e) {
@@ -46,12 +54,7 @@ public class ListUserFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        return layout;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 }

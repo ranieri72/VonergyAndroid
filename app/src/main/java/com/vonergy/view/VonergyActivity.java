@@ -31,7 +31,6 @@ import com.vonergy.view.fragment.ConsumoMensalFragment;
 import com.vonergy.view.fragment.ConsumoPorHoraFragment;
 import com.vonergy.view.fragment.ConsumoTempoRealFragment;
 import com.vonergy.view.fragment.ListDeviceFragment;
-import com.vonergy.view.fragment.ListUserFragment;
 import com.vonergy.view.fragment.ListDeviceActivity;
 
 public class VonergyActivity extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class VonergyActivity extends AppCompatActivity {
     ViewPager mViewPager;
 
     SelectorPageAdapter selectorPageAdapter;
-    ListUserFragment mListUserFragment;
+    ListUserActivity mListUserActivity;
 
     ListDeviceFragment mListDeviceFragment;
 
@@ -151,7 +150,7 @@ public class VonergyActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_list_users:
-                it = new Intent(this, ListUserFragment.class);
+                it = new Intent(this, ListUserActivity.class);
                 startActivity(it);
                 return true;
 

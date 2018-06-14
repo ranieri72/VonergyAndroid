@@ -100,7 +100,7 @@
     <string name="edt_password">Senha</string>
     <string name="bnt_login">Entrar</string>
     <string name="consumoTempoReal">Seu consumo agora</string>
-    <string name="consumoDiario">Seu consumo diário</string>
+    <string name="consumoDiario">Seu consumo diário nesse mês</string>
     <string name="consumoPorHora">Seu consumo por hora</string>
     <string name="consumoMensal">Seu consumo mensal</string>
     <string name="consumoSemanal">Seu consumo semanal</string>
