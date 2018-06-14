@@ -79,32 +79,36 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     });
                 }
+                it = new Intent(SplashActivity.this, VonergyActivity.class);
+                startActivity(it);
+                finish();
 
-                try {
-                    if (user.getEmail().equals("") || user.getPassword().equals("")) {
-                        it = new Intent(SplashActivity.this, LoginActivity.class);
-                    } else {
-                        AppSession.user = user;
-                        List<User> listUser = new UserAsync().execute(User.login).get();
-                        if (listUser != null && !listUser.isEmpty() && listUser.get(0) != null) {
-                            AppSession.user = listUser.get(0);
-                            it = new Intent(SplashActivity.this, VonergyActivity.class);
-                        } else {
-                            it = new Intent(SplashActivity.this, LoginActivity.class);
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (it == null) {
-                        it = new Intent(SplashActivity.this, LoginActivity.class);
-                    }
-                    AppSession.user = user;
-                    startActivity(it);
-                    finish();
-                }
+//                try {
+//                    if (user.getEmail().equals("") || user.getPassword().equals("")) {
+//                        it = new Intent(SplashActivity.this, LoginActivity.class);
+//                    } else {
+//                        List<User> listUser = new UserAsync().execute(User.login).get();
+//                        if (listUser != null && !listUser.isEmpty()) {
+//                            user = listUser.get(0);
+//                        }
+//                        if (user != null) {
+//                            it = new Intent(SplashActivity.this, VonergyActivity.class);
+//                        } else {
+//                            it = new Intent(SplashActivity.this, LoginActivity.class);
+//                        }
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    if (it == null) {
+//                        it = new Intent(SplashActivity.this, LoginActivity.class);
+//                    }
+//                    AppSession.user = user;
+//                    startActivity(it);
+//                    finish();
+//                }
             }
         }).start(); // Start the operation
 

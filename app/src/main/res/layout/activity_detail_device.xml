@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".view.DetailDeviceActivity">
 
@@ -19,14 +19,14 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@string/model"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/name_device_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -43,14 +43,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/model"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/model_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
@@ -58,14 +58,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/brand"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/brand_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -82,14 +82,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/minimumPower"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/minimumPower_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
@@ -97,14 +97,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/maximumPower"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/maximumPower_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -121,14 +121,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/minimumVoltage"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/minimumVoltage_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
@@ -136,14 +136,14 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="@string/maximumVoltage"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <EditText
             android:id="@+id/maximumVoltage_value"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/turn_on_off"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <Switch
@@ -170,10 +170,11 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnSalvarConfiguracao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:background="@drawable/click_button_blue"
         android:text="@string/save" />
 
 </LinearLayout>

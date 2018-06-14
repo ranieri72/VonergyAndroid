@@ -52,7 +52,8 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             vh.minimalCurrent = convertView.findViewById(R.id.minimalCurrent_value);
             vh.maximumCurrent = convertView.findViewById(R.id.maximumCurrent_value);
 
-            vh.name.setOnClickListener(new View.OnClickListener() {
+
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(context, "O id foi: "+device.getId()+" E o nome é: "+device.getName().toString(), Toast.LENGTH_SHORT).show();

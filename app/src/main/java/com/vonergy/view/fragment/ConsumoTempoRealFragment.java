@@ -56,6 +56,7 @@ public class ConsumoTempoRealFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,32 +110,41 @@ public class ConsumoTempoRealFragment extends Fragment {
     };
 
 
-
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {
         int hundred = Math.round(maxValue * 1);
         int seventyFive = (int) Math.round(maxValue * 0.75);
         int fifty = (int) Math.round(maxValue * 0.5);
         int twentyFive = (int) Math.round(maxValue * 0.25);
+
         speedometer.setMinSpeed(minTemp);
-        speedometer.setMaxSpeed(maxTemp);
-        speedometer.speedTo(tempValue);
 
         Parametro parametro = mDAO.getParametros();
 
         if (parametro != null) {
 
-            int minimo = (int) parametro.getLimiteMinimo();
-            int medio = (int) parametro.getLimiteMedio();
-            int maximo = (int) parametro.getLimiteMaximo();
-            speedometer.setTicks(0, minimo, medio, maximo , hundred);
+            float minimo = parametro.getLimiteMinimo();
+            float medio =  parametro.getLimiteMedio();
+            float maximo = parametro.getLimiteMaximo();
 
-        }else{
+            float porcentagemMinimaTemp = (minimo / maximo)*100;
+            float porcentagemMaximaTemp = (medio / maximo)*100  ;
 
+            int porcentagemMinima = (int)porcentagemMinimaTemp;
+            int porcentagemMaxima = (int)porcentagemMaximaTemp;
+
+            speedometer.setMaxSpeed((int)maximo);
+            speedometer.setLowSpeedPercent(porcentagemMinima);
+            speedometer.setMediumSpeedPercent(porcentagemMaxima);
+
+            speedometer.setTicks(0, (int)minimo, (int)medio, (int)maximo);
+
+        } else {
+
+            speedometer.setMaxSpeed(maxTemp);
+            speedometer.speedTo(tempValue);
             speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
         }
 
-//        speedometer.setLowSpeedPercent(minimo);
-//        speedometer.setMediumSpeedPercent(medio);
 
         speedometer.setUnit("kWh");
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
@@ -178,8 +188,6 @@ public class ConsumoTempoRealFragment extends Fragment {
         stopRepeatingTask();
 //        unbinder.unbind();
     }
-
-
 
 
 }
