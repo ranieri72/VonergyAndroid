@@ -73,7 +73,7 @@
                 android:value=".view.VonergyActivity" />
         </activity>
         <activity
-            android:name=".view.fragment.ListDeviceActivity"
+            android:name=".view.ListDeviceActivity"
             android:label="@string/list_device"
             android:launchMode="singleTop"
             android:parentActivityName=".view.VonergyActivity"

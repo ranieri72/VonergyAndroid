@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.firebaseui:firebase-ui-auth:3.2.2'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     // Velocimetro
     implementation 'com.github.anastr:speedviewlib:1.1.6'

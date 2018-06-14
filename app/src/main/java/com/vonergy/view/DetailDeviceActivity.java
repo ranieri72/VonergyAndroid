@@ -1,8 +1,10 @@
 package com.vonergy.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -10,6 +12,8 @@ import android.widget.Toast;
 import com.vonergy.R;
 import com.vonergy.asyncTask.EditDeviceAsync;
 import com.vonergy.model.Device;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.ExecutionException;
 
@@ -45,23 +49,29 @@ public class DetailDeviceActivity extends AppCompatActivity {
 
     Device device;
 
+    ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_device);
         ButterKnife.bind(this);
 
+        mProgressDialog = new ProgressDialog(this);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
         assert bundle != null;
         device = (Device) bundle.getSerializable("device");
+        Log.i("ID - EQUIPAMENTO", String.valueOf(device.getId()));
         setDevice(device);
     }
 
-    @OnClick(R.id.btnSave)
+    @OnClick(R.id.btnSalvarConfiguracao)
     public void edit() {
         EditDeviceAsync task = new EditDeviceAsync();
+        task.setProgressDialog(this.mProgressDialog);
         try {
             device.setName(name.getText().toString());
             device.setModel(model.getText().toString());
@@ -76,6 +86,10 @@ public class DetailDeviceActivity extends AppCompatActivity {
             if (device != null && !device.getName().isEmpty()) {
                 setDevice(device);
                 Toast.makeText(this, getString(R.string.savedMsg), Toast.LENGTH_LONG).show();
+                EventBus.getDefault().post(device);
+                Intent it = new Intent(DetailDeviceActivity.this, ListDeviceActivity.class);
+                startActivity(it);
+                finish();
             } else {
                 Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
             }
@@ -98,4 +112,6 @@ public class DetailDeviceActivity extends AppCompatActivity {
         maximumVoltage.setText(String.valueOf(device.getMaximumVoltage()));
         switchOnOff.setChecked(device.getStatus() == 1);
     }
+
+
 }

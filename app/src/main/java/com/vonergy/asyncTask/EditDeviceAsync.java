@@ -1,5 +1,6 @@
 package com.vonergy.asyncTask;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,11 +14,25 @@ public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
 
     private ProgressBar bar;
 
+    private ProgressDialog mProgressDialog;
+
+    public ProgressDialog getProgressDialog() {
+        return mProgressDialog;
+    }
+
+    public void setProgressDialog(ProgressDialog mProgressDialog) {
+        this.mProgressDialog = mProgressDialog;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         if (bar != null) {
             bar.setVisibility(View.VISIBLE);
+        }
+        if(mProgressDialog != null){
+            mProgressDialog.setMessage("Por favor, aguarde!");
+            mProgressDialog.show();
         }
     }
 
@@ -39,6 +54,10 @@ public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
         super.onPostExecute(device);
         if (bar != null) {
             bar.setVisibility(View.GONE);
+        }
+
+        if(mProgressDialog != null){
+            mProgressDialog.hide();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.vonergy.view.fragment;
+package com.vonergy.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

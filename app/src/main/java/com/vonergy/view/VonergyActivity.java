@@ -31,7 +31,6 @@ import com.vonergy.view.fragment.ConsumoMensalFragment;
 import com.vonergy.view.fragment.ConsumoPorHoraFragment;
 import com.vonergy.view.fragment.ConsumoTempoRealFragment;
 import com.vonergy.view.fragment.ListDeviceFragment;
-import com.vonergy.view.fragment.ListDeviceActivity;
 
 public class VonergyActivity extends AppCompatActivity {
 
