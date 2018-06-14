@@ -2,7 +2,8 @@ package com.vonergy.connection;
 
 public class ConnectionConstants {
 
-    public static final String ipv4 = "vonergyapi.azurewebsites.net";
+    public static final String ipv4 = "vonergyws.azurewebsites.net";
+    // public static final String ipv4 = "vonergyapi.azurewebsites.net";
     //public static final String ipv4 = "192.168.15.4:60529";
 
     private static final String http = "https://";
