@@ -117,6 +117,7 @@ public class ConsumoTempoRealFragment extends Fragment {
         int twentyFive = (int) Math.round(maxValue * 0.25);
 
         speedometer.setMinSpeed(minTemp);
+        speedometer.setUnit("kWh");
 
         Parametro parametro = mDAO.getParametros();
 
@@ -146,7 +147,6 @@ public class ConsumoTempoRealFragment extends Fragment {
         }
 
 
-        speedometer.setUnit("kWh");
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
             @Override
             public String getTickLabel(int tickPosition, int tick) {
