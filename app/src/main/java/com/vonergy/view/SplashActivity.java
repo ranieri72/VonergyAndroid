@@ -11,21 +11,14 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.vonergy.R;
-import com.vonergy.asyncTask.UserAsync;
-import com.vonergy.connection.AppSession;
 import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.model.User;
 import com.vonergy.util.Constants;
 import com.vonergy.util.Util;
 
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import static com.vonergy.util.Util.refreshedToken;
 
 public class SplashActivity extends AppCompatActivity {
-
-    int progressStatus = 0;
 
     private Handler handler = new Handler();
 
@@ -57,28 +50,6 @@ public class SplashActivity extends AppCompatActivity {
                 user.setFirebaseToken(refreshedToken);
 
                 Intent it = null;
-
-                while (progressStatus < 100) {
-                    // Update the progress status
-                    progressStatus += 1;
-
-                    // Try to sleep the thread for 20 milliseconds
-                    try {
-                        Thread.sleep(30);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Update the progress bar
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setProgress(progressStatus);
-//                            mFragment.mProgressBar.setProgress(progressStatus);
-                            // Show the progress on TextView
-                        }
-                    });
-                }
                 it = new Intent(SplashActivity.this, VonergyActivity.class);
                 startActivity(it);
                 finish();

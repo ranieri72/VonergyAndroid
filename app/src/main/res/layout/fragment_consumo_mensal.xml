@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/large_padding"
     android:background="@drawable/gradient_background"
+    android:paddingTop="@dimen/large_padding"
     tools:context=".view.fragment.ConsumoTempoRealFragment">
+
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +19,10 @@
         android:layout_marginLeft="@dimen/medium_padding"
         android:layout_marginRight="@dimen/medium_padding"
         android:layout_marginTop="@dimen/very_large_padding"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/progress_loading"></include>
 
         <TextView
             android:layout_width="match_parent"
@@ -35,8 +43,8 @@
         android:layout_marginLeft="@dimen/medium_padding"
         android:layout_marginRight="@dimen/medium_padding"
         android:layout_marginTop="@dimen/very_very_large_padding"
-        android:gravity="center"
         android:background="@color/white"
+        android:gravity="center"
         android:paddingTop="@dimen/very_large_padding">
 
         <lecho.lib.hellocharts.view.ColumnChartView

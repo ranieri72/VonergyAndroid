@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.ListDeviceActivity">
+
+    <include layout="@layout/progress_loading" />
 
     <ListView
         android:id="@+id/listDevice"

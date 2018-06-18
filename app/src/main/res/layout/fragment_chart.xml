@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".view.fragment.ChartFragment"
-    android:background="@drawable/gradient_background">
+    tools:context=".view.fragment.ChartFragment">
+
+    <ProgressBar
+        android:id="@+id/indeterminateBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"

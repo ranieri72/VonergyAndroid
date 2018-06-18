@@ -1,39 +1,25 @@
 package com.vonergy.asyncTask;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.connection.Requester;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.Device;
 
 public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
 
-    private ProgressBar bar;
+    private iRequester listener;
 
-    private ProgressDialog mProgressDialog;
-
-    public ProgressDialog getProgressDialog() {
-        return mProgressDialog;
-    }
-
-    public void setProgressDialog(ProgressDialog mProgressDialog) {
-        this.mProgressDialog = mProgressDialog;
+    public EditDeviceAsync(iRequester listener) {
+        this.listener = listener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (bar != null) {
-            bar.setVisibility(View.VISIBLE);
-        }
-        if(mProgressDialog != null){
-            mProgressDialog.setMessage("Por favor, aguarde!");
-            mProgressDialog.show();
-        }
+        listener.onTaskStarted();
     }
 
     @Override
@@ -45,6 +31,7 @@ public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
             return gson.fromJson(response, Device.class);
         } catch (Exception e) {
             e.printStackTrace();
+            listener.onTaskFailed(e.getMessage());
             return null;
         }
     }
@@ -52,12 +39,6 @@ public class EditDeviceAsync extends AsyncTask<Device, Void, Device> {
     @Override
     protected void onPostExecute(Device device) {
         super.onPostExecute(device);
-        if (bar != null) {
-            bar.setVisibility(View.GONE);
-        }
-
-        if(mProgressDialog != null){
-            mProgressDialog.hide();
-        }
+        listener.onTaskCompleted(device);
     }
 }

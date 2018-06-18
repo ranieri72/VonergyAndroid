@@ -23,11 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.vonergy.R;
 import com.vonergy.asyncTask.UserAsync;
 import com.vonergy.connection.AppSession;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.User;
 import com.vonergy.util.Constants;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
 
 import static com.vonergy.util.Util.refreshedToken;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements iRequester {
 
     private static final int RC_SIGN_IN = 9001;
 
@@ -78,32 +78,9 @@ public class LoginActivity extends AppCompatActivity {
         user.setPassword(mPassword.getText().toString());
         user.setFirebaseToken(refreshedToken);
 
-        try {
-            UserAsync task = new UserAsync();
-            task.setProgressBar(mProgressBar);
-            AppSession.user = user;
-            List<User> userList = task.execute(User.login).get();
-            if (userList != null && !userList.isEmpty() && userList.get(0) != null) {
-                AppSession.user = userList.get(0);
-                if (checked) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.loginPreference, AppSession.user.getEmail());
-                    editor.putString(Constants.passwordPreference, AppSession.user.getPassword());
-                    editor.apply();
-                }
-                Intent it = new Intent(this, VonergyActivity.class);
-                startActivity(it);
-                finish();
-            } else {
-                dialogError(getResources().getString(R.string.invalidLogin));
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.connectionError));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.connectionError));
-        }
+        UserAsync task = new UserAsync(this);
+        AppSession.user = user;
+        task.execute(User.login);
     }
 
     @Override
@@ -185,5 +162,39 @@ public class LoginActivity extends AppCompatActivity {
     private void optionConfig() {
         Intent it = new Intent(this, ConfigActivity.class);
         startActivity(it);
+    }
+
+    @Override
+    public void onTaskCompleted(Object o) {
+        List<?> userList = null;
+        if (o instanceof List<?>) {
+            userList = (List<?>) o;
+        }
+
+        if (userList != null && !userList.isEmpty() && userList.get(0) != null) {
+            AppSession.user = (User) userList.get(0);
+            if (checked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(Constants.loginPreference, AppSession.user.getEmail());
+                editor.putString(Constants.passwordPreference, AppSession.user.getPassword());
+                editor.apply();
+            }
+            Intent it = new Intent(this, VonergyActivity.class);
+            startActivity(it);
+            finish();
+        } else {
+            dialogError(getResources().getString(R.string.invalidLogin));
+        }
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTaskStarted() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTaskFailed(String errorMessage) {
+        dialogError(getResources().getString(R.string.consumptionError));
     }
 }

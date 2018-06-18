@@ -1,8 +1,6 @@
 package com.vonergy.view.fragment;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -12,30 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-
 import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.connection.iRequester;
 import com.vonergy.db.DAOVonergy;
 import com.vonergy.model.Consumption;
 import com.vonergy.model.Parametro;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
-import butterknife.BindView;
-
-public class ConsumoTempoRealFragment extends Fragment {
+public class ConsumoTempoRealFragment extends Fragment implements iRequester {
 
     private static final String CHAVE_TIPO_CONSUMO = "CHAVE_TIPO_CONSUMO";
 
     private int tipoConsumo;
 
     private String formatoData;
-
-    private float maxValue;
 
     private Handler mHandler;
 
@@ -62,7 +55,7 @@ public class ConsumoTempoRealFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_consumo_tempo_real, container, false);
         speedometer = layout.findViewById(R.id.tempView);
-        mProgressBar = layout.findViewById(R.id.progressBarLogin);
+        mProgressBar = layout.findViewById(R.id.progressLoading);
         mDAO = new DAOVonergy(getActivity());
 
         Bundle args = getArguments();
@@ -74,30 +67,8 @@ public class ConsumoTempoRealFragment extends Fragment {
     }
 
     private void updatePower() {
-        //float maxValue = Float.MIN_VALUE, value;
-        float value;
-        maxValue = 30;
-
-        try {
-            ConsumptionAsync task = new ConsumptionAsync();
-            task.setProgressBar(mProgressBar);
-            List<Consumption> listConsumption = task.execute(tipoConsumo).get();
-            if (listConsumption != null && !listConsumption.isEmpty()) {
-                value = listConsumption.get(0).getPower();
-                maxValue = Math.max(maxValue, value);
-
-
-                setupGauger(value, 0, Math.round(maxValue));
-            } else {
-                dialogError(getResources().getString(R.string.noConsumption));
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        }
+        ConsumptionAsync task = new ConsumptionAsync(this);
+        task.execute(tipoConsumo);
     }
 
     Runnable mStatusChecker = new Runnable() {
@@ -111,10 +82,10 @@ public class ConsumoTempoRealFragment extends Fragment {
 
 
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {
-        int hundred = Math.round(maxValue * 1);
-        int seventyFive = (int) Math.round(maxValue * 0.75);
-        int fifty = (int) Math.round(maxValue * 0.5);
-        int twentyFive = (int) Math.round(maxValue * 0.25);
+        int hundred = Math.round(maxTemp);
+        int seventyFive = (int) Math.round(maxTemp * 0.75);
+        int fifty = (int) Math.round(maxTemp * 0.5);
+        int twentyFive = (int) Math.round(maxTemp * 0.25);
 
         speedometer.setMinSpeed(minTemp);
         speedometer.setUnit("kWh");
@@ -124,29 +95,31 @@ public class ConsumoTempoRealFragment extends Fragment {
         if (parametro != null) {
 
             float minimo = parametro.getLimiteMinimo();
-            float medio =  parametro.getLimiteMedio();
+            float medio = parametro.getLimiteMedio();
             float maximo = parametro.getLimiteMaximo();
+            maximo = Math.max(maximo, maxTemp);
 
-            float porcentagemMinimaTemp = (minimo / maximo)*100;
-            float porcentagemMaximaTemp = (medio / maximo)*100  ;
+            float porcentagemMinimaTemp = (minimo / maximo) * 100;
+            float porcentagemMaximaTemp = (medio / maximo) * 100;
 
-            int porcentagemMinima = (int)porcentagemMinimaTemp;
-            int porcentagemMaxima = (int)porcentagemMaximaTemp;
+            int porcentagemMinima = (int) porcentagemMinimaTemp;
+            int porcentagemMaxima = (int) porcentagemMaximaTemp;
 
-            speedometer.setMaxSpeed((int)maximo);
+            speedometer.setMaxSpeed((int) maximo);
             speedometer.setLowSpeedPercent(porcentagemMinima);
             speedometer.setMediumSpeedPercent(porcentagemMaxima);
 
-            speedometer.setTicks(0, (int)minimo, (int)medio, (int)maximo);
-
+            if (minimo > 0) {
+                speedometer.setTicks(0, (int) minimo, (int) medio, (int) maximo);
+            } else {
+                speedometer.setTicks((int) minimo, (int) medio, (int) maximo);
+            }
         } else {
 
             speedometer.setMaxSpeed(maxTemp);
-            speedometer.speedTo(tempValue);
             speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
         }
-
-
+        speedometer.speedTo(tempValue);
         speedometer.setOnPrintTickLabel(new OnPrintTickLabel() {
             @Override
             public String getTickLabel(int tickPosition, int tick) {
@@ -189,5 +162,33 @@ public class ConsumoTempoRealFragment extends Fragment {
 //        unbinder.unbind();
     }
 
+    @Override
+    public void onTaskCompleted(Object o) {
+        float maxValue = Float.MIN_VALUE, value;
+        List<?> listConsumption = null;
+        if (o instanceof List<?>) {
+            listConsumption = (List<?>) o;
+        }
 
+        if (listConsumption != null && !listConsumption.isEmpty()) {
+            Consumption consumption = (Consumption) listConsumption.get(0);
+            value = consumption.getPower();
+            maxValue = Math.max(maxValue, value);
+
+            setupGauger(value, 0, Math.round(maxValue));
+        } else {
+            dialogError(getResources().getString(R.string.noConsumption));
+        }
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTaskStarted() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTaskFailed(String errorMessage) {
+        dialogError(getResources().getString(R.string.consumptionError));
+    }
 }

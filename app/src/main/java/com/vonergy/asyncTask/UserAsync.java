@@ -1,15 +1,13 @@
 package com.vonergy.asyncTask;
 
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vonergy.connection.AppSession;
 import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.connection.Requester;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.User;
 
 import java.lang.reflect.Type;
@@ -18,48 +16,16 @@ import java.util.List;
 
 public class UserAsync extends AsyncTask<Integer, Void, List<User>> {
 
-    private ProgressBar bar;
+    private iRequester listener;
 
-    private int progressStatus = 0;
-
-    public void setProgressBar(ProgressBar bar) {
-        this.bar = bar;
+    public UserAsync(iRequester listener) {
+        this.listener = listener;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (bar != null) {
-            progressBarProgress();
-
-        }
-    }
-
-    private void progressBarProgress(){
-        Handler handler = new Handler();
-
-        while(progressStatus < 100){
-            // Update the progress status
-            progressStatus +=1;
-
-            // Try to sleep the thread for 20 milliseconds
-            try{
-                Thread.sleep(20);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
-
-            // Update the progress bar
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    bar.setProgress(progressStatus);
-//                            mFragment.mProgressBar.setProgress(progressStatus);
-                    // Show the progress on TextView
-                }
-            });
-        }
-
+        listener.onTaskStarted();
     }
 
     @Override
@@ -94,6 +60,7 @@ public class UserAsync extends AsyncTask<Integer, Void, List<User>> {
             return listUser;
         } catch (Exception e) {
             e.printStackTrace();
+            listener.onTaskFailed(e.getMessage());
             return null;
         }
     }
@@ -101,6 +68,6 @@ public class UserAsync extends AsyncTask<Integer, Void, List<User>> {
     @Override
     protected void onPostExecute(List<User> userList) {
         super.onPostExecute(userList);
-
+        listener.onTaskCompleted(userList);
     }
 }

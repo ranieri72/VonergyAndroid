@@ -1,18 +1,21 @@
 package com.vonergy.view.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.Consumption;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -22,7 +25,7 @@ import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
-public class ConsumoMensalFragment extends Fragment {
+public class ConsumoMensalFragment extends Fragment implements iRequester {
 
     private static final String CHAVE_TIPO_CONSUMO = "CHAVE_TIPO_CONSUMO";
 
@@ -31,6 +34,8 @@ public class ConsumoMensalFragment extends Fragment {
     private ColumnChartView mGraficoMensal;
 
     private ColumnChartData mData;
+
+    ProgressBar mProgressBar;
 
     public ConsumoMensalFragment() {
     }
@@ -43,13 +48,13 @@ public class ConsumoMensalFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View layout = inflater.inflate(R.layout.fragment_consumo_mensal, container, false);
         mGraficoMensal = layout.findViewById(R.id.graficoPorMes);
+        mProgressBar = layout.findViewById(R.id.progressLoading);
         Bundle args = getArguments();
         tipoConsumo = args.getInt(CHAVE_TIPO_CONSUMO, 0);
 
@@ -59,56 +64,9 @@ public class ConsumoMensalFragment extends Fragment {
     }
 
     public void setarGrafico() {
-
-        try {
-            float key, value;
-            key = 0;
-            ConsumptionAsync task = new ConsumptionAsync();
-            List<Consumption> listConsumption = task.execute(tipoConsumo).get();
-            List<Column> columns = new ArrayList<Column>();
-
-            List<AxisValue> axisValues = new ArrayList<AxisValue>();
-
-            if (listConsumption != null && !listConsumption.isEmpty()) {
-                for (Consumption consumption : listConsumption) {
-                    value = consumption.getPower();
-                    key++;
-
-                    List<SubcolumnValue> subColumnValues = new ArrayList<SubcolumnValue>();
-                    SubcolumnValue subcolumnValue = new SubcolumnValue(value, ChartUtils.pickColor());
-                    subColumnValues.add(subcolumnValue);
-
-                    Column column = new Column(subColumnValues);
-                    column.setHasLabels(true);
-                    columns.add(column);
-
-                    axisValues.add(new AxisValue(consumption.getId()).setLabel(getNomeMes(Integer.parseInt(String.valueOf(consumption.getId())))));
-
-                }
-                mData = new ColumnChartData(columns);
-                Axis axisX = new Axis(axisValues);
-                Axis axisY = new Axis().setHasLines(true);
-                axisX.setName("Mês");
-                axisY.setName("Consumo (kwh)");
-                mData.setAxisXBottom(axisX);
-                mData.setAxisYLeft(axisY);
-
-                mGraficoMensal.setColumnChartData(mData);
-            }
-        } catch (
-                InterruptedException e)
-
-        {
-            e.printStackTrace();
-        } catch (
-                ExecutionException e)
-
-        {
-            e.printStackTrace();
-        }
-
+        ConsumptionAsync task = new ConsumptionAsync(this);
+        task.execute(tipoConsumo);
     }
-
 
     private String getNomeMes(int valor) {
         switch (valor) {
@@ -138,8 +96,70 @@ public class ConsumoMensalFragment extends Fragment {
                 return "Dezembro";
             default:
                 return "";
-
         }
     }
 
+    @Override
+    public void onTaskCompleted(Object o) {
+        float key, value;
+        key = 0;
+        List<Column> columns = new ArrayList<>();
+        List<AxisValue> axisValues = new ArrayList<>();
+        List<?> listConsumption = null;
+        if (o instanceof List<?>) {
+            listConsumption = (List<?>) o;
+        }
+
+        if (listConsumption != null && !listConsumption.isEmpty()) {
+            for (Object obj : listConsumption) {
+                Consumption consumption = (Consumption) obj;
+                value = consumption.getPower();
+                key++;
+
+                List<SubcolumnValue> subColumnValues = new ArrayList<>();
+                SubcolumnValue subcolumnValue = new SubcolumnValue(value, ChartUtils.pickColor());
+                subColumnValues.add(subcolumnValue);
+
+                Column column = new Column(subColumnValues);
+                column.setHasLabels(true);
+                columns.add(column);
+
+                axisValues.add(new AxisValue(consumption.getId()).setLabel(getNomeMes(Integer.parseInt(String.valueOf(consumption.getId())))));
+
+            }
+            mData = new ColumnChartData(columns);
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis().setHasLines(true);
+            axisX.setName("Mês");
+            axisY.setName("Consumo (kwh)");
+            mData.setAxisXBottom(axisX);
+            mData.setAxisYLeft(axisY);
+
+            mGraficoMensal.setColumnChartData(mData);
+        }
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTaskStarted() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTaskFailed(String errorMessage) {
+        dialogError(getResources().getString(R.string.consumptionError));
+    }
+
+    private void dialogError(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.error));
+        builder.setMessage(msg);
+
+        builder.setNeutralButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+        AlertDialog alerta = builder.create();
+        alerta.show();
+    }
 }

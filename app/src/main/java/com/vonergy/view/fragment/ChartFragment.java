@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.Consumption;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,13 +35,16 @@ import butterknife.Unbinder;
 
 import static com.vonergy.model.Consumption.kWhCost;
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment implements iRequester {
 
     @BindView(R.id.chart)
     LineChart mCharts;
 
     @BindView(R.id.cost)
     TextView mCost;
+
+    @BindView(R.id.indeterminateBar)
+    ProgressBar mProgressBar;
 
     //BarChart mCharts;
 
@@ -96,42 +100,8 @@ public class ChartFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value, totalValue = 0;
-        ArrayList<Entry> entries = new ArrayList<>();
-
-        try {
-            ConsumptionAsync task = new ConsumptionAsync();
-            List<Consumption> listConsumption = task.execute(historyType).get();
-
-
-            if (listConsumption != null && !listConsumption.isEmpty()) {
-                for (Consumption consumption : listConsumption) {
-                    key = consumption.getRegistrationDate().getTime();
-                    value = consumption.getPower();
-
-                    minValue = Math.min(minValue, value);
-                    maxValue = Math.max(maxValue, value);
-                    minKey = Math.min(minKey, key);
-                    maxKey = Math.max(maxKey, key);
-                    totalValue += value;
-
-                    entries.add(new Entry(key, value));
-
-                }
-                setValueToChart(entries, minValue, maxValue, minKey, maxKey);
-            } else {
-                dialogError(getResources().getString(R.string.noConsumption));
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        } finally {
-            mCost.setText(String.format(getResources().getString(R.string.cost), (totalValue) * kWhCost));
-        }
+        ConsumptionAsync task = new ConsumptionAsync(this);
+        task.execute(historyType);
     }
 
     @Override
@@ -199,5 +169,47 @@ public class ChartFragment extends Fragment {
         });
         AlertDialog alerta = builder.create();
         alerta.show();
+    }
+
+    @Override
+    public void onTaskCompleted(Object o) {
+        List<?> listConsumption = null;
+        if (o instanceof List<?>) {
+            listConsumption = (List<?>) o;
+        }
+
+        float minValue = Float.MAX_VALUE, maxValue = Float.MIN_VALUE, minKey = Float.MAX_VALUE, maxKey = Float.MIN_VALUE, key, value, totalValue = 0;
+        ArrayList<Entry> entries = new ArrayList<>();
+        if (listConsumption != null && !listConsumption.isEmpty()) {
+            for (Object obj : listConsumption) {
+                Consumption consumption = (Consumption) obj;
+                key = consumption.getRegistrationDate().getTime();
+                value = consumption.getPower();
+
+                minValue = Math.min(minValue, value);
+                maxValue = Math.max(maxValue, value);
+                minKey = Math.min(minKey, key);
+                maxKey = Math.max(maxKey, key);
+                totalValue += value;
+
+                entries.add(new Entry(key, value));
+
+            }
+            setValueToChart(entries, minValue, maxValue, minKey, maxKey);
+            mCost.setText(String.format(getResources().getString(R.string.cost), (totalValue) * kWhCost));
+        } else {
+            dialogError(getResources().getString(R.string.noConsumption));
+        }
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTaskStarted() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTaskFailed(String errorMessage) {
+        dialogError(getResources().getString(R.string.consumptionError));
     }
 }

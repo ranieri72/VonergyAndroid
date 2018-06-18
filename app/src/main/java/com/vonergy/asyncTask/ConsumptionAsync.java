@@ -1,15 +1,13 @@
 package com.vonergy.asyncTask;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.vonergy.connection.ConnectionConstants;
 import com.vonergy.connection.Requester;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.Consumption;
 
 import java.lang.reflect.Type;
@@ -18,18 +16,17 @@ import java.util.List;
 
 public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>> {
 
-    private ProgressBar bar;
+    private iRequester listener;
 
+    public ConsumptionAsync(iRequester listener) {
+        this.listener = listener;
+    }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if (bar != null) {
-            bar.setVisibility(View.VISIBLE);
-        }
+        listener.onTaskStarted();
     }
-
-
 
     @Override
     protected List<Consumption> doInBackground(Integer... params) {
@@ -72,6 +69,7 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            listener.onTaskFailed(e.getMessage());
             return null;
         }
     }
@@ -79,12 +77,6 @@ public class ConsumptionAsync extends AsyncTask<Integer, Void, List<Consumption>
     @Override
     protected void onPostExecute(List<Consumption> listConsumption) {
         super.onPostExecute(listConsumption);
-        if (bar != null) {
-            bar.setVisibility(View.GONE);
-        }
-    }
-
-    public void setProgressBar(ProgressBar bar) {
-        this.bar = bar;
+        listener.onTaskCompleted(listConsumption);
     }
 }

@@ -15,11 +15,11 @@ import com.github.anastr.speedviewlib.SpeedView;
 import com.github.anastr.speedviewlib.util.OnPrintTickLabel;
 import com.vonergy.R;
 import com.vonergy.asyncTask.ConsumptionAsync;
+import com.vonergy.connection.iRequester;
 import com.vonergy.model.Consumption;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +27,7 @@ import butterknife.Unbinder;
 
 import static com.vonergy.model.Consumption.kWhCost;
 
-public class GaugeFragment extends Fragment {
+public class GaugeFragment extends Fragment implements iRequester {
 
     @BindView(R.id.temperature)
     TextView mTemperature;
@@ -78,28 +78,8 @@ public class GaugeFragment extends Fragment {
     }
 
     private void updatePower() {
-        //float maxValue = Float.MIN_VALUE, value;
-        float value;
-        maxValue = 50;
-
-        try {
-            ConsumptionAsync task = new ConsumptionAsync();
-            task.setProgressBar(mProgressBar);
-            List<Consumption> listConsumption = task.execute(historyType).get();
-            if (listConsumption != null && !listConsumption.isEmpty()) {
-                value = listConsumption.get(0).getPower();
-                maxValue = Math.max(maxValue, value);
-                setupGauger(value, 0, Math.round(maxValue));
-            } else {
-                dialogError(getResources().getString(R.string.noConsumption));
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            dialogError(getResources().getString(R.string.consumptionError));
-        }
+        ConsumptionAsync task = new ConsumptionAsync(this);
+        task.execute(historyType);
     }
 
     Runnable mStatusChecker = new Runnable() {
@@ -153,5 +133,36 @@ public class GaugeFragment extends Fragment {
         });
         AlertDialog alerta = builder.create();
         alerta.show();
+    }
+
+    @Override
+    public void onTaskCompleted(Object o) {
+        //float maxValue = Float.MIN_VALUE, value;
+        float value;
+        maxValue = 50;
+        List<?> listConsumption = null;
+        if (o instanceof List<?>) {
+            listConsumption = (List<?>) o;
+        }
+
+        if (listConsumption != null && !listConsumption.isEmpty()) {
+            Consumption consumption = (Consumption) listConsumption.get(0);
+            value = consumption.getPower();
+            maxValue = Math.max(maxValue, value);
+            setupGauger(value, 0, Math.round(maxValue));
+        } else {
+            dialogError(getResources().getString(R.string.noConsumption));
+        }
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onTaskStarted() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTaskFailed(String errorMessage) {
+        dialogError(getResources().getString(R.string.consumptionError));
     }
 }
