@@ -194,6 +194,7 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
                 @Override
                 public void run() {
                     dialogError(getResources().getString(R.string.consumptionError));
+                    mProgressBar.setVisibility(View.GONE);
                 }
             });
         }

@@ -185,12 +185,12 @@ public class LoginActivity extends AppCompatActivity implements iRequester {
         } else {
             dialogError(getResources().getString(R.string.invalidLogin));
         }
-        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onTaskStarted() {
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -199,6 +199,7 @@ public class LoginActivity extends AppCompatActivity implements iRequester {
             @Override
             public void run() {
                 dialogError(getResources().getString(R.string.consumptionError));
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }

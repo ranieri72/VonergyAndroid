@@ -105,12 +105,12 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
         } else {
             Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
         }
-        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onTaskStarted() {
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -119,6 +119,7 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
             @Override
             public void run() {
                 Toast.makeText(DetailDeviceActivity.this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }

@@ -61,12 +61,12 @@ public class ListDeviceFragment extends Fragment implements iRequester {
             mAdapter = new DeviceAdapter(getActivity(), (List<Device>) mListDevice);
             mListView.setAdapter(mAdapter);
         }
-        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onTaskStarted() {
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -76,6 +76,7 @@ public class ListDeviceFragment extends Fragment implements iRequester {
                 @Override
                 public void run() {
                     dialogError(getResources().getString(R.string.consumptionError));
+                    mProgressBar.setVisibility(View.GONE);
                 }
             });
         }
