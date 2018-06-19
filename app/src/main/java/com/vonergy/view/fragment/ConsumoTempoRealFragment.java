@@ -82,6 +82,11 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
 
 
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {
+        int hundred = Math.round(maxTemp);
+        int seventyFive = (int) Math.round(maxTemp * 0.75);
+        int fifty = (int) Math.round(maxTemp * 0.5);
+        int twentyFive = (int) Math.round(maxTemp * 0.25);
+
         speedometer.setMinSpeed(minTemp);
         speedometer.setUnit("kWh");
 
@@ -104,17 +109,12 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
             speedometer.setLowSpeedPercent(porcentagemMinima);
             speedometer.setMediumSpeedPercent(porcentagemMaxima);
 
-            if (minimo > 0) {
-                speedometer.setTicks(0, (int) minimo, (int) medio, (int) maximo);
-            } else {
+            if (minimo < medio && medio < maximo && maximo > 1) {
                 speedometer.setTicks((int) minimo, (int) medio, (int) maximo);
+            } else {
+                speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
             }
         } else {
-            int hundred = Math.round(maxTemp);
-            int seventyFive = (int) Math.round(maxTemp * 0.75);
-            int fifty = (int) Math.round(maxTemp * 0.5);
-            int twentyFive = (int) Math.round(maxTemp * 0.25);
-
             speedometer.setMaxSpeed(maxTemp);
             speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
         }
@@ -163,7 +163,7 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
 
     @Override
     public void onTaskCompleted(Object o) {
-        float maxValue = Float.MIN_VALUE, value;
+        float maxValue = 10, value;
         List<?> listConsumption = null;
         if (o instanceof List<?>) {
             listConsumption = (List<?>) o;

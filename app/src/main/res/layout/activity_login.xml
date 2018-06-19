@@ -6,15 +6,7 @@
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
-    <ProgressBar
-        android:id="@+id/progressBarLogin"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="4dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark" />
+    <include layout="@layout/progress_loading" />
 
     <RelativeLayout
         android:layout_width="match_parent"
