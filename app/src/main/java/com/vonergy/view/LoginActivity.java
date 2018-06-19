@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements iRequester {
     @BindView(R.id.edtPassword)
     TextView mPassword;
 
-    @BindView(R.id.progressBarLogin)
+    @BindView(R.id.progressLoading)
     ProgressBar mProgressBar;
 
     private GoogleSignInClient mGoogleSignInClient;
