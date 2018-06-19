@@ -101,8 +101,7 @@ public class ConsumoMensalFragment extends Fragment implements iRequester {
 
     @Override
     public void onTaskCompleted(Object o) {
-        float key, value;
-        key = 0;
+        float value;
         List<Column> columns = new ArrayList<>();
         List<AxisValue> axisValues = new ArrayList<>();
         List<?> listConsumption = null;
@@ -114,7 +113,6 @@ public class ConsumoMensalFragment extends Fragment implements iRequester {
             for (Object obj : listConsumption) {
                 Consumption consumption = (Consumption) obj;
                 value = consumption.getPower();
-                key++;
 
                 List<SubcolumnValue> subColumnValues = new ArrayList<>();
                 SubcolumnValue subcolumnValue = new SubcolumnValue(value, ChartUtils.pickColor());

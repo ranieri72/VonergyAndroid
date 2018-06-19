@@ -82,11 +82,6 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
 
 
     public void setupGauger(float tempValue, int minTemp, int maxTemp) {
-        int hundred = Math.round(maxTemp);
-        int seventyFive = (int) Math.round(maxTemp * 0.75);
-        int fifty = (int) Math.round(maxTemp * 0.5);
-        int twentyFive = (int) Math.round(maxTemp * 0.25);
-
         speedometer.setMinSpeed(minTemp);
         speedometer.setUnit("kWh");
 
@@ -115,6 +110,10 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
                 speedometer.setTicks((int) minimo, (int) medio, (int) maximo);
             }
         } else {
+            int hundred = Math.round(maxTemp);
+            int seventyFive = (int) Math.round(maxTemp * 0.75);
+            int fifty = (int) Math.round(maxTemp * 0.5);
+            int twentyFive = (int) Math.round(maxTemp * 0.25);
 
             speedometer.setMaxSpeed(maxTemp);
             speedometer.setTicks(0, twentyFive, fifty, seventyFive, hundred);
@@ -150,16 +149,16 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         startRepeatingTask();
+        setupGauger(0, 0, 100);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
         stopRepeatingTask();
-//        unbinder.unbind();
     }
 
     @Override

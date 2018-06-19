@@ -16,7 +16,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/progress_loading"></include>
+        <include layout="@layout/progress_loading" />
 
         <TextView
             android:layout_width="match_parent"

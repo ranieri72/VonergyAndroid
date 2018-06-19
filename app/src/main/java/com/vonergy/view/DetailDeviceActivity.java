@@ -47,7 +47,7 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
     @BindView(R.id.switch_on_off_dt)
     Switch switchOnOff;
 
-    @BindView(R.id.indeterminateBar)
+    @BindView(R.id.progressLoading)
     ProgressBar mProgressBar;
 
     Device device;
@@ -99,8 +99,6 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
             setDevice(device);
             Toast.makeText(this, getString(R.string.savedMsg), Toast.LENGTH_LONG).show();
             EventBus.getDefault().post(device);
-            Intent it = new Intent(DetailDeviceActivity.this, ListDeviceActivity.class);
-            startActivity(it);
             finish();
         } else {
             Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
