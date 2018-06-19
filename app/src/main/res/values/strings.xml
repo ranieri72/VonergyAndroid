@@ -108,4 +108,5 @@
     <string name="limite_medio">Middle limit (kwh)</string>
     <string name="limite_maximo">Maximum limit (kwh)</string>
     <string name="configurar">Set up</string>
+    <string name="aguarde">Por favor, aguarde!</string>
 </resources>

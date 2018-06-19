@@ -38,6 +38,8 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
 
     DAOVonergy mDAO;
 
+    DialogAguarde dialogFragment = DialogAguarde.getInstancia();
+
     public ConsumoTempoRealFragment() {
         // Required empty public constructor
     }
@@ -179,11 +181,14 @@ public class ConsumoTempoRealFragment extends Fragment implements iRequester {
             dialogError(getResources().getString(R.string.noConsumption));
         }
         mProgressBar.setVisibility(View.GONE);
+        dialogFragment.dismiss();
+
     }
 
     @Override
     public void onTaskStarted() {
         mProgressBar.setVisibility(View.VISIBLE);
+        dialogFragment.show(getActivity().getFragmentManager(), "DIALOG");
     }
 
     @Override
