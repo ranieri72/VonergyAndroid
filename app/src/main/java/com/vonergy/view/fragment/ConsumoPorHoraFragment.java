@@ -111,7 +111,14 @@ public class ConsumoPorHoraFragment extends Fragment implements iRequester {
 
     @Override
     public void onTaskFailed(String errorMessage) {
-        dialogError(getResources().getString(R.string.consumptionError));
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialogError(getResources().getString(R.string.consumptionError));
+                }
+            });
+        }
     }
 
     private void dialogError(String msg) {

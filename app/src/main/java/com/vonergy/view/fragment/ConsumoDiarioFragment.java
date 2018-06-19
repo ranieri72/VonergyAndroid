@@ -112,11 +112,18 @@ public class ConsumoDiarioFragment extends Fragment implements iRequester {
 
     @Override
     public void onTaskFailed(String errorMessage) {
-        dialogError(getResources().getString(R.string.consumptionError));
+        if (getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialogError(getResources().getString(R.string.consumptionError));
+                }
+            });
+        }
     }
 
     private void dialogError(String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(R.string.error));
         builder.setMessage(msg);
 

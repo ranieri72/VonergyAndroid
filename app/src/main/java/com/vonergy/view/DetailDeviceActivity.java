@@ -115,6 +115,11 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
 
     @Override
     public void onTaskFailed(String errorMessage) {
-        Toast.makeText(this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(DetailDeviceActivity.this, getString(R.string.connectionError), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

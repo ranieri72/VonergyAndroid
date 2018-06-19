@@ -195,6 +195,11 @@ public class LoginActivity extends AppCompatActivity implements iRequester {
 
     @Override
     public void onTaskFailed(String errorMessage) {
-        dialogError(getResources().getString(R.string.consumptionError));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialogError(getResources().getString(R.string.consumptionError));
+            }
+        });
     }
 }
