@@ -109,4 +109,5 @@
     <string name="limite_maximo">Maximum limit (kwh)</string>
     <string name="configurar">Set up</string>
     <string name="aguarde">Por favor, aguarde!</string>
+    <string name="minimumCurrent">Min Current</string>
 </resources>

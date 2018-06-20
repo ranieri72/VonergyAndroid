@@ -33,7 +33,7 @@ public class Device implements Serializable {
     @SerializedName("TensaoMaxima")
     private float maximumVoltage;
 
-        @SerializedName("CorrentMinima")
+    @SerializedName("CorrentMinima")
     private float minimalCurrent;
 
     @SerializedName("CorrenteMaxima")
