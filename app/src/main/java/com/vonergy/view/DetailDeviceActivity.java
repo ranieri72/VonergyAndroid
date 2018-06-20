@@ -44,6 +44,12 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
     @BindView(R.id.maximumVoltage_value)
     EditText maximumVoltage;
 
+    @BindView(R.id.minimalCurrent_value)
+    EditText minimalCurrent;
+
+    @BindView(R.id.maximumCurrent_value)
+    EditText maximumCurrent;
+
     @BindView(R.id.switch_on_off_dt)
     Switch switchOnOff;
 
@@ -77,6 +83,8 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
         device.setMaximumPower(Float.parseFloat(maximumPower.getText().toString()));
         device.setMinimumVoltage(Float.parseFloat(minimumVoltage.getText().toString()));
         device.setMaximumVoltage(Float.parseFloat(maximumVoltage.getText().toString()));
+        device.setMinimalCurrent(Float.parseFloat(minimalCurrent.getText().toString()));
+        device.setMaximumCurrent(Float.parseFloat(maximumCurrent.getText().toString()));
         device.setStatus(switchOnOff.isChecked() ? 1 : 0);
         task.execute(device);
     }
@@ -89,6 +97,8 @@ public class DetailDeviceActivity extends AppCompatActivity implements iRequeste
         maximumPower.setText(String.valueOf(device.getMaximumPower()));
         minimumVoltage.setText(String.valueOf(device.getMinimumVoltage()));
         maximumVoltage.setText(String.valueOf(device.getMaximumVoltage()));
+        minimalCurrent.setText(String.valueOf(device.getMinimalCurrent()));
+        maximumCurrent.setText(String.valueOf(device.getMaximumCurrent()));
         switchOnOff.setChecked(device.getStatus() == 1);
     }
 
